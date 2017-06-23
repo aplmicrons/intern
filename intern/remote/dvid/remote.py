@@ -5,18 +5,6 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy
-# from StringIO import StringIO
-#From service.DVID. x
-	#where x are either the project the metadata file or the volume
-
-# class UUIDResource(Resource):
-#     def __init__(self, dataset_uuid):
-#         self.uuid = dataset_uuid
-#     def
-#         if not resource.valid_volume():
-#         raise RuntimeError('Resource incompatible with the volume service.')
-#         return self._volume.create_cutout(
-#             resource, resolution, x_range, y_range, z_range, data, time_range)
 
 class DVIDRemote(Remote):
 
@@ -94,13 +82,6 @@ class DVIDRemote(Remote):
 
 	    	#WIll output a 3D numpy array
 	    	return outputnp
-
-
-
-
-
-
-
 
 
 	# def create_cutout(self, resource, resolution, x_range, y_range, z_range, data, time_range=None):
