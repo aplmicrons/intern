@@ -71,7 +71,7 @@ class DVIDRemote(Remote):
 	    	z_offset = zo
 	    	
 	    	# Initalizing output array
-	    	output = get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
+	    	output = DVIDRemote.get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
 	    	
 	    	# Iterating variable
 	    	i = 1
@@ -80,7 +80,7 @@ class DVIDRemote(Remote):
 	    	while i < abs(zpix):
 	    		z_offset = int(z_offset + (zpix / abs(zpix)))
 	    		i =i +1
-	    		plane = get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
+	    		plane = DVIDRemote.get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
 	    		output = [output,plane]
 
 	    	outputnp = numpy.array(output)
