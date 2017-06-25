@@ -19,6 +19,23 @@ class TestChannelResource(unittest.TestCase):
     def setUp(self):
         self.chan = ChannelResource('mychan', 'foo', 'bar', 'image')
 
+    def test_init_status_false(self):
+        chan = ChannelResource('somechan', 'foo', 'bar')
+        self.assertFalse(chan.cutout_ready)
+
+    def test_channel_defaults_to_uint8(self):
+        chan = ChannelResource('somechan', 'foo', 'bar')
+        self.assertEqual('uint8', chan.datatype)
+
+    def test_setting_datatype_means_cutout_ready_at_construction(self):
+        chan = ChannelResource('somechan', 'foo', 'bar', datatype='uint8')
+        self.assertTrue(chan.cutout_ready)
+
+    def test_setting_datatype_means_cutout_ready(self):
+        chan = ChannelResource('somechan', 'foo', 'bar')
+        chan.datatype = 'uint16'
+        self.assertTrue(chan.cutout_ready)
+
     def test_default_source_is_empty(self):
         self.assertEqual([], self.chan.sources)
 
