@@ -6,10 +6,15 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy
 
+LATEST_VERSION = 'v0'
+
 class DVIDRemote(Remote):
 
-	# def __init__()
-	# 	pass
+	def __init__(self, cfg_file_or_dict=None, version=None):
+		Remote.__init__(self,cfg_file_or_dict)
+		if version is None:
+			version = LATEST_VERSION
+		
 
 	def get_plane(IP, ID, scale, typev, shape, xpix, ypix, zpix, xo, yo, zo):
 	    #ID MUST BE STRING ""
