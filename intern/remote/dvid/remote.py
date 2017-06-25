@@ -16,7 +16,7 @@ class DVIDRemote(Remote):
 			version = LATEST_VERSION
 		
 
-	def get_plane(IP, ID, scale, typev, shape, xpix, ypix, zpix, xo, yo, zo):
+	def get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, zo):
 	    #ID MUST BE STRING ""
 	    #SCALE MUST BE STRING "" - "GRAYSCALE"
 	    #TYPEV MUST BE STRING "" - "RAW"
