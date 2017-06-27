@@ -4,7 +4,7 @@ from PIL import Image
 from io import BytesIO
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import numpy
+import numpy as np
 
 LATEST_VERSION = 'v0'
 
@@ -14,7 +14,7 @@ class DVIDRemote(Remote):
 		Remote.__init__(self,cfg_file_or_dict)
 		if version is None:
 			version = LATEST_VERSION
-		
+
 
 	def get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, zo):
 	    #ID MUST BE STRING ""
@@ -41,7 +41,7 @@ class DVIDRemote(Remote):
 	    bytes1 = r.content
 	    stream = BytesIO(bytes1)
 	    img = Image.open(stream)
-	    a = numpy.asarray(img)
+	    a = np.asarray(img)
 
 	    #This will output a 2D numpy array
 	    return a
@@ -65,32 +65,31 @@ class DVIDRemote(Remote):
 	    #scale = "grayscale"
 
 	    #Sanity check:
-	    if (type(zpix) == int) and zpix != 0:
-	    	
-	    	# Initalizing z offset
-	    	z_offset = zo
-	    	
-	    	# Initalizing output array
-	    	output = DVIDRemote.get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
-	    	
-	    	# Iterating variable
-	    	i = 1
-	    	
-	    	# Iterating
-	    	while i < abs(zpix):
-	    		z_offset = int(z_offset + (zpix / abs(zpix)))
-	    		i =i +1
-	    		plane = DVIDRemote.get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
-	    		output = [output,plane]
+		if (type(zpix) == int) and zpix !=0:
 
-	    	outputnp = numpy.array(output)
+			nbox = np.ndarray((zpix, ypix, xpix))
 
-	    	#WIll output a 3D numpy array
-	    	return outputnp
+			#Initializing z offset
+			z_offset = zo
+
+			#Iterating variable
+			i = 0
+
+			#Iterating
+			while i < abs(zpix):
+				plane = DVIDRemote.get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
+				nbox[i] = plane
+				z_offset = int(z_offset + (zpix/abs(zpix)))
+				i = i + 1
+
+			#Will output a 3D numpy array
+			return nbox
+
+
 
 
 	# def create_cutout(self, resource, resolution, x_range, y_range, z_range, data, time_range=None):
-	       
+
  #        if not resource.valid_volume():
  #            raise RuntimeError('Resource incompatible with the volume service.')
  #        return self._volume.create_cutout(
