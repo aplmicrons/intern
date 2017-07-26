@@ -22,6 +22,10 @@ import matplotlib.image as mpimg
 import numpy as np
 
 LATEST_VERSION = 'v0'
+HOST = 'host'
+
+
+
 
 class DVIDRemote(Remote):
 
@@ -30,7 +34,7 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-	def get_cutout(IP, ID, scale, typev, shape, xpix, ypix, zpix, xo, yo, zo):
+	def get_cutout(IP, IDtypev, shape, xpix, ypix, zpix, xo, yo, zo):
 	    #ID MUST BE STRING ""
 	    #SCALE MUST BE STRING "" - "GRAYSCALE"
 	    #TYPEV MUST BE STRING "" - "RAW"
@@ -49,9 +53,10 @@ class DVIDRemote(Remote):
 	    #scale = "grayscale"
 	    size = str(xpix) + "_" + str(ypix) + "_" +str(zpix)
 	    offset = str(xo) + "_" + str(yo) + "_" + str(zo)
+	    ID, typev = IDtypev
 
 	    #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
-	    address = IP + "/" + ID + "/" + scale + "/" + typev + "/" + shape + "/" + size + "/" + offset + "/octet-stream" 
+	    address = IP + "/" + ID + "/grayscale" + "/" + typev + "/" + shape + "/" + size + "/" + offset + "/octet-stream" 
 	    r = requests.get(address)
 	    octet_stream = r.content
 
