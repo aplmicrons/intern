@@ -56,7 +56,8 @@ class DVIDRemote(Remote):
 	    ID, typev = IDtypev
 
 	    #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
-	    address = IP + "/" + ID + "/grayscale" + "/" + typev + "/" + shape + "/" + size + "/" + offset + "/octet-stream" 
+	    #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
+	    address = IP + "/" + ID + "/grayscale" + "/" + typev + "/" + shape + "/0_1_2" + size + "/" + offset + "/octet-stream" 
 	    r = requests.get(address)
 	    octet_stream = r.content
 
