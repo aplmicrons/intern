@@ -30,37 +30,6 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-
-	def get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, zo):
-	    #ID MUST BE STRING ""
-	    #SCALE MUST BE STRING "" - "GRAYSCALE"
-	    #TYPEV MUST BE STRING "" - "RAW"
-	    #SHAPE MUST BE STRING "" - 'XY'
-	    #self.resource = resource
-	    # self.resolution = resolution
-	    # self.x_range = x_range
-	    # self.y_range = y_range
-	    # self.z_range = z_range
-	    #shape = "xy"
-	    #xpix = "x" how much pixels traveled in x
-	    #ypix = "y" how much pixels traveled in y
-	    #xo, yo, zo (x,y,z offsets)
-	    #type = "raw"
-	    #scale = "grayscale"
-	    size = str(xpix) + "_" + str(ypix)
-	    offset = str(xo) + "_" + str(yo) + "_" + str(zo)
-
-	    #User entered IP address
-	    address = IP + "/" + ID + "/" + scale + "/" + typev + "/" + shape + "/" + size + "/" + offset
-	    r = requests.get(address)
-	    bytes1 = r.content
-	    stream = BytesIO(bytes1)
-	    img = Image.open(stream)
-	    a = np.asarray(img)
-
-	    #This will output a 2D numpy array
-	    return a
-
 	def get_cutout(IP, ID, scale, typev, shape, xpix, ypix, zpix, xo, yo, zo):
 	    #ID MUST BE STRING ""
 	    #SCALE MUST BE STRING "" - "GRAYSCALE"
@@ -74,31 +43,25 @@ class DVIDRemote(Remote):
 	    #shape = "xy"
 	    #xpix = "x" how many pixels traveled in x
 	    #ypix = "y" how many pixels traveled in y
-       #zpix = "z" how many pixels traveled in z
+      	#zpix = "z" how many pixels traveled in z
 	    #xo, yo, zo (x,y,z offsets)
 	    #type = "raw"
 	    #scale = "grayscale"
+	    size = str(xpix) + "_" + str(ypix) + "_" +str(zpix)
+	    offset = str(xo) + "_" + str(yo) + "_" + str(zo)
 
-	    #Sanity check:
-		if (type(zpix) == int) and zpix !=0:
+	    #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
+	    address = IP + "/" + ID + "/" + scale + "/" + typev + "/" + shape + "/" + size + "/" + offset + "/octet-stream" 
+	    r = requests.get(address)
+	    octet_stream = r.content
 
-			nbox = np.ndarray((zpix, ypix, xpix))
+	    #Converts obtained octet-stream into a numpy array of specified type uint8
+	    entire_space = np.fromstring(octet_stream,dtype=np.uint8)
 
-			#Initializing z offset
-			z_offset = zo
-
-			#Iterating variable
-			i = 0
-
-			#Iterating
-			while i < abs(zpix):
-				plane = DVIDRemote.get_plane(IP, ID, scale, typev, shape, xpix, ypix, xo, yo, z_offset)
-				nbox[i] = plane
-				z_offset = int(z_offset + (zpix/abs(zpix)))
-				i = i + 1
-
-			#Will output a 3D numpy array
-			return nbox
+	    #Specifies the 3 dimensional shape of the numpy array of the size given by the user
+	    entire_space2 = entire_space.reshape(zpix,ypix,xpix)
+	    #Returns a 3-dimensional numpy array to the user
+	    return entire_space2
 
 
 
