@@ -20,11 +20,11 @@ from io import BytesIO
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+import json
+import math
 
 LATEST_VERSION = 'v0'
 HOST = 'host'
-
-
 
 
 class DVIDRemote(Remote):
@@ -34,7 +34,7 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-	def get_cutout(IP, IDtypev, xpix, ypix, zpix, xo, yo, zo):
+	def get_cutout(IP, IDrepos, xpix, ypix, zpix, xo, yo, zo):
 	    #ID MUST BE STRING ""
 	    #SCALE MUST BE STRING "" - "GRAYSCALE"
 	    #TYPEV MUST BE STRING "" - "RAW"
@@ -53,11 +53,11 @@ class DVIDRemote(Remote):
 	    #scale = "grayscale"
 	    size = str(xpix) + "_" + str(ypix) + "_" +str(zpix)
 	    offset = str(xo) + "_" + str(yo) + "_" + str(zo)
-	    ID, typev = IDtypev
+	    ID, repos = IDrepos
 
 	    #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
 	    #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-	    address = IP + "/" + ID + "/grayscale" + "/" + typev + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
+	    address = IP + "/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
 	    r = requests.get(address)
 	    octet_stream = r.content
 
@@ -70,11 +70,30 @@ class DVIDRemote(Remote):
 	    return entire_space2
 
 
+	def create_project(api, typename,dataname,version=0):
+		#Creates a repository for the data to be placed in.
+		#Returns randomly generated 32 character long UUID
+		p = requests.post(api + "/api/repos")
+		UUID = p.content
+		return (api,UUID)
 
+	def create_cutout(api,UUID,typename,dataname,version=0):
+		#Creates an instance which works as a sub-folder where the data is stored
+		#Must specify:
+		#typename(required) = "uint8blk"
+		#dataname(required) = "example1"
+		#version(required) = "1"
+		#The size of the space reserved must be a cube with sides of multiples of 32
 
-	# def create_cutout(self, resource, resolution, x_range, y_range, z_range, data, time_range=None):
-
- #        if not resource.valid_volume():
- #            raise RuntimeError('Resource incompatible with the volume service.')
- #        return self._volume.create_cutout(
- #            resource, resolution, x_range, y_range, z_range, data, time_range)
+		dat1 = requests.post(api + "/api/repo/" + UUID + "/instance", 
+			data=json.dumps({"typename" : typename,
+				"dataname" : dataname,
+				"versioned" : version
+		}))
+		res = requests.post(
+			"http://34.200.231.1/api/node/" + UUID + "/Luis3/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
+				x,y,z,32,32,32
+				),
+			data=octet_streams
+			)
+		return("Your data has been uploaded to the cutout in " + dataname)
