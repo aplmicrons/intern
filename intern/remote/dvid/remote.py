@@ -108,11 +108,11 @@ class DVIDRemote(Remote):
 		#The log is a list of strings that will be appended to the repo's log.  They should be
 		#descriptions for the entire repo and not just one node.  For particular versions, use
 		#node-level logging (below).
-		return(requests.get("http://34.200.231.1/api/repo/" + UUID + "/log/"))
+		return(requests.get("http://34.200.231.1/api/node/" + UUID + "/log/"))
 
 	def post_log(UUID,log1):
 		#Allows the user to write a short description of the content in the repository
 		#{ "log": [ "provenance data...", "provenance data...", ...] }
-		log = requests.post("http://34.200.231.1/api/repo/" + UUID + "/log/",
+		log = requests.post("http://34.200.231.1/api/node/" + UUID + "/log/",
 			data = {"log" : [log] })
 		return("The log has been updated.")
