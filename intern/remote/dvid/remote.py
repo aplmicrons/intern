@@ -102,6 +102,7 @@ class DVIDRemote(Remote):
 		#Returns JSON for just the repository with given root UUID.  The UUID string can be
 		#shortened as long as it is uniquely identifiable across the managed repositories.
 		availability = requests.get("http://34.200.231.1/api/repo/" + UUID + "/info")
+		mess = "Sorry but this repository is not ready for data access"
 		if availability.content == "Response [200]":
 			mess = "This repository is ready for data access"
 		return(mess)
