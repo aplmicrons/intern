@@ -98,21 +98,21 @@ class DVIDRemote(Remote):
 			)
 		return("Your data has been uploaded to the cutout in " + dataname)
 
-	def check_availability(UUID):
+	def get_availability(UUID):
 		#Returns JSON for just the repository with given root UUID.  The UUID string can be
 		#shortened as long as it is uniquely identifiable across the managed repositories.
 		availability = requests.head("http://34.200.231.1/api/repo/" + UUID + "/info/")
 		return(availability)
 
-	def check_log(UUID)
+	def get_log(UUID):
 		#The log is a list of strings that will be appended to the repo's log.  They should be
 		#descriptions for the entire repo and not just one node.  For particular versions, use
 		#node-level logging (below).
 		return(requests.get("http://34.200.231.1/api/repo/" + UUID + "/log/"))
 
-	def write_log(UUID,log1)
+	def post_log(UUID,log1):
 		#Allows the user to write a short description of the content in the repository
 		#{ "log": [ "provenance data...", "provenance data...", ...] }
 		log = requests.post("http://34.200.231.1/api/repo/" + UUID + "/log/",
-			"log" : [log])
+			data = {"log" : [log] })
 		return("The log has been updated.")
