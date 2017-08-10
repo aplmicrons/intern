@@ -86,7 +86,7 @@ class DVIDRemote(Remote):
 		#The size of the space reserved must be a cube with sides of multiples of 32
 
 		dat1 = requests.post(api + "/api/repo/" + UUID + "/instance", 
-			data=json.dumps({"typename" : typename,
+			json = ({"typename" : typename,
 				"dataname" : dataname,
 				"versioned" : version
 		}))
