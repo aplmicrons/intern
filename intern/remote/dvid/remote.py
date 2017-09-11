@@ -120,13 +120,13 @@ class DVIDRemote(Remote):
 			json = {"log" : [log1] })
 		return("The log has been updated.")
 
-	def server(self,api):
+	def get_server_info(self,api):
 		#Returns JSON for server properties
 		info = requests.get(api+"/api/server")
 		infoM = info.content
 		return infoM
 
-	def server_setting(self,api,gc1,throt1):
+	def change_server_setting(self,api,gc1,throt1):
 		#	Sets server parameters.  Expects JSON to be posted with optional keys denoting parameters:
 	    #{
 		# "gc": 500,
