@@ -51,7 +51,7 @@ class DVIDRemote(Remote):
 	    #xo, yo, zo (x,y,z offsets)
 	    #type = "raw"
 	    #scale = "grayscale"
-	    size = str(xpix) + "_" + str(ypix) + "_" +str(zpix)
+	    size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
 	    offset = str(xo) + "_" + str(yo) + "_" + str(zo)
 	    ID, repos = IDrepos
 
@@ -75,7 +75,7 @@ class DVIDRemote(Remote):
 		#Returns randomly generated 32 character long UUID
 		p = requests.post(api + "/api/repos")
 		UUID = p.content
-		return (api,UUID)
+		return (api,"This is you UUID: " + UUID)
 
 	def create_cutout(api,UUID,typename,dataname,version=0):
 		#Creates an instance which works as a sub-folder where the data is stored
@@ -91,7 +91,7 @@ class DVIDRemote(Remote):
 				"versioned" : version
 		}))
 		res = requests.post(
-			"http://34.200.231.1/api/node/" + UUID + "/Luis3/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
+			"http://34.200.231.1/api/node/" + UUID + "/"+ dataname +"Luis3/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
 				x,y,z,32,32,32
 				),
 			data=octet_streams
@@ -103,7 +103,7 @@ class DVIDRemote(Remote):
 		#shortened as long as it is uniquely identifiable across the managed repositories.
 		availability = requests.get("http://34.200.231.1/api/repo/" + UUID + "/info")
 		avalM = availability.content
-		return(avalM)
+		return("This UUID is available." + avalM)
 
 	def get_log(UUID):
 		#The log is a list of strings that will be appended to the repo's log.  They should be
@@ -119,3 +119,28 @@ class DVIDRemote(Remote):
 		log = requests.post("http://34.200.231.1/api/node/" + UUID + "/log",
 			json = {"log" : [log1] })
 		return("The log has been updated.")
+
+	def server(self,api):
+		#Returns JSON for server properties
+		info = requests.get(api+"/api/server")
+		infoM = info.content
+		return infoM
+
+	def server_setting(self,api,gc1,throt1):
+		#	Sets server parameters.  Expects JSON to be posted with optional keys denoting parameters:
+	    #{
+		# "gc": 500,
+		# "throttle": 2
+	    #}
+	    #Possible keys:
+		# gc        Garbage collection target percentage.  This is a low-level server tuning
+		#             request that can affect overall request latency.
+		#             See: https://golang.org/pkg/runtime/debug/#SetGCPercent
+		# throttle  Maximum number of CPU-intensive requests that can be executed under throttle mode.
+		#             See imageblk and labelblk GET 3d voxels and POST voxels.
+		setting = requests.post(api,
+			gc = {"gc": [gc1]},
+			throttle = {"throttle": [throt1]}
+			)
+		settingM = setting.content
+		return ("Your settings have been changed.")
