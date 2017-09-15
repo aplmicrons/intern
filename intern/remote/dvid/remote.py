@@ -24,7 +24,9 @@ import json
 import math
 
 LATEST_VERSION = 'v0'
-HOST = 'host'
+CONFIG_PROTOCOL = 'protocol'
+CONFIG_HOST = 'host'
+CONFIG_TOKEN = 'uuid'
 
 
 class DVIDRemote(Remote):
@@ -33,6 +35,28 @@ class DVIDRemote(Remote):
 		Remote.__init__(self,cfg_file_or_dict)
 		if version is None:
 			version = LATEST_VERSION
+
+		#Service Initiation
+		self._init_project_service(version)
+
+	def _init_project_service(self,version):
+		project_cfg = self._load_config_section(CONFIG_PROJECT_SECTION)
+		self._uuid_project = project_cfg[CONFIG_TOKEN]
+		proto = project_cfg[CONFIG_PROTOCOL]
+		host = project_cfg[CONFIG_HOST]
+
+	def _load_config_section(self, section_name):
+		if self._config.has_section(section_name):
+			# Load specific section
+			section = dict(self._config.items(section_name))
+		elif self._config.has_section("Default"):
+			# Load Default section
+			section = dict(self._config.items("Default"))
+		else:
+			raise KeyError((
+				"'{}' was not found in the configuration file and no default " +
+				"configuration was provided."
+			).format(section_name))
 
 	def get_cutout(IP, IDrepos, xpix, ypix, zpix, xo, yo, zo):
 	    #ID MUST BE STRING ""
