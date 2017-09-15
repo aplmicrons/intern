@@ -127,7 +127,7 @@ class DVIDRemote(Remote):
 		#shortened as long as it is uniquely identifiable across the managed repositories.
 		availability = requests.get("http://34.200.231.1/api/repo/" + UUID + "/info")
 		avalM = availability.content
-		return("This UUID is available." + avalM)
+		return("This UUID is available.")
 
 	def get_log(UUID):
 		#The log is a list of strings that will be appended to the repo's log.  They should be
