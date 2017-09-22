@@ -32,6 +32,9 @@ api = ""
 class DVIDRemote(Remote):
 
 	def __init__(self, cfg_file_or_dict, version=None):
+		
+		Remote.__init__(self, cfg_file_or_dict)
+
 		if version is None:
 			version = LATEST_VERSION
 
