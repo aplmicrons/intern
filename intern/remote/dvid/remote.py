@@ -37,8 +37,8 @@ class DVIDRemote(Remote):
 
 		self.__dict__.update(cfg_file_or_dict)
 
-		host = self[CONFIG_HOST]
-		protocol = self[CONFIG_PROTOCOL]
+		host = self.CONFIG_HOST
+		protocol = self.CONFIG_PROTOCOL
 
 		# host = self.value()[self.key().index(CONFIG_HOST)]
 		# protocol = self.value()[self.key().index(CONFIG_PROTOCOL)]
