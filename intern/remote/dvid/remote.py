@@ -38,8 +38,8 @@ class DVIDRemote(Remote):
 		for key in cfg_file_or_dict:
 			setattr(self, key, cfg_file_or_dict)
 
-		host = self[CONFIG_HOST].items()
-		protocol = self[CONFIG_PROTOCOL].items()
+		host = self[CONFIG_HOST]
+		protocol = self[CONFIG_PROTOCOL]
 
 		# host = self.value()[self.key().index(CONFIG_HOST)]
 		# protocol = self.value()[self.key().index(CONFIG_PROTOCOL)]
