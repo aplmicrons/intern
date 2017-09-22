@@ -47,7 +47,7 @@ class DVIDRemote(Remote):
 		api = host + "://" + protocol
 
 	def __getitem__(self,key):
-		return(self.DVIDRemote[key])
+		return(self[key])
 
 	def get_channel(self, ID, repos):
 		IDrepos = (ID, repos)
