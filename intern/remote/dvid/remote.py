@@ -35,9 +35,6 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-		def __getitem__(self,key):
-			return(self.DVIDRemote[key])
-
 		host = self[CONFIG_HOST]
 		protocol = self[CONFIG_PROTOCOL]
 
@@ -48,6 +45,9 @@ class DVIDRemote(Remote):
 
 		global api
 		api = host + "://" + protocol
+
+	def __getitem__(self,key):
+		return(self.DVIDRemote[key])
 
 	def get_channel(self, ID, repos):
 		IDrepos = (ID, repos)
