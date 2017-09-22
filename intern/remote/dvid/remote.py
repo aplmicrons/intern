@@ -35,6 +35,7 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
+		key = ""
 		setattr(self,key,"")
 
 		for key in cfg_file_or_dict:
