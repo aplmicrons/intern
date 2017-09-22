@@ -24,9 +24,8 @@ import json
 import math
 
 LATEST_VERSION = 'v0'
-CONFIG_PROTOCOL = 'protocol'
-CONFIG_HOST = 'host'
-CONFIG_TOKEN = 'uuid'
+# CONFIG_PROTOCOL = 'protocol'
+# CONFIG_HOST = 'host'
 api = ""
 
 
