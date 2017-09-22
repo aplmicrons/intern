@@ -15,9 +15,12 @@
 """
 Remotes are services that are accessed via HTTP/SCP or other services that
 talk to non-local machines.
+
+Author: 
+	Luis Rodriguez
 """
 
-# from __future__ import absolute_import
 
-from intern.remote.remote import Remote
+
+from intern.remote.dvid.remote import DVIDRemote
 	
