@@ -31,12 +31,17 @@ api = ""
 
 class DVIDRemote(Remote):
 
-	def __init__(self, cfg_file_or_dict=None, version=None):
+	def __init__(self, cfg_file_or_dict, version=None):
 		Remote.__init__(self,cfg_file_or_dict)
 		if version is None:
 			version = LATEST_VERSION
-		host = self.values()[self.keys().index(CONFIG_HOST)]
-		protocol = self.values()[self.keys().index(CONFIG_PROTOCOL)]
+
+		for k, v in cfg_file_or_dict.items():
+			setattr(self, k, v)
+
+		self.somefield = somevalue
+		host = self.v()[self.k().index(CONFIG_HOST)]
+		protocol = self.v()[self.k().index(CONFIG_PROTOCOL)]
 
 		global api
 		api = host + "://" + protocol
