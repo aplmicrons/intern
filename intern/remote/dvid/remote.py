@@ -37,6 +37,7 @@ class DVIDRemote(Remote):
 			version = LATEST_VERSION
 		host = CONFIG_HOST
 		protocol = CONFIG_PROTOCOL
+		api = host + "://" + protocol
 
 	def get_cutout(self,IP, IDrepos, xspan, yspan, zspan):
 	    #ID MUST BE STRING ""
@@ -85,14 +86,14 @@ class DVIDRemote(Remote):
 	    return entire_space2
 
 
-	def create_project(self,api, typename,dataname,version=0):
+	def create_project(self, typename,dataname,version=0):
 		#Creates a repository for the data to be placed in.
 		#Returns randomly generated 32 character long UUID
 		p = requests.post(api + "/api/repos")
 		UUID = p.content
 		return (api,"This is you UUID: " + UUID)
 
-	def create_cutout(self,api,UUID,typename,dataname,version=0):
+	def create_cutout(self,UUID,typename,dataname,version=0):
 		#Creates an instance which works as a sub-folder where the data is stored
 		#Must specify:
 		#typename(required) = "uint8blk", "labelblk", "labelvol", "imagetile"
@@ -135,13 +136,13 @@ class DVIDRemote(Remote):
 			json = {"log" : [log1] })
 		return("The log has been updated.")
 
-	def get_server_info(self,api):
+	def get_server_info(self):
 		#Returns JSON for server properties
 		info = requests.get(api+"/api/server")
 		infoM = info.content
 		return infoM
 
-	def change_server_setting(self,api,gc1,throt1):
+	def change_server_setting(self,gc1,throt1):
 		#	Sets server parameters.  Expects JSON to be posted with optional keys denoting parameters:
 	    #{
 		# "gc": 500,
