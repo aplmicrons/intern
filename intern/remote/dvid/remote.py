@@ -31,22 +31,26 @@ api = ""
 
 class DVIDRemote(Remote):
 
-	def __init__(self, version=None, **cfg_file_or_dict):
+	def __init__(self, cfg_file_or_dict, version=None):
 		if version is None:
 			version = LATEST_VERSION
 
-		self.__dict__.update(cfg_file_or_dict)
+		self.assign(cfg_file_or_dict)
 
-		host = self.CONFIG_HOST
-		protocol = self.CONFIG_PROTOCOL
+	def assign(self, cfg_file_or_dict):
 
-		# host = self.value()[self.key().index(CONFIG_HOST)]
-		# protocol = self.value()[self.key().index(CONFIG_PROTOCOL)]
+		return(cfg_file_or_dict)
 
-		# Remote.__init__(self,cfg_file_or_dict)
+		# host = self.CONFIG_HOST
+		# protocol = self.CONFIG_PROTOCOL
 
-		global api
-		api = host + "://" + protocol
+		# # host = self.value()[self.key().index(CONFIG_HOST)]
+		# # protocol = self.value()[self.key().index(CONFIG_PROTOCOL)]
+
+		# # Remote.__init__(self,cfg_file_or_dict)
+
+		# global api
+		# api = host + "://" + protocol
 
 	def get_channel(self, ID, repos):
 		IDrepos = (ID, repos)
@@ -172,3 +176,10 @@ class DVIDRemote(Remote):
 			)
 		settingM = setting.content
 		return ("Your settings have been changed.")
+
+dvid = DVIDRemote({
+	"protocol": "https",
+	"host": "34.200.231.1",
+	})
+
+print(dvid)
