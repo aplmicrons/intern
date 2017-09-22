@@ -32,11 +32,6 @@ api = ""
 class DVIDRemote(Remote):
 
 	def __init__(self, cfg_file_or_dict, version=None):
-		if version is None:
-			version = LATEST_VERSION
-
-		key = ""
-		setattr(self,key,"")
 
 		for key in cfg_file_or_dict:
 			setattr(self, key, cfg_file_or_dict)
