@@ -38,7 +38,7 @@ class DVIDRemote(Remote):
 		host = CONFIG_HOST
 		protocol = CONFIG_PROTOCOL
 
-	def get_cutout(IP, IDrepos, xspan, yspan, zspan):
+	def get_cutout(self,IP, IDrepos, xspan, yspan, zspan):
 	    #ID MUST BE STRING ""
 	    #SCALE MUST BE STRING "" - "GRAYSCALE"
 	    #TYPEV MUST BE STRING "" - "RAW"
@@ -85,14 +85,14 @@ class DVIDRemote(Remote):
 	    return entire_space2
 
 
-	def create_project(api, typename,dataname,version=0):
+	def create_project(self,api, typename,dataname,version=0):
 		#Creates a repository for the data to be placed in.
 		#Returns randomly generated 32 character long UUID
 		p = requests.post(api + "/api/repos")
 		UUID = p.content
 		return (api,"This is you UUID: " + UUID)
 
-	def create_cutout(api,UUID,typename,dataname,version=0):
+	def create_cutout(self,api,UUID,typename,dataname,version=0):
 		#Creates an instance which works as a sub-folder where the data is stored
 		#Must specify:
 		#typename(required) = "uint8blk", "labelblk", "labelvol", "imagetile"
@@ -113,14 +113,14 @@ class DVIDRemote(Remote):
 			)
 		return("Your data has been uploaded to the cutout in " + dataname)
 
-	def get_info(UUID):
+	def get_info(self, UUID):
 		#Returns JSON for just the repository with given root UUID.  The UUID string can be
 		#shortened as long as it is uniquely identifiable across the managed repositories.
 		availability = requests.get("http://34.200.231.1/api/repo/" + UUID + "/info")
 		avalM = availability.content
 		return("This UUID is available.")
 
-	def get_log(UUID):
+	def get_log(self, UUID):
 		#The log is a list of strings that will be appended to the repo's log.  They should be
 		#descriptions for the entire repo and not just one node.  For particular versions, use
 		#node-level logging (below).
@@ -128,7 +128,7 @@ class DVIDRemote(Remote):
 		logM = log.content
 		return(logM)
 
-	def post_log(UUID,log1):
+	def post_log(self, UUID,log1):
 		#Allows the user to write a short description of the content in the repository
 		#{ "log": [ "provenance data...", "provenance data...", ...] }
 		log = requests.post("http://34.200.231.1/api/node/" + UUID + "/log",
