@@ -32,12 +32,14 @@ api = ""
 class DVIDRemote(Remote):
 
 	def __init__(self, cfg_file_or_dict, version=None):
+		if version is None:
+			version = LATEST_VERSION
 
 		for key in cfg_file_or_dict:
 			setattr(self, key, cfg_file_or_dict)
 
-		host = self.key[CONFIG_HOST]
-		protocol = self.key[CONFIG_PROTOCOL]
+		host = self[CONFIG_HOST].items()
+		protocol = self[CONFIG_PROTOCOL].items()
 
 		# host = self.value()[self.key().index(CONFIG_HOST)]
 		# protocol = self.value()[self.key().index(CONFIG_PROTOCOL)]
