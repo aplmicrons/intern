@@ -39,7 +39,7 @@ class DVIDRemote(Remote):
 		protocol = CONFIG_PROTOCOL
 		api = host + "://" + protocol
 
-	def get_cutout(self,IP, IDrepos, xspan, yspan, zspan):
+	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 	    #ID MUST BE STRING ""
 	    #SCALE MUST BE STRING "" - "GRAYSCALE"
 	    #TYPEV MUST BE STRING "" - "RAW"
@@ -73,7 +73,7 @@ class DVIDRemote(Remote):
 
 	    #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
 	    #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-	    address = IP + "/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
+	    address = api + "/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
 	    r = requests.get(address)
 	    octet_stream = r.content
 
