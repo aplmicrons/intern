@@ -29,11 +29,13 @@ CONFIG_HOST = 'host'
 api = ""
 
 
-class DVIDRemote(object):
+class DVIDRemote(Remote):
 
 	def __init__(self, cfg_file_or_dict, version=None):
 		if version is None:
 			version = LATEST_VERSION
+
+		setattr(self,key,"")
 
 		for key in cfg_file_or_dict:
 			setattr(self, key, cfg_file_or_dict)
