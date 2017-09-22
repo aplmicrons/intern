@@ -63,7 +63,7 @@ class DVIDRemote(Remote):
 	    ypix = yspan[1]-yspan[0]
 	    yo = yspan[0]	    
 
-	    ypix = zspan[1]-zspan[0]
+	    zpix = zspan[1]-zspan[0]
 	    yo = zspan[0]
 
 	    size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
