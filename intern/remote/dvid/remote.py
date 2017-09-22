@@ -27,6 +27,7 @@ LATEST_VERSION = 'v0'
 CONFIG_PROTOCOL = 'protocol'
 CONFIG_HOST = 'host'
 CONFIG_TOKEN = 'uuid'
+api = ""
 
 
 class DVIDRemote(Remote):
@@ -37,6 +38,8 @@ class DVIDRemote(Remote):
 			version = LATEST_VERSION
 		host = CONFIG_HOST
 		protocol = CONFIG_PROTOCOL
+
+		global api
 		api = host + "://" + protocol
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
