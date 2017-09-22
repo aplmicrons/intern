@@ -35,9 +35,8 @@ class DVIDRemote(Remote):
 		Remote.__init__(self,cfg_file_or_dict)
 		if version is None:
 			version = LATEST_VERSION
-
-		#Service Initiation
-		self._init_project_service(version)
+		host = CONFIG_HOST
+		protocol = CONFIG_PROTOCOL
 
 	def get_cutout(IP, IDrepos, xspan, yspan, zspan):
 	    #ID MUST BE STRING ""
