@@ -35,8 +35,8 @@ class DVIDRemote(Remote):
 		Remote.__init__(self,cfg_file_or_dict)
 		if version is None:
 			version = LATEST_VERSION
-		host = self[CONFIG_HOST]
-		protocol = self[CONFIG_PROTOCOL]
+		host = DVIDRemote[CONFIG_HOST]()
+		protocol = DVIDRemote[CONFIG_PROTOCOL]()
 
 		global api
 		api = host + "://" + protocol
