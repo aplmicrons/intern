@@ -24,9 +24,9 @@ import json
 import math
 
 LATEST_VERSION = 'v0'
-# CONFIG_PROTOCOL = 'protocol'
-# CONFIG_HOST = 'host'
-# api = ""
+CONFIG_PROTOCOL = 'protocol'
+CONFIG_HOST = 'host'
+api = ""
 
 
 class DVIDRemote(Remote):
@@ -35,11 +35,15 @@ class DVIDRemote(Remote):
 		Remote.__init__(self,cfg_file_or_dict)
 		if version is None:
 			version = LATEST_VERSION
-		# host = CONFIG_HOST
-		# protocol = CONFIG_PROTOCOL
+		host = CONFIG_HOST
+		protocol = CONFIG_PROTOCOL
 
-		# global api
-		# api = host + "://" + protocol
+		global api
+		api = host + "://" + protocol
+
+	def get_channel(ID, repos):
+		IDrepos = (ID, repos)
+		return IDrepos
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 	    #ID MUST BE STRING ""
@@ -72,7 +76,6 @@ class DVIDRemote(Remote):
 	    size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
 	    offset = str(xo) + "_" + str(yo) + "_" + str(zo)
 	    ID, repos = IDrepos
-
 	    #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
 	    #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
 	    address = api + "/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
