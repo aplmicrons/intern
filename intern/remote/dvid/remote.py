@@ -26,7 +26,7 @@ import math
 LATEST_VERSION = 'v0'
 # CONFIG_PROTOCOL = 'protocol'
 # CONFIG_HOST = 'host'
-api = ""
+# api = ""
 
 
 class DVIDRemote(Remote):
@@ -35,11 +35,11 @@ class DVIDRemote(Remote):
 		Remote.__init__(self,cfg_file_or_dict)
 		if version is None:
 			version = LATEST_VERSION
-		host = CONFIG_HOST
-		protocol = CONFIG_PROTOCOL
+		# host = CONFIG_HOST
+		# protocol = CONFIG_PROTOCOL
 
-		global api
-		api = host + "://" + protocol
+		# global api
+		# api = host + "://" + protocol
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 	    #ID MUST BE STRING ""
