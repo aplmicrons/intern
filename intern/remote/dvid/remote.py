@@ -39,7 +39,6 @@ class DVIDRemote(Remote):
 		for k, v in cfg_file_or_dict.items():
 			setattr(self, k, v)
 
-		self.somefield = somevalue
 		host = self.v()[self.k().index(CONFIG_HOST)]
 		protocol = self.v()[self.k().index(CONFIG_PROTOCOL)]
 
