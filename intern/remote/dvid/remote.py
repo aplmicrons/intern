@@ -35,8 +35,8 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-		for key in cfg_file_or_dict:
-			setattr(self, key, cfg_file_or_dict)
+		def __getitem__(self,key):
+			return(self.DVIDRemote[key])
 
 		host = self[CONFIG_HOST]
 		protocol = self[CONFIG_PROTOCOL]
