@@ -31,26 +31,16 @@ api = ""
 
 class DVIDRemote(Remote):
 
-	def __init__(self, cfg_file_or_dict, version=None):
+	def __init__(self, specs, version=None):
 		if version is None:
 			version = LATEST_VERSION
 
-		self.assign(cfg_file_or_dict)
+		protocol = specs[CONFIG_HOST]
+		host = specs[CONFIG_PROTOCOL]
 
-	def assign(self, cfg_file_or_dict):
 
-		return(cfg_file_or_dict)
-
-		# host = self.CONFIG_HOST
-		# protocol = self.CONFIG_PROTOCOL
-
-		# # host = self.value()[self.key().index(CONFIG_HOST)]
-		# # protocol = self.value()[self.key().index(CONFIG_PROTOCOL)]
-
-		# # Remote.__init__(self,cfg_file_or_dict)
-
-		# global api
-		# api = host + "://" + protocol
+		global api
+		api = host + "://" + protocol
 
 	def get_channel(self, ID, repos):
 		IDrepos = (ID, repos)
@@ -181,5 +171,7 @@ dvid = DVIDRemote({
 	"protocol": "https",
 	"host": "34.200.231.1",
 	})
-
-print(dvid)
+volumeD = dvid.get_cutout(
+	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","raw"),
+	[2300,4600],[2300,4600],[1380,1390]
+	)
