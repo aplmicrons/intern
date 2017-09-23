@@ -11,8 +11,8 @@ import numpy
 
 # UUID = DVIDRemote.create_project("http://34.200.231.1","uint8blk","Luis4")
 UUID = "f40987727b384139bfd9b5e46c4a3a6c"
-availability = DVIDRemote.get_info(UUID)
-print(availability)
+# availability = DVIDRemote.get_info(UUID)
+# print(availability)
 
 # dvid = DVIDRemote({
 # 	'protocol': 'https',

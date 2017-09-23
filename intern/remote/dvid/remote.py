@@ -32,6 +32,14 @@ api = ""
 class DVIDRemote(Remote):
 
 	def __init__(self, specs, version=None):
+		"""
+			Constructor.
+
+			Checks for latest version. If no version is given, assigns version as none
+			Protocol and host specifications are taken in as keys -values of dictionary.
+			global api variable is named and used for every command that requires api.
+		"""
+
 		if version is None:
 			version = LATEST_VERSION
 
@@ -43,6 +51,7 @@ class DVIDRemote(Remote):
 		api = host + "://" + protocol
 
 	def get_channel(self, ID, repos):
+		#obtains ID and repos and converts the input into a touple
 		IDrepos = (ID, repos)
 		return IDrepos
 
@@ -166,12 +175,3 @@ class DVIDRemote(Remote):
 			)
 		settingM = setting.content
 		return ("Your settings have been changed.")
-
-dvid = DVIDRemote({
-	"protocol": "https",
-	"host": "34.200.231.1",
-	})
-volumeD = dvid.get_cutout(
-	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","raw"),
-	[2300,4600],[2300,4600],[1380,1390]
-	)
