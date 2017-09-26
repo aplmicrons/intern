@@ -185,17 +185,4 @@ class DVIDRemote(Remote):
 			)
 		settingM = setting.content
 		return ("Your settings have been changed.")
-
-dvid = DVIDRemote({
-	"protocol": "http",
-	"host": "localhost:8000",
-	}) 
-
-volumeD = dvid.get_cutout(
-	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
-	[2300,4600],[2300,4600],[1380,1390]
-	)
-
-print(volumeD)
-
-print(api)
+		
