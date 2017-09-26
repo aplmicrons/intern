@@ -49,6 +49,9 @@ class DVIDRemote(Remote):
 
 		global api
 		api = host + "://" + protocol
+		print(api)
+
+		return api
 
 	def get_channel(self, ID, repos):
 		#obtains ID and repos and converts the input into a touple
@@ -184,3 +187,5 @@ class DVIDRemote(Remote):
 			)
 		settingM = setting.content
 		return ("Your settings have been changed.")
+
+print(api)
