@@ -133,7 +133,7 @@ class DVIDRemote(Remote):
 	def get_info(self, UUID):
 		#Returns JSON for just the repository with given root UUID.  The UUID string can be
 		#shortened as long as it is uniquely identifiable across the managed repositories.
-		availability = requests.get("https://34.200.231.1"+ "/api/repo/" + UUID + "/info")
+		availability = requests.get(api + "/api/repo/" + UUID + "/info")
 		avalM = availability.content
 		return(avalM)
 

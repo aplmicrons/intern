@@ -9,38 +9,38 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy
 import requests
+import time
 
-
-UUID = "f40987727b384139bfd9b5e46c4a3a6c"
-#UUID = DVIDRemote.create_project("http://34.200.231.1","uint8blk","Luis4")
 
 #DVID Data fetch:
 dvid = DVIDRemote({
-	"protocol": "https",
-	"host": "34.200.231.1",
-	})
+	"protocol": "http",
+	"host": "localhost:8000",
+	}) 
 
-info = dvid.get_info(UUID)
-print(info)
+# UUID = "b47fbe5c5a10487c8c66337fc16d7201"
+UUID = dvid.create_project("uint8blk","Luis4")
+print(UUID)
 
-volumeD = requests.get("https://34.200.231.1/node/f40987727b384139bfd9b5e46c4a3a6c/grayscale/raw/2300_2300_10/2300_2300_1380/octet-stream")
+# #Getting information on the UUID
+# info = dvid.get_info(UUID)
+# print(info)
+
+# # Demonstration of obtaining and updating the log
+# log = dvid.get_log(UUID)
+# print(log)
+# logP = dvid.post_log(UUID,"This repository contains images used for testing")
+log = dvid.get_log(UUID)
+print(log)
 
 
-
+# #Gets 3d volume data
 # volumeD = dvid.get_cutout(
 # 	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
 # 	[2300,4600],[2300,4600],[1380,1390]
 # 	)
 
-# #Demonstration of obtaining and updating the log
-# log = DVIDRemote.get_log(UUID)
-# print(log)
-# logP = DVIDRemote.post_log(UUID,"This repository contains images used for testing")
-# print(logP)
-# log = DVIDRemote.get_log(UUID)
-# print(log)
-
-# print(volume)
+# print(volumeD)
 
 # figure1 = plt.figure(1)
 # plt.imshow(volume[0,:,:])
