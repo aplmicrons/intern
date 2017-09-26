@@ -18,9 +18,9 @@ from io import BytesIO
 import json
 from PIL import Image
 import math
-# p = requests.post("http://34.200.231.1/api/repos")
-# UUID = p.content
-# print(UUID)
+p = requests.post("http://34.200.231.1/api/repos")
+UUID = p.content
+print(UUID)
 UUID = "b47fbe5c5a10487c8c66337fc16d7201"
 
 # availability = requests.head("http://34.200.231.1/api/repo/" + UUID + "/info/")
@@ -31,6 +31,7 @@ dat1 = requests.post("http://localhost:8000/api/repo/b47fbe5c5a10487c8c66337fc16
 		"dataname" : "Luis1",
 		"versioned": "1"
 	}))
+
 print(dat1.content)
 
 

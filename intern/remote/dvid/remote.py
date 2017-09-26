@@ -105,9 +105,17 @@ class DVIDRemote(Remote):
 	def create_project(self, typename,dataname,version=0):
 		#Creates a repository for the data to be placed in.
 		#Returns randomly generated 32 character long UUID
-		p = requests.post(api + "/api/repos")
-		UUID = p.content
-		return (api,"This is you UUID: " + UUID)
+		a = requests.post(api + "/api/repos")
+		a2 = a.content
+		UUID = a2["root"]
+
+		dat1 = requests.post(api + "/api/repo/"+ UUID + "/instance",
+			data=json.dumps({"typename": typename,
+				"dataname" : dataname,
+				"versioned": version
+			}))
+
+		return ("This is you UUID: " + UUID + "." + dat1.content)
 
 	def create_cutout(self,UUID,typename,dataname,version=0):
 		#Creates an instance which works as a sub-folder where the data is stored

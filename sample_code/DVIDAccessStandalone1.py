@@ -19,7 +19,7 @@ dvid = DVIDRemote({
 	}) 
 
 # UUID = "b47fbe5c5a10487c8c66337fc16d7201"
-UUID = dvid.create_project("uint8blk","Luis4")
+UUID = dvid.create_project("uint8blk","Luis4","1")
 print(UUID)
 
 # #Getting information on the UUID
@@ -30,7 +30,7 @@ print(UUID)
 # log = dvid.get_log(UUID)
 # print(log)
 # logP = dvid.post_log(UUID,"This repository contains images used for testing")
-log = dvid.get_log(UUID)
+# log = dvid.get_log(UUID)
 print(log)
 
 
