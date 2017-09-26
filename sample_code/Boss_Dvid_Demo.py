@@ -6,17 +6,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-#BOSS Data fetch:
-# boss = BossRemote({
-#     "protocol": "https",
-#     "host": "api.theboss.io",
-#     "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
-# })
+# BOSS Data fetch:
+boss = BossRemote({
+    "protocol": "https",
+    "host": "api.theboss.io",
+    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
+})
 
-# volumeB = boss.get_cutout(
-#     boss.get_channel("em", "pinky40", "v7"), 1,
-#     [10000, 10500], [10000, 10500], [500, 550],
-# )
+volumeB = boss.get_cutout(
+    boss.get_channel("em", "pinky40", "v7"), 1,
+    [10000, 10500], [10000, 10500], [500, 550],
+)
 
 
 #DVID Data fetch:
@@ -35,3 +35,9 @@ volumeD = dvid.get_cutout(
 imgplot = plt.imshow(volumeB[0,:,:])
 one = volumeB[0,:,:]
 one_size = one.size
+
+#Graphing Dvid:
+imgplot = plt.imshow(volumeD[0,:,:])
+one = volumeD[0,:,:]
+one_size = one.size
+
