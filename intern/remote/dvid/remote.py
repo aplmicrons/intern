@@ -49,9 +49,7 @@ class DVIDRemote(Remote):
 
 		global api
 		api = host + "://" + protocol
-		print(api)
-
-		return api
+		
 
 	def get_channel(self, ID, repos):
 		#obtains ID and repos and converts the input into a touple
@@ -81,7 +79,7 @@ class DVIDRemote(Remote):
 	    xo = xspan[0]
 
 	    ypix = yspan[1]-yspan[0]
-	    yo = yspan[0]	    
+	    yo = yspan[0]
 
 	    zpix = zspan[1]-zspan[0]
 	    zo = zspan[0]
@@ -91,7 +89,7 @@ class DVIDRemote(Remote):
 	    ID, repos = IDrepos
 	    #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
 	    #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-	    
+
 	    address = api + "/api/node/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
 	    r = requests.get(address)
 	    octet_stream = r.content
@@ -188,4 +186,8 @@ class DVIDRemote(Remote):
 		settingM = setting.content
 		return ("Your settings have been changed.")
 
+dvid = DVIDRemote({
+	"protocol": "http",
+	"host": "localhost:8000",
+	}) 
 print(api)

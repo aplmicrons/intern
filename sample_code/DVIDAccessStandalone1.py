@@ -36,7 +36,7 @@ dvid = DVIDRemote({
 
 #Gets 3d volume data
 volumeD = dvid.get_cutout(
-	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
+	("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
 	[2300,4600],[2300,4600],[1380,1390]
 	)
 
