@@ -106,8 +106,7 @@ class DVIDRemote(Remote):
 		#Creates a repository for the data to be placed in.
 		#Returns randomly generated 32 character long UUID
 		a = requests.post(api + "/api/repos")
-		a2 = a.content
-		UUID = a2["root"]
+		UUID = a["root"]
 
 		dat1 = requests.post(api + "/api/repo/"+ UUID + "/instance",
 			data=json.dumps({"typename": typename,

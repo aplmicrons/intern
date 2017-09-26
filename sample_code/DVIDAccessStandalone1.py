@@ -19,8 +19,8 @@ dvid = DVIDRemote({
 	}) 
 
 # UUID = "b47fbe5c5a10487c8c66337fc16d7201"
-UUID = dvid.create_project("uint8blk","Luis4","1")
-print(UUID)
+mes = dvid.create_project("uint8blk","Luis4","1")
+print(mes)
 
 # #Getting information on the UUID
 # info = dvid.get_info(UUID)
