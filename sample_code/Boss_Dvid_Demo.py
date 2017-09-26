@@ -12,24 +12,26 @@ boss = BossRemote({
     "host": "api.theboss.io",
     "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
 })
-
 volumeB = boss.get_cutout(
     boss.get_channel("em", "pinky40", "v7"), 1,
     [10000, 10500], [10000, 10500], [500, 550],
 )
-
 
 #DVID Data fetch:
 dvid = DVIDRemote({
 	"protocol": "http",
 	"host": "localhost:8000",
 	})
-
 volumeD = dvid.get_cutout(
 	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
 	[2300,4600],[2300,4600],[1380,1390]
 	)
 
+#Printing volumes:
+print("Boss volume: ")
+print(volumeB)
+print("Dvid volume: ")
+print(volumeD)
 
 #Graphing Boss:
 imgplot = plt.imshow(volumeB[0,:,:])
