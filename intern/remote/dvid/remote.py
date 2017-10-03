@@ -146,45 +146,24 @@ class DVIDRemote(Remote):
 	def get_info(self, UUID):
 		#Returns JSON for just the repository with given root UUID.  The UUID string can be
 		#shortened as long as it is uniquely identifiable across the managed repositories.
-		return (DvidService.get_info(api,UUID))
+		return DvidService.get_info(api,UUID)
 
 	def get_log(self, UUID):
 		#The log is a list of strings that will be appended to the repo's log.  They should be
 		#descriptions for the entire repo and not just one node.  For particular versions, use
 		#node-level logging (below).
-		log = requests.get(api+ "/api/node/" + UUID + "/log")
-		logM = log.content
-		return(logM)
+		return DvidService.get_log(api,UUID)
 
 	def post_log(self, UUID,log1):
 		#Allows the user to write a short description of the content in the repository
 		#{ "log": [ "provenance data...", "provenance data...", ...] }
-		log = requests.post(api + "/api/node/" + UUID + "/log",
-			json = {"log" : [log1] })
-		return("The log has been updated.")
+		return DvidService.post_log(api,UUID)
 
 	def get_server_info(self):
 		#Returns JSON for server properties
-		info = requests.get(api + "/api/server")
-		infoM = info.content
-		return infoM
+		return DvidService.get_server_info(api,UUID)
 
 	def change_server_setting(self,gc1,throt1):
 		#	Sets server parameters.  Expects JSON to be posted with optional keys denoting parameters:
-	    #{
-		# "gc": 500,
-		# "throttle": 2
-	    #}
-	    #Possible keys:
-		# gc        Garbage collection target percentage.  This is a low-level server tuning
-		#             request that can affect overall request latency.
-		#             See: https://golang.org/pkg/runtime/debug/#SetGCPercent
-		# throttle  Maximum number of CPU-intensive requests that can be executed under throttle mode.
-		#             See imageblk and labelblk GET 3d voxels and POST voxels.
-		setting = requests.post(api,
-			gc = {"gc": [gc1]},
-			throttle = {"throttle": [throt1]}
-			)
-		settingM = setting.content
-		return ("Your settings have been changed.")
+		return DvidService.change_server_setting(api,UUID)
 		
