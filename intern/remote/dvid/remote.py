@@ -157,13 +157,13 @@ class DVIDRemote(Remote):
 	def post_log(self, UUID,log1):
 		#Allows the user to write a short description of the content in the repository
 		#{ "log": [ "provenance data...", "provenance data...", ...] }
-		return DvidService.post_log(api,UUID)
+		return DvidService.post_log(api,UUID,log1)
 
 	def get_server_info(self):
 		#Returns JSON for server properties
-		return DvidService.get_server_info(api,UUID)
+		return DvidService.get_server_info(api)
 
 	def change_server_setting(self,gc1,throt1):
 		#	Sets server parameters.  Expects JSON to be posted with optional keys denoting parameters:
-		return DvidService.change_server_setting(api,UUID)
+		return DvidService.change_server_setting(api,gc1,throt1)
 		
