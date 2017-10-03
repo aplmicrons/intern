@@ -23,7 +23,7 @@ import numpy as np
 import json
 import math
 
-from intern.resource.dvid.resource import *
+# from intern.resource.dvid.resource import *
 from intern.service.dvid.service import *
 
 
