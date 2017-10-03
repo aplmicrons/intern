@@ -146,7 +146,7 @@ class DVIDRemote(Remote):
 	def get_info(self, UUID):
 		#Returns JSON for just the repository with given root UUID.  The UUID string can be
 		#shortened as long as it is uniquely identifiable across the managed repositories.
-		return DvidService.get_info(api,UUID)
+		return (DvidService.get_info(api,UUID))
 
 	def get_log(self, UUID):
 		#The log is a list of strings that will be appended to the repo's log.  They should be

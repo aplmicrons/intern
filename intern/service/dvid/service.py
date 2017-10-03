@@ -13,15 +13,7 @@
 # limitations under the License.
 
 from intern.service.service import Service
-from requests import Session
 import requests
-from PIL import Image
-from io import BytesIO
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import numpy as np
-import json
-import math
 
 
 api = ""
