@@ -16,9 +16,6 @@ from intern.service.service import Service
 import requests
 
 
-api = ""
-
-
 class DvidService(Service):
 	"""Partial implementation of intern.service.service.Service for the Boss' services.
 	Attributes:

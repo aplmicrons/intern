@@ -26,105 +26,96 @@ class DvidResource(Resource):
         creator (string): Resource creator.
         raw (dictionary): Holds JSON data returned by the Boss API on a POST (create) or GET operation.
     """
-    def __init__(self, name, description, creator='', raw={}):
-        """Constructor.
+    def __init__(self):
+        Resource.__init__(self)
 
-        Args:
-            name (string): Name of resource.
-            description (string): Description of resource.
-            creator (optional[string]): Resource creator.
-            raw (optional[dictionary]): Holds JSON data returned by the Boss API on a POST (create) or GET operation.
-        """
+    @classmethod
+    def get_channel(self, ID, repos):
+        #obtains ID and repos and converts the input into a touple
+        IDrepos = (ID, repos)
+        return IDrepos
 
-        self.name = name
-        self.description = description
-        self.creator = creator
-        self.raw = raw
+    @classmethod
+    def get_cutout(self, api, IDrepos, xspan, yspan, zspan):
+        #ID MUST BE STRING ""
+        #SCALE MUST BE STRING "" - "GRAYSCALE"
+        #TYPEV MUST BE STRING "" - "RAW"
+        #SHAPE MUST BE STRING "" - 'XY'
+        #self.resource = resource
+        # self.resolution = resolution
+        # self.x_range = x_range
+        # self.y_range = y_range
+        # self.z_range = z_range
+        #shape = "xy"
+        #xpix = "x" how many pixels traveled in x
+        #ypix = "y" how many pixels traveled in y
+        #zpix = "z" how many pixels traveled in z
+        #xo, yo, zo (x,y,z offsets)
+        #type = "raw"
+        #scale = "grayscale"
 
-class CollectionResource(BossResource):
-    """Top level container for Boss projects.
-    """
-    def __init__(
-        self, name, description='', creator='', raw={}):
-        """Constructor.
+        #Defining used variables
+        xpix = xspan[1]-xspan[0]
+        xo = xspan[0]
 
-        Args:
-            name (string): Collection name.
-            description (optional[string]): Collection description.  Defaults to empty.
-            creator (optional[string]): Resource creator.
-            raw (optional[dictionary]): Holds JSON data returned by the Boss API on a POST (create) or GET operation.
-        """
-        BossResource.__init__(self, name, description, creator, raw)
+        ypix = yspan[1]-yspan[0]
+        yo = yspan[0]
 
-    def get_route(self):
-        return self.name
+        zpix = zspan[1]-zspan[0]
+        zo = zspan[0]
 
-    def get_list_route(self):
-        return ''
+        size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
+        offset = str(xo) + "_" + str(yo) + "_" + str(zo)
+        ID, repos = IDrepos
+        #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
+        #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
 
-    def get_cutout_route(self):
-        raise RuntimeError('Not supported for collections.')
+        address = api + "/api/node/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
+        r = requests.get(address)
+        octet_stream = r.content
 
-    def get_reserve_route(self):
-        raise RuntimeError('Not supported for collections.')
+        #Converts obtained octet-stream into a numpy array of specified type uint8
+        entire_space = np.fromstring(octet_stream,dtype=np.uint8)
 
-    def get_meta_route(self):
-        return self.name
+        #Specifies the 3 dimensional shape of the numpy array of the size given by the user
+        entire_space2 = entire_space.reshape(zpix,ypix,xpix)
 
-    def get_dict_route(self):
-        return {"collection": self.name}
+        #Returns a 3-dimensional numpy array to the user
+        return entire_space2
 
+    @classmethod
+    def create_project(self, api, typename,dataname,version=0):
+        #Creates a repository for the data to be placed in.
+        #Returns randomly generated 32 character long UUID
+        a = requests.post(api + "/api/repos")
+        UUID = a["root"]
 
-class ExperimentResource(BossResource):
-    """Experiments reside inside a collection and contain channels and
-    layers.
+        dat1 = requests.post(api + "/api/repo/"+ UUID + "/instance",
+            data=json.dumps({"typename": typename,
+                "dataname" : dataname,
+                "versioned": version
+            }))
 
-    Attributes:
-        _coord_frame (string):
-        num_hierarchy_levels (int):
-        hierarchy_method (string):
-        num_time_samples (int):
-        time_step (int): Defaults to 0.
-        time_step_unit (string): 'nanoseconds', 'microseconds', 'milliseconds', 'seconds'.  Defaults to 'seconds'.
-    """
-    def __init__(self, name, collection_name, coord_frame='', description='',
-        num_hierarchy_levels=1, hierarchy_method='anisotropic',
-        num_time_samples=1, creator='', raw={}, 
-        time_step=0, time_step_unit='seconds'):
-        """Constructor.
+        return ("This is you UUID: " + UUID + "." + dat1.content)
 
-        Args:
-            name (string): Experiment name.
-            collection_name (string): Collection name.
-            coord_frame (string): Name of coordinate frame used by experiment.  Defaults to empty.
-            description (optional[string]): Experiment description.  Defaults to empty.
-            num_hierarchy_levels (optional[int]): Defaults to 1.
-            hierarchy_method (optional[string]): 'anisotropic', 'isotropic'  Defaults to 'anisotropic'.
-            num_time_samples (optional[int]): Maximum number of time samples for any time series data captured by this experiment.  Defaults to 1.
-            creator (optional[string]): Resource creator.
-            raw (optional[dictionary]): Holds JSON data returned by the Boss API on a POST (create) or GET operation.
-            time_step (optional[int]): Defaults to 0.
-            time_step_unit (optional[string]): 'nanoseconds', 'microseconds', 'milliseconds', 'seconds'.  Defaults to 'seconds'.
-        """
+    @classmethod
+    def create_cutout(self, api, UUID, typename, dataname, version=0):
+        #Creates an instance which works as a sub-folder where the data is stored
+        #Must specify:
+        #typename(required) = "uint8blk", "labelblk", "labelvol", "imagetile"
+        #dataname(required) = "example1"
+        #version(required) = "1"
+        #The size of the space reserved must be a cube with sides of multiples of 32
 
-        BossResource.__init__(self, name, description, creator, raw)
-        self.coll_name = collection_name
-
-        self._valid_hierarchy_methods = ['anisotropic', 'isotropic']
-
-        #ToDo: validate data types.
-        self._coord_frame = coord_frame
-        self.num_hierarchy_levels = num_hierarchy_levels
-        self._hierarchy_method = self.validate_hierarchy_method(
-            hierarchy_method)
-        self.num_time_samples = num_time_samples
-
-        self._valid_time_units = [
-            '', 'nanoseconds', 'microseconds', 'milliseconds', 'seconds']
-        self.time_step = time_step
-        self._time_step_unit = self.validate_time_units(time_step_unit)
-
-
-
-
-
+        dat1 = requests.post(api + "/api/repo/" + UUID + "/instance", 
+            json = ({"typename" : typename,
+                "dataname" : dataname,
+                "versioned" : version
+        }))
+        res = requests.post(
+            api + "/api/node/" + UUID + "/"+ dataname +"Luis3/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
+                x,y,z,32,32,32
+                ),
+            data=octet_streams
+            )
+        return("Your data has been uploaded to the cutout in " + dataname)
