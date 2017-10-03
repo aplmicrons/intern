@@ -1,4 +1,4 @@
-# Copyright 2016 The Johns Hopkins University Applied Physics Laboratory
+# Copyright 2017 The Johns Hopkins University Applied Physics Laboratory
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,15 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Remotes are services that are accessed via HTTP/SCP or other services that
-talk to non-local machines.
+"""DVID specific resource objects that are passed to intern.service.Service methods.
 
 Author:
     Luis Rodriguez
 """
-
-# from __future__ import absolute_import
-
-from intern.remote.remote import Remote
-	
+from intern.resource.dvid.resource import DvidResource
+from intern.resource.dvid.resource import ChannelResource, PartialChannelResourceError

@@ -23,6 +23,10 @@ import numpy as np
 import json
 import math
 
+from intern.resource.dvid.resource import *
+from intern.service.dvid.service import *
+
+
 LATEST_VERSION = 'v0'
 CONFIG_PROTOCOL = 'protocol'
 CONFIG_HOST = 'host'
@@ -142,9 +146,7 @@ class DVIDRemote(Remote):
 	def get_info(self, UUID):
 		#Returns JSON for just the repository with given root UUID.  The UUID string can be
 		#shortened as long as it is uniquely identifiable across the managed repositories.
-		availability = requests.get(api + "/api/repo/" + UUID + "/info")
-		avalM = availability.content
-		return(avalM)
+		return DvidService.get_info(api,UUID)
 
 	def get_log(self, UUID):
 		#The log is a list of strings that will be appended to the repo's log.  They should be
