@@ -17,57 +17,75 @@ import requests
 
 
 class DvidService(Service):
-	"""Partial implementation of intern.service.service.Service for the Boss' services.
-	Attributes:
-		_versions (dictionary): Stores supported versions of the Boss API.
-		_session (requests.Session): The HTTP session used for each service.
-		_session_send_opts (dictionary): Options to use when sending requests.  See http://docs.python-requests.org/en/master/api/#sessionapi
+	
 	"""
+		Partial implementation of intern.service.service.Service for the Dvid' services.
+	
+	"""
+	
 	def __init__(self):
 		Service.__init__(self)
 
 	@classmethod
 	def get_info(self,api, UUID):
+	
 		"""
 			Returns JSON for just the repository with given root UUID.  The UUID string can be
 			shortened as long as it is uniquely identifiable across the managed repositories.
 		"""
-		availability = requests.get(api + "/api/repo/" + UUID + "/info")
-		avalM = availability.content
-		return(avalM)
+		if UUID is '':
+			raise ValueError('The UUID was not specified')
+		else:
+			availability = requests.get(api + "/api/repo/" + UUID + "/info")
+			avalM = availability.content
+			return(avalM)
 
 	@classmethod
 	def get_log(self,api, UUID):
+	
 		"""
 			The log is a list of strings that will be appended to the repo's log.  They should be
 			descriptions for the entire repo and not just one node.  For particular versions, use
 			node-level logging (below).
 		"""
-		log = requests.get(api+ "/api/node/" + UUID + "/log")
-		logM = log.content
-		return(logM)
+		if UUID is '':
+			raise ValueError('The UUID was not specified')
+		else:
+			log = requests.get(api+ "/api/node/" + UUID + "/log")
+			logM = log.content
+			return(logM)
 
 	@classmethod
 	def post_log(self,api, UUID,log1):
+	
 		"""
 			Allows the user to write a short description of the content in the repository
 			{ "log": [ "provenance data...", "provenance data...", ...] }
 		"""
-		log = requests.post(api + "/api/node/" + UUID + "/log",
-			json = {"log" : [log1] })
-		return("The log has been updated.")
+		
+		if  UUID is '':
+			raise ValueError('The UUID was not specified')
+		elif log1 is '':
+			raise ValueError('Your log submission cannot be empty')
+		else:
+			log = requests.post(api + "/api/node/" + UUID + "/log",
+				json = {"log" : [log1] })
+			return("The log has been updated.")
 
 	@classmethod
 	def get_server_info(self,api):
+	
 		"""
 			Returns JSON for server properties
 		"""
+		raise RuntimeError('Something went wrong when trying to get your server info')
 		info = requests.get(api + "/api/server")
 		infoM = info.content
 		return infoM
 
 	@classmethod
 	def change_server_setting(self,api,gc1,throt1):
+	
 		"""
 			Sets server parameters.  Expects JSON to be posted with optional keys denoting parameters:
 			{
@@ -81,9 +99,12 @@ class DvidService(Service):
 			throttle  Maximum number of CPU-intensive requests that can be executed under throttle mode.
 			            See imageblk and labelblk GET 3d voxels and POST voxels.
 		"""
-		setting = requests.post(api,
-			gc = {"gc": [gc1]},
-			throttle = {"throttle": [throt1]}
-			)
-		settingM = setting.content
-		return ("Your settings have been changed.")
+	
+		# setting = requests.post(api,
+		# 	gc = {"gc": [gc1]},
+		# 	throttle = {"throttle": [throt1]}
+		# 	)
+		# settingM = setting.content
+		# return ("Your settings have been changed.")
+		raise NotImplemented 
+

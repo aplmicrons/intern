@@ -47,13 +47,14 @@ class DVIDRemote(Remote):
 
 	def get_channel(self, ID, repos):
 		"""
-			Method to initialize the Project Service from the config data
+			Method to obtain requested channel
 
 			Args:
-				version (string): Version of Boss API to use.
+				ID : UUID assigned to DVID repository
+				repos: name of the repository assigned by the user when instance was created
 
 			Returns:
-				None
+				Touple
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -62,13 +63,16 @@ class DVIDRemote(Remote):
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 		"""
-			Method to initialize the Project Service from the config data
+			Method to request a volume of data from dvid server
 
 			Args:
-				version (string): Version of Boss API to use.
+				IDrepos : UUID assigned to DVID repository and repository name (touple)
+				xspan : range of pixels in x axis ([1000:1500])
+				yspan : range of pixels in y axis ([1000:1500])
+				zspan : range of pixels in z axis ([1000:1010])
 
 			Returns:
-				None
+				array: numpy array representation of the requested volume
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -78,13 +82,15 @@ class DVIDRemote(Remote):
 
 	def create_project(self, typename,dataname,version=0):
 		"""
-			Method to initialize the Project Service from the config data
+			Method to create a project space in the dvid server
 
 			Args:
-				version (string): Version of Boss API to use.
+				typename: describes data type stored (labelblk, labelvol, imagetile) (str)
+				dataname: user desired name of the instance (str)
+				version: describes the version of the instance the user is creating (default: 0) (str)
 
 			Returns:
-				None
+				string: Confirmation message
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -93,28 +99,32 @@ class DVIDRemote(Remote):
 
 	def create_cutout(self,UUID,typename,dataname,version=0):
 		"""
-			Method to initialize the Project Service from the config data
+			Method to upload data onto the dvid server.
 
 			Args:
-				version (string): Version of Boss API to use.
+				UUID: ID of the DVID repository where the instance is found (str)
+				typename: type of data accepted by the project space (str)
+				dataname: user assigned name of the project space (str)
+				version: describes the version of the instance the user is creating (default: 0) (str)
+				fileDir: direcotry to the file of png to upload (str)
 
 			Returns:
-				None
+				string: Confirmation message
 
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.create_cutout(api,typename,dataname,version)
+		return DvidResource.create_cutout(api,UUID,typename,dataname,version)
 
 	def get_info(self, UUID):
 		"""
-			Method to initialize the Project Service from the config data
+			Method to obtain information on the requested repository
 
 			Args:
-				version (string): Version of Boss API to use.
+				UUID: UUID of the DVID repository (str)
 
 			Returns:
-				None
+				string: History information of the repository
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -123,13 +133,13 @@ class DVIDRemote(Remote):
 
 	def get_log(self, UUID):
 		"""
-		Method to initialize the Project Service from the config data
+		Method to obtain log of all previous messages related to the repository
 
 		Args:
-		    version (string): Version of Boss API to use.
+		    UUID: UUID of the DVID repository (str)
 
 		Returns:
-		    None
+		    string: list of all log recordings related to the DVID repository
 
 		Raises:
 		    (KeyError): if given invalid version.
@@ -138,13 +148,14 @@ class DVIDRemote(Remote):
 
 	def post_log(self, UUID,log1):
 		"""
-		Method to initialize the Project Service from the config data
+		Method to post new log information to the repository 
 
 		Args:
-		    version (string): Version of Boss API to use.
+		    UUID: UUID of the DVID repository (str)
+		    log1: Message to record on the repositories history log (str)
 
 		Returns:
-		    None
+		    string: Confirmation message
 
 		Raises:
 		    (KeyError): if given invalid version.
@@ -153,13 +164,13 @@ class DVIDRemote(Remote):
 
 	def get_server_info(self):
 		"""
-		Method to initialize the Project Service from the config data
+		Method to obtain information about the server
 
 		Args:
-		    version (string): Version of Boss API to use.
+		    none
 
 		Returns:
-		    None
+		    string: Server information
 
 		Raises:
 		    (KeyError): if given invalid version.
@@ -168,7 +179,8 @@ class DVIDRemote(Remote):
 
 	def change_server_setting(self,gc1,throt1):
 		"""
-		Method to initialize the Project Service from the config data
+		NOT IMPLEMENTED
+		Method to change the server settings
 
 		Args:
 		    version (string): Version of Boss API to use.
