@@ -83,6 +83,24 @@ class DvidService(Service):
 		infoM = info.content
 		return infoM
 
+
+	@classmethod
+	def create_project_addon(self, api, UUID, typename, dataname, sync, version=0):
+	    
+		"""
+		    Creates an instance within an existing repository
+		"""
+		raise RuntimeError('Unable to sync project spaces')
+
+		dat1 = requests.post(api + "/api/repo/"+ UUID + "/instance",
+		    data=json.dumps({"typename": typename,
+		        "dataname" : dataname,
+		        "versioned": version,
+		        "sync": sync
+		    }))
+
+		return ("Your addon of type: " + typename + " has been created")
+
 	@classmethod
 	def change_server_setting(self,api,gc1,throt1):
 	
@@ -100,11 +118,12 @@ class DvidService(Service):
 			            See imageblk and labelblk GET 3d voxels and POST voxels.
 		"""
 	
-		# setting = requests.post(api,
-		# 	gc = {"gc": [gc1]},
-		# 	throttle = {"throttle": [throt1]}
-		# 	)
-		# settingM = setting.content
-		# return ("Your settings have been changed.")
+		setting = requests.post(api,
+			gc = {"gc": [gc1]},
+			throttle = {"throttle": [throt1]}
+			)
+		settingM = setting.content
+		return ("Your settings have been changed.")
+
 		raise NotImplemented 
 

@@ -177,6 +177,26 @@ class DVIDRemote(Remote):
 		"""
 		return DvidService.get_server_info(api)
 
+	def create_project_addon(self, api, UUID, typename, dataname, sync, version=0)
+
+		"""
+			Method to create and sync a project add on
+
+			Args:
+			    UUID
+			    typename
+			    dataname
+			    sync
+
+			Returns:
+			    string: Server information
+
+			Raises:
+			    (KeyError): if given invalid version.
+		"""
+
+
+
 	def change_server_setting(self,gc1,throt1):
 		"""
 		NOT IMPLEMENTED

@@ -28,10 +28,10 @@ volumeD = dvid.get_cutout(
 	)
 
 #Printing volumes:
-print("Boss volume: ")
-print(volumeB)
 print("Dvid volume: ")
 print(volumeD)
+print("Boss volume: ")
+print(volumeB)
 
 #Graphing Boss:
 imgplot = plt.imshow(volumeB[0,:,:])
