@@ -61,7 +61,7 @@ class DvidResource(Resource):
             type = "raw"
             scale = "grayscale"
         """
-        if xspan or yspan or zspan is '':
+        if xspan or yspan or zspan is [0,0]:
             raise ValueError('One of the colume ranges was not specified')
         else:
             #Defining used variables
@@ -101,7 +101,7 @@ class DvidResource(Resource):
             Returns randomly generated 32 character long UUID
         """
         raise RuntimeError('Unable to create project space on the dvid server')
-        
+
         a = requests.post(api + "/api/repos")
         UUID = a["root"]
 
