@@ -50,11 +50,11 @@ class DVIDRemote(Remote):
 			Method to obtain requested channel
 
 			Args:
-				ID : UUID assigned to DVID repository
-				repos: name of the repository assigned by the user when instance was created
+				ID (string): UUID assigned to DVID repository
+				repos (string): name of the repository assigned by the user when instance was created
 
 			Returns:
-				Touple
+				(String touple)
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -66,10 +66,10 @@ class DVIDRemote(Remote):
 			Method to request a volume of data from dvid server
 
 			Args:
-				IDrepos : UUID assigned to DVID repository and repository name (touple)
-				xspan : range of pixels in x axis ([1000:1500])
-				yspan : range of pixels in y axis ([1000:1500])
-				zspan : range of pixels in z axis ([1000:1010])
+				IDrepos (string) : UUID assigned to DVID repository and repository name
+				xspan (int) : range of pixels in x axis ([1000:1500])
+				yspan (int) : range of pixels in y axis ([1000:1500])
+				zspan (int) : range of pixels in z axis ([1000:1010])
 
 			Returns:
 				array: numpy array representation of the requested volume
@@ -85,9 +85,9 @@ class DVIDRemote(Remote):
 			Method to create a project space in the dvid server
 
 			Args:
-				typename: describes data type stored (labelblk, labelvol, imagetile) (str)
-				dataname: user desired name of the instance (str)
-				version: describes the version of the instance the user is creating (default: 0) (str)
+				typename (string): describes data type stored (labelblk, labelvol, imagetile)
+				dataname (string): user desired name of the instance
+				version (int): describes the version of the instance the user is creating (default: 0)
 
 			Returns:
 				string: Confirmation message
@@ -102,11 +102,11 @@ class DVIDRemote(Remote):
 			Method to upload data onto the dvid server.
 
 			Args:
-				UUID: ID of the DVID repository where the instance is found (str)
-				typename: type of data accepted by the project space (str)
-				dataname: user assigned name of the project space (str)
-				version: describes the version of the instance the user is creating (default: 0) (str)
-				fileDir: direcotry to the file of png to upload (str)
+				UUID (string): ID of the DVID repository where the instance is found
+				typename (string): type of data accepted by the project space
+				dataname (string): user assigned name of the project space
+				version (string): describes the version of the instance the user is creating (default: 0)
+				fileDir (string): direcotry to the file of png to upload
 
 			Returns:
 				string: Confirmation message
@@ -121,7 +121,7 @@ class DVIDRemote(Remote):
 			Method to obtain information on the requested repository
 
 			Args:
-				UUID: UUID of the DVID repository (str)
+				UUID (string): UUID of the DVID repository (str)
 
 			Returns:
 				string: History information of the repository
@@ -136,7 +136,7 @@ class DVIDRemote(Remote):
 		Method to obtain log of all previous messages related to the repository
 
 		Args:
-		    UUID: UUID of the DVID repository (str)
+		    UUID (string): UUID of the DVID repository (str)
 
 		Returns:
 		    string: list of all log recordings related to the DVID repository
@@ -151,8 +151,8 @@ class DVIDRemote(Remote):
 		Method to post new log information to the repository 
 
 		Args:
-		    UUID: UUID of the DVID repository (str)
-		    log1: Message to record on the repositories history log (str)
+		    UUID (string): UUID of the DVID repository (str)
+		    log1 (string): Message to record on the repositories history log (str)
 
 		Returns:
 		    string: Confirmation message
@@ -177,25 +177,97 @@ class DVIDRemote(Remote):
 		"""
 		return DvidService.get_server_info(api)
 
-	def create_project_addon(self, api, UUID, typename, dataname, sync, version=0)
-
+	def create_project_addon(self, UUID, typename, dataname, sync, version=0):
 		"""
-			Method to create and sync a project add on
+		Method to obtain information about the server
+
+		Args:
+		    UUID (string): UUID of Dvid repository
+		    typename (string): type of add on:
+		    	labelblk
+		    	labelvol
+		    	imagetile
+		    dataname (string): name of addon
+		    sync (string): name of instance (dataname) to which this addon is related
+		    version (int): version of repository (dafaults to 1)
+
+		Returns:
+		    string: Server information
+
+		Raises:
+		    (KeyError): if given invalid version.
+		"""
+
+		return DvidService.create_project_addon(api,UUID,typename,dataname,sync,version)
+
+	def merge(self, UUID, parents, note):
+		"""
+			Method to obtain information about the server
 
 			Args:
-			    UUID
-			    typename
-			    dataname
-			    sync
+			    UUID (string): UUID of Dvid repository
+			    parents (string array) : a list of the parent UUIDs to be merged
+				note (string) : any note the user wants to identify the merger
+
+			Returns:
+			    string: Merger information
+
+			Raises:
+			    (Runtime error)
+		"""
+		return DvidService.merge(api, UUID, mergeType, parents, note)
+
+	def resolve(self, UUID, data, parents, note):
+		"""
+			Method to obtain information about the server
+
+			Args:
+			    UUID (string): UUID of Dvid repository
+				data (string array) : a list of the data instance names to be scanned for possible conflicts
+				parents (string array) : a list of the parent UUIDs to be merged in order of priority
+				note (string) : any note the user wants to identify the merger
+				
+			Returns:
+			    string: Resolution information
+
+			Raises:
+			    (Runtime error)
+		"""
+
+		return DvidService.resolve(api, UUID, data, parents, note)
+
+	def delete_repo(self, UUID):
+		"""
+			Method to obtain information about the server
+
+			Args:
+				UUID (string): UUID of Dvid repository
 
 			Returns:
 			    string: Server information
 
 			Raises:
-			    (KeyError): if given invalid version.
+			    (Runtime error)
 		"""
 
+		return DvidService.delete_repo(api, UUID)
 
+	def delete_instance(self, UUID, dataname):
+		"""
+			Method to obtain information about the server
+
+			Args:
+			    UUID (string): UUID of Dvid repository
+			    dataname (string) : name of the instance to delete
+
+			Returns:
+			    string: Server information
+
+			Raises:
+			    (Runtime error)
+		"""
+
+		return DvidService.delete_instance(api, UUID, dataname)
 
 	def change_server_setting(self,gc1,throt1):
 		"""

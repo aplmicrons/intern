@@ -29,10 +29,13 @@ class DvidResource(Resource):
         the Dvid API.
         description (string): Text description of resource.
         creator (string): Resource creator.
-        raw (dictionary): Holds JSON data returned by the Boss API on a POST (create) or GET operation.
+        raw (dictionary): Holds JSON data returned by DVID on a POST (create) or GET operation.
     """
     
     def __init__(self):
+        """
+            Initializes intern.Resource parent class
+        """
         Resource.__init__(self)
 
     @classmethod
@@ -111,26 +114,21 @@ class DvidResource(Resource):
         return ("This is you UUID: " + UUID + "." + dat1.content)
 
     @classmethod
-    def create_cutout(self, api, UUID, typename, dataname, version=0):
+    def create_cutout(self, api, UUID, dataname, path, version=0):
         
         """
             Creates an instance which works as a sub-folder where the data is stored
             Must specify:
-            typename(required) = "uint8blk", "labelblk", "labelvol", "imagetile"
             dataname(required) = "example1"
             version(required) = "1"
             The size of the space reserved must be a cube with sides of multiples of 32
         """
-
-        dat1 = requests.post(api + "/api/repo/" + UUID + "/instance", 
-            json = ({"typename" : typename,
-                "dataname" : dataname,
-                "versioned" : version
-        }))
+        
         res = requests.post(
-            api + "/api/node/" + UUID + "/"+ dataname +"Luis3/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
-                x,y,z,32,32,32
+            api + "/api/node/" + UUID + "/"+ dataname + "/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
+                x,y,z,x0,y0,z0
                 ),
-            data=octet_streams
+            data=open(path)
             )
-        return("Your data has been uploaded to the cutout in " + dataname)
+
+        return("Your data has been uploaded to the cutout in " + dataname + " within UUID: " + UUID)

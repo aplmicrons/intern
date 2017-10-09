@@ -21,19 +21,19 @@ import math
 
 
 
-r = requests.get("http://localhost:8000/api/node/5cc94d532799484cb01788fcdb7cd9f0/grayscale/raw/0_1_2/2300_2300_1380/100_100_1/octet-stream")
-octet_stream = r.content
-print(octet_stream)
+# r = requests.get("http://localhost:8000/api/node/5cc94d532799484cb01788fcdb7cd9f0/grayscale/raw/0_1_2/2300_2300_1380/100_100_1/octet-stream")
+# octet_stream = r.content
+# print(octet_stream)
 
 
-#Converts obtained octet-stream into a numpy array of specified type uint8
-entire_space = np.fromstring(octet_stream,dtype=np.uint8)
+# #Converts obtained octet-stream into a numpy array of specified type uint8
+# entire_space = np.fromstring(octet_stream,dtype=np.uint8)
 
-#Specifies the 3 dimensional shape of the numpy array of the size given by the user
-entire_space2 = entire_space.reshape(10,2300,2300)
+# #Specifies the 3 dimensional shape of the numpy array of the size given by the user
+# entire_space2 = entire_space.reshape(10,2300,2300)
 
 
-print(entire_space2)
+# print(entire_space2)
 
 
 

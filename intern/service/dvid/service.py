@@ -102,6 +102,71 @@ class DvidService(Service):
 		return ("Your addon of type: " + typename + " has been created")
 
 	@classmethod
+	def merge(self, api, UUID, parents, note):
+		"""
+			Creates a conflict-free merge of a set of committed parent UUIDs into a child.  Note
+			the merge will not necessarily create an error immediately, but later GETs that
+			detect conflicts will produce an error at that time.  These can be resolved by
+			doing a POST on the "resolve" endpoint below.
+
+			"mergeType": "conflict-free",
+			"parents": [ "parent-uuid1", "parent-uuid2", ... ],
+			"note": "this is a description of what I did on this commit"
+		"""
+		raise RuntimeError('Unidentified API')
+
+		merge1 = requests.post(api + "api/repo/" + UUID + "/merge",
+			mergeType = "conflict-free",
+			parents = parents,
+			note = note 
+			)
+
+		return ("Your merge was successfully completed")
+
+	@classmethod
+	def resolve(self, api, UUID, data, parents, note):
+		"""
+			Forces a merge of a set of committed parent UUIDs into a child by specifying a
+			UUID order that establishes priorities in case of conflicts (see "parents" description
+			below.  
+
+			Unlike the very fast but lazily-enforced 'merge' endpoint, this request spawns an 
+			asynchronous routine that checks all data for the given data instances (see "data" in
+			JSON post), creates versions to delete conflicts, and then performs the conflict-free 
+			merge to a final child.  
+
+			"data": [ "instance-name-1", "instance-name2", ... ],
+			"parents": [ "parent-uuid1", "parent-uuid2", ... ],
+			"note": "this is a description of what I did on this commit"
+		"""
+		raise RuntimeError('Unidentified API')
+
+		resolve1 = requests.post(api + "api/repo/" + UUID + "/resolve",
+			data = data,
+			parents = parents,
+			note = note 
+			)
+		return ("You resolved the merger conflict.")
+
+	@classmethod
+	def delete_repo(self, api, UUID):
+		"""
+			Deletes the repository holding a node with the given UUID.
+		"""
+		raise RuntimeError('One of your inputs is not correct')
+		del1 = requests.delete(api + "api/repo/" + UUID + "?imsure=true")
+		return ("The repository with UUID: " + UUID + " has been successfully deleted.")
+
+	@classmethod
+	def delete_instance(self, api, UUID, dataname):
+		"""
+			Deletes a data instance of given dataname within the given UUID.
+		"""
+		raise RuntimeError('One of your inputs is not correct')
+		del2 = requests. delete(api + "/api/repo/" + UUID + "/" + dataname + "?imsure=true")
+		return ("The instance: " + dataname + " within UUID: " + UUID + " has been successfully deleted.")
+	
+	@classmethod
 	def change_server_setting(self,api,gc1,throt1):
 	
 		"""
