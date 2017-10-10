@@ -128,7 +128,7 @@ class DvidResource(Resource):
             api + "/api/node/" + UUID + "/"+ dataname + "/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
                 x,y,z,x0,y0,z0
                 ),
-            data= volume.all()
+            data= volume.any()
             )
 
         return(res.content)
