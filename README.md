@@ -68,7 +68,7 @@ To quickly get started with intern, check out the wiki: [https://github.com/jhua
 
 Full detailed documentation on intern-boss communication can be found here: [https://jhuapl-boss.github.io/intern/](https://jhuapl-boss.github.io/intern/) 
 
-Full detailed documentation on intern-dvid communication can be foundon the [wiki] (https://github.com/aplmicrons/intern/wiki) 
+Full detailed documentation on intern-dvid communication can be foundon the wiki: https://github.com/aplmicrons/intern/wiki
 
 ## Contributing
 
