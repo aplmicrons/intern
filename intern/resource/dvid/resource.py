@@ -114,7 +114,7 @@ class DvidResource(Resource):
         return ("This is you UUID: " + UUID + "." + dat1.content)
 
     @classmethod
-    def create_cutout(self, api, UUID, dataname, path, version=0):
+    def create_cutout(self, api, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
         
         """
             Creates an instance which works as a sub-folder where the data is stored
@@ -128,7 +128,7 @@ class DvidResource(Resource):
             api + "/api/node/" + UUID + "/"+ dataname + "/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
                 x,y,z,x0,y0,z0
                 ),
-            data=open(path)
+            data= volume.all()
             )
 
-        return("Your data has been uploaded to the cutout in " + dataname + " within UUID: " + UUID)
+        return(res.content)

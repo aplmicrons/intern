@@ -99,7 +99,7 @@ class DvidService(Service):
 		        "sync": sync
 		    }))
 
-		return ("Your addon of type: " + typename + " has been created")
+		return (dat1.content)
 
 	@classmethod
 	def merge(self, api, UUID, parents, note):

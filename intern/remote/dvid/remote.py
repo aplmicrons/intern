@@ -97,7 +97,7 @@ class DVIDRemote(Remote):
 		"""
 		return DvidResource.create_project(api,typename,dataname,version)
 
-	def create_cutout(self,UUID,typename,dataname,version=0):
+	def create_cutout(self, api, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
 		"""
 			Method to upload data onto the dvid server.
 
@@ -114,7 +114,7 @@ class DVIDRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.create_cutout(api,UUID,typename,dataname,version)
+		return DvidResource.create_cutout(api, UUID, dataname, volume, x, y, z, x0, y0, z0, version)
 
 	def get_info(self, UUID):
 		"""
