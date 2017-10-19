@@ -51,6 +51,7 @@ class DvidResource(Resource):
         else:
             IDrepos = (ID, repos)
             return IDrepos
+            
 
     @classmethod
     def get_cutout(self, api, IDrepos, xspan, yspan, zspan):
@@ -128,7 +129,7 @@ class DvidResource(Resource):
             api + "/api/node/" + UUID + "/"+ dataname + "/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
                 x,y,z,x0,y0,z0
                 ),
-            data= volume.any()
+            data= volume.all()
             )
 
         return(res.content)
