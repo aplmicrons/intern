@@ -41,8 +41,8 @@ import math
 
 
 
-p = requests.post("http://34.200.231.1/api/repos")
-print(type(p))
+p = requests.post("http://localhost:8000/api/repos")
+print(type(p.content))
 
 # UUID = p.content
 # print(UUID)
@@ -50,55 +50,67 @@ print(type(p))
 UUID = p["root"]
 print(UUID)
 
-UUID = "b47fbe5c5a10487c8c66337fc16d7201"
-
-# availability = requests.head("http://34.200.231.1/api/repo/" + UUID + "/info/")
-# print(availability.content)
-
-dat1 = requests.post("http://localhost:8000/api/repo/b47fbe5c5a10487c8c66337fc16d7201/instance",
-	data=json.dumps({"typename": "uint8blk",
-		"dataname" : "Luis1",
-		"versioned": "1"
-	}))
-
-print(dat1.content)
 
 
 
 
+# UUID = "b47fbe5c5a10487c8c66337fc16d7201"
+
+# # availability = requests.head("http://34.200.231.1/api/repo/" + UUID + "/info/")
+# # print(availability.content)
+
+# dat1 = requests.post("http://localhost:8000/api/repo/b47fbe5c5a10487c8c66337fc16d7201/instance",
+# 	data=json.dumps({"typename": "uint8blk",
+# 		"dataname" : "Luis1",
+# 		"versioned": "1"
+# 	}))
+
+# print(dat1.content)
 
 
 
-dat1 = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
-	data=json.dumps({"typename" : "png",
-		  "dataname" : "Luis3",
-		  "versioned" : "0"
-	}))
-print(dat1.content)
 
-lab = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
-	data=json.dumps({"typename" : "labelblk",
-		  "dataname" : "labels3",
-		  "sync" : "bodies3"
-	}))
-print(lab.content)
 
-bod = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
-	data=json.dumps({"typename" : "labelvol",
-		  "dataname" : "bodies3",
-		  "sync" : "labels3"
-	}))
-print(bod.content)
 
-gtile = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
-	data=json.dumps({"typename" : "imagetile",
-		  "dataname" : "luistiles3",
-		  "compression" : "none",
-		  "source" : "Luis3",
-		  "format" : "jpg"
-	})
+
+
+
+# dat1 = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# 	data=json.dumps({"typename" : "png",
+# 		  "dataname" : "Luis3",
+# 		  "versioned" : "0"
+# 	}))
+# print(dat1.content)
+
+# lab = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# 	data=json.dumps({"typename" : "labelblk",
+# 		  "dataname" : "labels3",
+# 		  "sync" : "bodies3"
+# 	}))
+# print(lab.content)
+
+# bod = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# 	data=json.dumps({"typename" : "labelvol",
+# 		  "dataname" : "bodies3",
+# 		  "sync" : "labels3"
+# 	}))
+# print(bod.content)
+
+# gtile = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# 	data=json.dumps({"typename" : "imagetile",
+# 		  "dataname" : "luistiles3",
+# 		  "compression" : "none",
+# 		  "source" : "Luis3",
+# 		  "format" : "jpg"
+# 	})
 
 # )
+
+
+
+
+
+
 # print(gtile.content)
 
 # def chunkstring(string,length):
