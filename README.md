@@ -25,6 +25,7 @@ Use or redistribution of the Boss system in source and/or binary forms, with or 
 ## DVID Overview
 
 For specific use of intern to access DVID please check out the wiki at: https://github.com/aplmicrons/intern/wiki 
+
 For more information on DVID please check here: https://github.com/janelia-flyem/dvid 
 
 DVID is a distributed, versioned, image-oriented dataservice written to support Janelia Farm Research Center's brain imaging, analysis and visualization efforts. It's goal is to provide:
