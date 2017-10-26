@@ -23,7 +23,7 @@ CONFIG_HOST = 'host'
 api = ""
 
 
-class DVIDRemote(Remote):
+class DicedRemote(Remote):
 
 	def __init__(self, specs, version=None):
 		"""
@@ -179,7 +179,7 @@ class DVIDRemote(Remote):
 
 	def create_project_addon(self, UUID, typename, dataname, sync, version=0):
 		"""
-		Method create a project add-on
+		Method to obtain information about the server
 
 		Args:
 		    UUID (string): UUID of Dvid repository
