@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""DICED specific services.
+"""DVID specific resource objects that are passed to intern.service.Service methods.
 
 Author:
     Luis Rodriguez
 """
-from intern.service.diced.service import DicedService
+from intern.resource.dvid.resource import DvidResource
