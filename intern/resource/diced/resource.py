@@ -51,31 +51,6 @@ class DicedResource(Resource):
             type = "raw"
             scale = "grayscale"
         """
-        #Defining used variables
-        xpix = xspan[1]-xspan[0]
-        xo = xspan[0]
-
-        ypix = yspan[1]-yspan[0]
-        yo = yspan[0]
-
-        zpix = zspan[1]-zspan[0]
-        zo = zspan[0]
-
-        size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
-        offset = str(xo) + "_" + str(yo) + "_" + str(zo)
-        ID, repos = IDrepos
-
-        #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
-        #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-        address = api + "/api/node/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream"
-        r = requests.get(address)
-        octet_stream = r.content
-
-        #Converts obtained octet-stream into a numpy array of specified type uint8
-        entire_space = np.fromstring(octet_stream,dtype=np.uint8)
-
-        #Specifies the 3 dimensional shape of the numpy array of the size given by the user
-        entire_space2 = entire_space.reshape(zpix,ypix,xpix)
 
         #Returns a 3-dimensional numpy array to the user
         return entire_space2
@@ -90,12 +65,5 @@ class DicedResource(Resource):
             version(required) = "1"
             The size of the space reserved must be a cube with sides of multiples of 32
         """
-
-        res = requests.post(
-            api + "/api/node/" + UUID + "/"+ dataname + "/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
-                x,y,z,x0,y0,z0
-                ),
-            data= volume.all()
-            )
 
         return(res.content)

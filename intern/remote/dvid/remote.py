@@ -45,7 +45,7 @@ class DVIDRemote(Remote):
 		api = host + "://" + protocol
 
 
-	def get_channel(self, ID, repos):
+	def get_UUID(self, ID, repos):
 		"""
 			Method to obtain requested channel
 
@@ -59,7 +59,7 @@ class DVIDRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.get_channel(ID,repos)
+		return DvidResource.get_UUID(ID,repos)
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 		"""

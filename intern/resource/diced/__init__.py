@@ -17,4 +17,4 @@
 Author:
     Luis Rodriguez
 """
-from intern.resource.dvid.resource import DvidResource
+from intern.resource.diced.resource import DicedResource

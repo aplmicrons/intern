@@ -1,4 +1,4 @@
-#Before running this program you should make sure to have the correct version of intern installed on your device. 
+#Before running this program you should make sure to have the correct version of intern installed on your device.
 from intern.remote.dvid import DVIDRemote
 import intern
 import matplotlib.pyplot as plt
@@ -16,7 +16,7 @@ import time
 dvid = DVIDRemote({
 	"protocol": "http",
 	"host": "localhost:8000",
-	}) 
+	})
 
 UUID = "5cc94d532799484cb01788fcdb7cd9f0"
 # mes = dvid.create_project("uint8blk","Luis4","1")
@@ -36,7 +36,7 @@ print(log)
 
 #Gets 3d volume data
 volumeD = dvid.get_cutout(
-	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
+	dvid.get_UUID("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
 	[2300,4600],[2300,4600],[1380,1390]
 	)
 

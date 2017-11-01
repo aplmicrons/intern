@@ -21,7 +21,7 @@ import json
 
 
 class DvidResource(Resource):
-    
+
     """Base class for Dvid resources.
 
     Attributes:
@@ -31,7 +31,7 @@ class DvidResource(Resource):
         creator (string): Resource creator.
         raw (dictionary): Holds JSON data returned by DVID on a POST (create) or GET operation.
     """
-    
+
     def __init__(self):
         """
             Initializes intern.Resource parent class
@@ -39,8 +39,8 @@ class DvidResource(Resource):
         Resource.__init__(self)
 
     @classmethod
-    def get_channel(self, ID, repos):
-       
+    def get_UUID(self, ID, repos):
+
         """
             obtains ID and repos and converts the input into a touple
         """
@@ -51,11 +51,11 @@ class DvidResource(Resource):
         else:
             IDrepos = (ID, repos)
             return IDrepos
-            
+
 
     @classmethod
     def get_cutout(self, api, IDrepos, xspan, yspan, zspan):
-       
+
         """
             ID MUST BE STRING ""
             xpix = "x" how many pixels traveled in x
@@ -81,7 +81,7 @@ class DvidResource(Resource):
 
         #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
         #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-        address = api + "/api/node/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream" 
+        address = api + "/api/node/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream"
         r = requests.get(address)
         octet_stream = r.content
 
@@ -96,7 +96,7 @@ class DvidResource(Resource):
 
     @classmethod
     def create_project(self, api, typename,dataname,version=0):
-        
+
         """
             Creates a repository for the data to be placed in.
             Returns randomly generated 32 character long UUID
@@ -116,7 +116,7 @@ class DvidResource(Resource):
 
     @classmethod
     def create_cutout(self, api, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
-        
+
         """
             Creates an instance which works as a sub-folder where the data is stored
             Must specify:
@@ -124,7 +124,7 @@ class DvidResource(Resource):
             version(required) = "1"
             The size of the space reserved must be a cube with sides of multiples of 32
         """
-        
+
         res = requests.post(
             api + "/api/node/" + UUID + "/"+ dataname + "/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
                 x,y,z,x0,y0,z0
