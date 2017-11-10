@@ -45,7 +45,7 @@ class DicedRemote(Remote):
 		api = host + "://" + protocol
 
 
-	def get_cutout(self, ID, repos):
+	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 		"""
 			Method to obtain requested array within diced server
 
@@ -59,10 +59,10 @@ class DicedRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DicedResource.get_channel(ID,repos)
+		return DicedResource.get_cutout(ID,repos)
 
 
-	def create_cutout(self,name,type=ArrayDtype.uint16):
+	def create_cutout(self,name,typea="ArrayDtype.uint16"):
 		"""
 			Method to create an array inside the diced repository
 
@@ -73,3 +73,4 @@ class DicedRemote(Remote):
 			Reuturns:
 
 		"""
+		return DicedResource.create_cutout(name,typea,array1)

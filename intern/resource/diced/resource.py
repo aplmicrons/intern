@@ -40,30 +40,46 @@ class DicedResource(Resource):
 
 
     @classmethod
-    def get_cutout(self, api, IDrepos, xspan, yspan, zspan):
+    def get_cutout(self, IDrepos, xspan, yspan, zspan):
+		"""
+			Method to request a volume of data from dvid server
 
-        """
-            ID MUST BE STRING ""
-            xpix = "x" how many pixels traveled in x
-            ypix = "y" how many pixels traveled in y
-            zpix = "z" how many pixels traveled in z
-            xo, yo, zo (x,y,z offsets)
-            type = "raw"
-            scale = "grayscale"
-        """
+			Args:
+				IDrepos (string) : UUID assigned to DVID repository and repository name
+				xspan (int) : range of pixels in x axis ([1000:1500])
+				yspan (int) : range of pixels in y axis ([1000:1500])
+				zspan (int) : range of pixels in z axis ([1000:1010])
 
-        #Returns a 3-dimensional numpy array to the user
-        return entire_space2
+			Returns:
+				array: numpy array representation of the requested volume
+
+			Raises:
+				(KeyError): if given invalid version.
+		"""
+		return DvidResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
 
     @classmethod
-    def create_cutout(self, api, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
+    def create_cutout(self,name, typea, array1,xs,ys,zs):
+        """
+            Method to create an array inside the diced repository
+
+        Args:
+            name (string): name of the array the user wants to assign
+            type(stirng): type of array (defaut = ArrayDtype.uint16)
+            array1(array): numpy array to upload
+            xs(int) : starting x point within server
+            ys(int) : starting y point within server
+            zs(int) : starting z point within server
+        Reuturns:
 
         """
-            Creates an instance which works as a sub-folder where the data is stored
-            Must specify:
-            dataname(required) = "example1"
-            version(required) = "1"
-            The size of the space reserved must be a cube with sides of multiples of 32
-        """
+        #Array specifications to make space on server
+        r1 = array1.shape[0]
+        r2 = array1.shape[1]
+        r3 = array1.shape[2]
 
+        arr = repo_array(name,typea) #Default 3D array
+        arr[xs:r1,ys:r2,zs:r3] = np.array([array1])
+
+        #Returns a 3-dimensional numpy array to the user
         return(res.content)
