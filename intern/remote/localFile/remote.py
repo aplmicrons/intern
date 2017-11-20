@@ -18,7 +18,8 @@ from intern.resource.localFile.resource import *
 # from intern.service.localFile.service import *
 
 LATEST_VERSION = 'v0'
-host = 'filePath'
+host = 'host'
+filePath = ""
 
 
 class LocalRemote(Remote):
