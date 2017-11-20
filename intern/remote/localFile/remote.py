@@ -15,7 +15,7 @@
 """
 from intern.remote import Remote
 from intern.resource.localFile.resource import *
-from intern.service.localFile.service import *
+# from intern.service.localFile.service import *
 
 LATEST_VERSION = 'v0'
 host = 'filePath'
