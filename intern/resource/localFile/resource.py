@@ -1,0 +1,91 @@
+# Copyright 2017 The Johns Hopkins University Applied Physics Laboratory
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from intern.resource import Resource
+import numpy as np
+import h5py
+
+
+class LocalResource(Resource):
+
+    """Base class for LocalFile resources.
+
+    Attributes:
+        name (string): Name of resource.  Used as identifier when talking to
+        the LocalFile database.
+        description (string): Text description of resource.
+        creator (string): Resource creator.
+        raw (dictionary): Holds JSON data returned by DVID on a POST (create) or GET operation.
+    """
+
+    def __init__(self):
+        """
+            Initializes intern.Resource parent class
+        """
+        Resource.__init__(self)
+
+    @classmethod
+    def get_cutout(self, filePath, group, subGroup, xspan, yspan, zspan):
+
+        """
+            ID MUST BE STRING ""
+            xpix = "x" how many pixels traveled in x
+            ypix = "y" how many pixels traveled in y
+            zpix = "z" how many pixels traveled in z
+            xo, yo, zo (x,y,z offsets)
+            type = "raw"
+            scale = "grayscale"
+        """
+        #Defining used variables
+        xpix = xspan[1]-xspan[0]
+        xo = xspan[0]
+
+        ypix = yspan[1]-yspan[0]
+        yo = yspan[0]
+
+        zpix = zspan[1]-zspan[0]
+        zo = zspan[0]
+
+        size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
+        offset = str(xo) + "_" + str(yo) + "_" + str(zo)
+        ID, repos = IDrepos
+
+        return entire_space2
+
+    @classmethod
+    def create_project(self, filePath, groupName, subGroup):
+
+        """
+            Creates a repository for the data to be placed in.
+            Returns randomly generated 32 character long UUID
+        """
+        f = h5py.File(filePath, 'w')
+        grp = f.create_group(groupName)
+        subgrp = grp.create_group(subGroup)
+
+        return (subgrp)
+
+    @classmethod
+    def create_cutout(self, subgrp, dataArray):
+
+        """
+            Creates an instance which works as a sub-folder where the data is stored
+            Must specify:
+            dataname(required) = "example1"
+            version(required) = "1"
+            The size of the space reserved must be a cube with sides of multiples of 32
+        """
+        dset = subgrp.create_dataset("autochunk", data = dataArray)
+
+        return(dset)
