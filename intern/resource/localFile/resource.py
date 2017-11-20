@@ -36,32 +36,13 @@ class LocalResource(Resource):
         Resource.__init__(self)
 
     @classmethod
-    def get_cutout(self, filePath, group, subGroup, xspan, yspan, zspan):
+    def create_LocalFile(self,filePath,fileName):
+        """
 
         """
-            ID MUST BE STRING ""
-            xpix = "x" how many pixels traveled in x
-            ypix = "y" how many pixels traveled in y
-            zpix = "z" how many pixels traveled in z
-            xo, yo, zo (x,y,z offsets)
-            type = "raw"
-            scale = "grayscale"
-        """
-        #Defining used variables
-        xpix = xspan[1]-xspan[0]
-        xo = xspan[0]
-
-        ypix = yspan[1]-yspan[0]
-        yo = yspan[0]
-
-        zpix = zspan[1]-zspan[0]
-        zo = zspan[0]
-
-        size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
-        offset = str(xo) + "_" + str(yo) + "_" + str(zo)
-        ID, repos = IDrepos
-
-        return entire_space2
+        dirP = filePath + fileName + '.hdf5'
+        f = h5py.File(dirP, 'w')
+        return f
 
     @classmethod
     def create_project(self, filePath, groupName, subGroup):
@@ -89,3 +70,31 @@ class LocalResource(Resource):
         dset = subgrp.create_dataset("autochunk", data = dataArray)
 
         return(dset)
+
+    @classmethod
+    def get_cutout(self, filePath, group, subGroup, xspan, yspan, zspan):
+
+        """
+            ID MUST BE STRING ""
+            xpix = "x" how many pixels traveled in x
+            ypix = "y" how many pixels traveled in y
+            zpix = "z" how many pixels traveled in z
+            xo, yo, zo (x,y,z offsets)
+            type = "raw"
+            scale = "grayscale"
+        """
+        #Defining used variables
+        xpix = xspan[1]-xspan[0]
+        xo = xspan[0]
+
+        ypix = yspan[1]-yspan[0]
+        yo = yspan[0]
+
+        zpix = zspan[1]-zspan[0]
+        zo = zspan[0]
+
+        size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
+        offset = str(xo) + "_" + str(yo) + "_" + str(zo)
+        ID, repos = IDrepos
+
+        return entire_space2

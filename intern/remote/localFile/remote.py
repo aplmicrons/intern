@@ -34,10 +34,17 @@ class LocalRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-		path = specs[local]
+		path = specs[host]
 
 		global filePath
 		filePath = path
+
+	def create_LocalFile(self,filePath):
+		"""
+
+		"""
+		return LocalResource.create_LocalFile(filePath)
+
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 		"""
