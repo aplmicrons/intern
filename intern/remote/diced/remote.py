@@ -62,15 +62,18 @@ class DicedRemote(Remote):
 		return DicedResource.get_cutout(ID,repos)
 
 
-	def create_cutout(self,name,typea="ArrayDtype.uint16"):
+	def create_cutout(self,name,array1,xs,ys,zs,typea="ArrayDtype.uint16"):
 		"""
 			Method to create an array inside the diced repository
 
 			Args:
 				name (string): name of the array the user wants to assign
-				type: type of array (defaut = ArrayDtype.uint16)
-
+				type(stirng): type of array (defaut = ArrayDtype.uint16)
+				array1(array): numpy array to upload
+				xs(int) : starting x point within server
+				ys(int) : starting y point within server
+				zs(int) : starting z point within server
 			Reuturns:
 
 		"""
-		return DicedResource.create_cutout(name,typea,array1)
+		return DicedResource.create_cutout(name,typea,array1,xs,ys,zs)
