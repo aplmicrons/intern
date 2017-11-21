@@ -41,7 +41,7 @@ class LocalResource(Resource):
 
         """
         form = ".hdf5"
-        dirP = filePath + fileName + form
+        dirP = str(filePath) + str(fileName) + str(form)
         f = h5py.File(dirP, 'w')
         return f
 
