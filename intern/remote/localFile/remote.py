@@ -38,7 +38,7 @@ class LocalRemote(Remote):
 		path = specs[host]
 
 		global filePath
-		filePath = path
+		filePath = str(path)
 
 	def create_LocalFile(self,filePath):
 		"""
