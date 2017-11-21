@@ -36,7 +36,7 @@ class LocalResource(Resource):
         Resource.__init__(self)
 
     @classmethod
-    def create_LocalFile(self,filePath,fileName):
+    def create_LocalFile(filePath,fileName):
         """
 
         """
