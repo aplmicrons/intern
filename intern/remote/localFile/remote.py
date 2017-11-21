@@ -18,7 +18,7 @@ from intern.resource.localFile.resource import *
 # from intern.service.localFile.service import *
 
 LATEST_VERSION = 'v0'
-host = 'host'
+host = "host"
 filePath = ""
 
 
