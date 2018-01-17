@@ -22,7 +22,7 @@ from diced import DicedStore, ArrayDtype
 
 class DicedResource(Resource):
 
-    """Base class for Dvid resources.
+    """Base class for Diced resources.
 
     Attributes:
         name (string): Name of resource.  Used as identifier when talking to
@@ -40,13 +40,15 @@ class DicedResource(Resource):
 
 
     @classmethod
-    def get_cutout(self, IDrepos, xspan, yspan, zspan):
+    def get_cutout(self, dicedName, idRepos,arrayName, xspan, yspan, zspan):
 		"""
 			Method to request a volume of data from dvid server
 
 			Args:
-				IDrepos (string) : UUID assigned to DVID repository and repository name
-				xspan (int) : range of pixels in x axis ([1000:1500])
+                reposName (str) : Name of the local DICED repository
+                IDrepos (str) : UUID assigned to DICED repository and repository name
+                arrayName (str) : Name of the specific array desired
+                xspan (int) : range of pixels in x axis ([1000:1500])
 				yspan (int) : range of pixels in y axis ([1000:1500])
 				zspan (int) : range of pixels in z axis ([1000:1010])
 
@@ -55,22 +57,30 @@ class DicedResource(Resource):
 
 			Raises:
 				(KeyError): if given invalid version.
-		"""
-		return DvidResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
+        """
+
+                store = DicedStore(dicedName)
+                repo = store.open_repo(idRepos)
+                my_array = repo.get_array(arrayName)
+
+                return my_array
+
 
     @classmethod
-    def create_cutout(self,name, typea, array1,xs,ys,zs):
+    def create_cutout(self,dicedName, idRepos,arrayName, typea, array1,xs,ys,zs):
         """
             Method to create an array inside the diced repository
 
         Args:
-            name (string): name of the array the user wants to assign
-            type(stirng): type of array (defaut = ArrayDtype.uint16)
+            dicedName (str): Name of DICED file
+            idRepos (str) : name of repository within DICED
+            arrayName(str) : Desired Array name
+            typea(str): type of array (defaut = ArrayDtype.uint16)
             array1(array): numpy array to upload
             xs(int) : starting x point within server
             ys(int) : starting y point within server
             zs(int) : starting z point within server
-        Reuturns:
+        Returns:
 
         """
         #Array specifications to make space on server
@@ -78,8 +88,11 @@ class DicedResource(Resource):
         r2 = array1.shape[1]
         r3 = array1.shape[2]
 
-        arr = repo_array(name,typea) #Default 3D array
+        store = DicedStore(dicedName)
+        repo = store.create_repo(idRepos)
+        repo = store.open_repo(idRepos)
+        arr = repo.create_array(arrayName,typea)
         arr[xs:r1,ys:r2,zs:r3] = np.array([array1])
 
         #Returns a 3-dimensional numpy array to the user
-        return(res.content)
+        return("Your array has been uploaded to DICED server: " + dicedName + " under repository: " + idRepos + " and name: " + arrayName)

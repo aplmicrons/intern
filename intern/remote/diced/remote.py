@@ -14,14 +14,7 @@
 # limitations under the License.
 """
 from intern.remote import Remote
-from intern.resource.dvid.resource import *
-from intern.service.dvid.service import *
-
-LATEST_VERSION = 'v0'
-CONFIG_PROTOCOL = 'protocol'
-CONFIG_HOST = 'host'
-api = ""
-
+from intern.resource.diced.resource import *
 
 class DicedRemote(Remote):
 
@@ -34,46 +27,41 @@ class DicedRemote(Remote):
 			global api variable is named and used for every command that requires api.
 		"""
 
-		if version is None:
-			version = LATEST_VERSION
-
-		protocol = specs[CONFIG_HOST]
-		host = specs[CONFIG_PROTOCOL]
-
-
-		global api
-		api = host + "://" + protocol
-
-
-	def get_cutout(self, IDrepos, xspan, yspan, zspan):
+	def get_cutout(self, dicedName, idRepos,arrayName, xspan, yspan, zspan):
 		"""
-			Method to obtain requested array within diced server
+			Method to request a volume of data from dvid server
 
 			Args:
-				ID (string): UUID assigned to DVID repository
-				repos (string): name of the repository assigned by the user when instance was created
+                reposName (str) : Name of the local DICED repository
+                IDrepos (str) : UUID assigned to DICED repository and repository name
+                arrayName (str) : Name of the specific array desired
+                xspan (int) : range of pixels in x axis ([1000:1500])
+				yspan (int) : range of pixels in y axis ([1000:1500])
+				zspan (int) : range of pixels in z axis ([1000:1010])
 
 			Returns:
-				(String touple)
+				array: numpy array representation of the requested volume
 
 			Raises:
 				(KeyError): if given invalid version.
-		"""
-		return DicedResource.get_cutout(ID,repos)
+        """
+		return DicedResource.get_cutout(dicedName, idRepos,arrayName, xspan, yspan, zspan)
 
 
-	def create_cutout(self,name,array1,xs,ys,zs,typea="ArrayDtype.uint16"):
+	def create_cutout(self,dicedName, idRepos,arrayName,array1,xs,ys,zs,typea="ArrayDtype.uint16"):
 		"""
 			Method to create an array inside the diced repository
 
 			Args:
-				name (string): name of the array the user wants to assign
-				type(stirng): type of array (defaut = ArrayDtype.uint16)
-				array1(array): numpy array to upload
+		        dicedName (str): Name of DICED file
+		        idRepos (str) : name of repository within DICED
+		        arrayName(str) : Desired Array name
+		        typea(str): type of array (defaut = ArrayDtype.uint16)
 				xs(int) : starting x point within server
 				ys(int) : starting y point within server
 				zs(int) : starting z point within server
 			Reuturns:
 
 		"""
-		return DicedResource.create_cutout(name,typea,array1,xs,ys,zs)
+
+		return DicedResource.create_cutout(dicedName, idRepos,arrayName, typea, array1,xs,ys,zs)

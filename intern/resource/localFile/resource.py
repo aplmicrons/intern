@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from intern.resource import Resource
+from intern.intern.resource import Resource
 import numpy as np
 import h5py
 
@@ -42,8 +42,8 @@ class LocalResource(Resource):
         """
         form = ".hdf5"
         dirP = str(filePath) + str(fileName) + str(form)
-        f = h5py.File(dirP, 'w')
-        return f
+        # f = h5py.File(dirP, 'w')
+        return dirP
 
     @classmethod
     def create_project(self, filePath, groupName, subGroup):
@@ -99,3 +99,37 @@ class LocalResource(Resource):
         ID, repos = IDrepos
 
         return entire_space2
+
+import numpy as np
+import intern
+from intern.remote.localFile import LocalRemote
+from intern.remote.boss import BossRemote
+from intern.resource.boss.resource import ChannelResource
+
+# filePath = "tomorrow/today/"
+# fileName = "LoalTest"
+# form = ".hdf5"
+# dirP = filePath + fileName + form
+#
+# print(dirP)
+
+# BOSS Data fetch:
+boss = BossRemote({
+    "protocol": "https",
+    "host": "api.theboss.io",
+    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
+})
+volumeB = boss.get_cutout(
+    boss.get_channel("em", "pinky40", "v7"), 1,
+    [10000, 10500], [10000, 10500], [500, 501],
+)
+local = LocalRemote({
+    "host" : "~/Users/rodrilm2/"
+})
+
+locFil = local.create_LocalFile("LocalTest")
+# locProj = locFil.create_project("TestGroup", "BossLocalData")
+
+# dset = local.create_cutout(locProj, volumeB)
+
+# print(dset)
