@@ -18,7 +18,7 @@ from intern.resource.localFile.resource import *
 # from intern.service.localFile.service import *
 
 LATEST_VERSION = 'v0'
-path = "path"
+CONFIG_HOST = "path"
 filePath = ""
 
 
@@ -35,7 +35,7 @@ class LocalRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-		path = specs[path]
+		path = specs[CONFIG_HOST]
 
 		global filePath
 		filePath = str(path)
