@@ -18,7 +18,7 @@ from intern.resource.localFile.resource import *
 # from intern.service.localFile.service import *
 
 LATEST_VERSION = 'v0'
-host = "host"
+path = "path"
 filePath = ""
 
 
@@ -35,12 +35,12 @@ class LocalRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-		path = specs[host]
+		path = specs[path]
 
 		global filePath
 		filePath = str(path)
 
-	def create_LocalFile(self,filePath):
+	def create_LocalFile(self,fileName):
 		"""
 
 		"""
