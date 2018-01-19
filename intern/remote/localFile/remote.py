@@ -44,7 +44,7 @@ class LocalRemote(Remote):
 		"""
 
 		"""
-		return LocalResource.create_LocalFile(filePath)
+		return LocalResource.create_LocalFile(filePath,fileName)
 
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
