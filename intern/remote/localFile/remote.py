@@ -40,7 +40,7 @@ class LocalRemote(Remote):
 		global filePath
 		filePath = str(path)
 
-	def create_LocalFile(self,fileName):
+	def create_LocalFile(fileName):
 		"""
 
 		"""
