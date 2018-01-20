@@ -60,7 +60,7 @@ class LocalResource(Resource):
         return (subgrp)
 
     @classmethod
-    def create_cutout(subgrp, dataArray):
+    def create_cutout(self, subgrp, dataArray):
 
         """
             Creates an instance which works as a sub-folder where the data is stored
