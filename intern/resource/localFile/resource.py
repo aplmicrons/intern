@@ -36,7 +36,7 @@ class LocalResource(Resource):
         Resource.__init__(self)
 
     @classmethod
-    def create_LocalFile(filePath,fileName):
+    def create_LocalFile(self,filePath,fileName):
         """
 
         """
@@ -59,7 +59,7 @@ class LocalResource(Resource):
         return (subgrp)
 
     @classmethod
-    def create_cutout(self, subgrp, dataArray):
+    def create_cutout(subgrp, dataArray):
 
         """
             Creates an instance which works as a sub-folder where the data is stored
