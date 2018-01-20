@@ -42,8 +42,8 @@ class LocalResource(Resource):
         """
         form = ".hdf5"
         dirP = str(filePath) + str(fileName) + str(form)
-        # f = h5py.File(dirP, 'w')
-        return dirP
+        f = h5py.File(dirP, 'w')
+        return f
 
     @classmethod
     def create_project(self, filePath, groupName, subGroup):
