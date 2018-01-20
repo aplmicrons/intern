@@ -66,7 +66,7 @@ class LocalRemote(Remote):
 		return LocalResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
 
 
-	def create_project(self, groupName, subGroup):
+	def create_project(self, fileName, groupName, subGroup):
 		"""
 			Method to create a project space in the dvid server
 
@@ -81,7 +81,7 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.create_project(filePath, groupName, subGroup)
+		return LocalResource.create_project(filePath, fileName, groupName, subGroup)
 
 	def create_cutout(self, subGroup, dataArray):
 		"""
