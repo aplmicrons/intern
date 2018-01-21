@@ -44,7 +44,7 @@ class LocalRemote(Remote):
 		filePath = str(host)
 
 		global datastore
-		if os.path.exist(filePath + datastore + ".hdf5") == True:
+		if os.path.isfile(filePath + datastore + ".hdf5") == True:
 			datastore = h5py.File(filePath + datastore + ".hdf5")
 		else:
 			datastore = LocalResource.create_LocalFile(filePath,datastore)
