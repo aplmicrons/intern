@@ -68,7 +68,7 @@ class LocalRemote(Remote):
 		"""
 		return LocalResource.get_cutout(datastore, channelRes, res, xspan, yspan, zspan)
 
-	def get_channel(self,collection,channel,experiment):
+	def get_channel(self, collection,channel,experiment):
 		"""
 
 		"""
