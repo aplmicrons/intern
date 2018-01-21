@@ -114,8 +114,6 @@ class LocalResource(Resource):
 
     @classmethod
     def list_groups(self, userFind):
-        
         def printname(name):
             print name
-            tree = userFind.visit(printname)
-        return tree
+        return userFind.visit(printname)
