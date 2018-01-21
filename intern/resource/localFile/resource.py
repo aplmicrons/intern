@@ -84,7 +84,7 @@ class LocalResource(Resource):
         return channelSource
 
     @classmethod
-    def get_cutout(self, datastore, path, res, xspan, yspan, zspan):
+    def get_cutout(self, datastore, channelRes, res, xspan, yspan, zspan):
 
         """
             ID MUST BE STRING ""
@@ -105,7 +105,10 @@ class LocalResource(Resource):
         zpix = zspan[1]-zspan[0]
         zo = zspan[0]
 
-        dataLoc = datastore[path]
+        print datastore
+        print channelRes
+
+        dataLoc = datastore[channelRes]
         vol = dataLoc[zo:zpix,yo:ypix,xo:xpix]
         return vol
 
