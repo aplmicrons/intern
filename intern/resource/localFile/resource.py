@@ -65,7 +65,7 @@ class LocalResource(Resource):
         return (subgrp)
 
     @classmethod
-    def create_cutout(self, subgrp, dataArray):
+    def create_cutout(self, subgrp, ArrayName, dataArray):
 
         """
             Creates an instance which works as a sub-folder where the data is stored
@@ -74,7 +74,7 @@ class LocalResource(Resource):
             version(required) = "1"
             The size of the space reserved must be a cube with sides of multiples of 32
         """
-        dset = subgrp.create_dataset(str(dataArray), data = dataArray)
+        dset = subgrp.create_dataset(ArrayName, data = dataArray)
 
         return(dset)
 

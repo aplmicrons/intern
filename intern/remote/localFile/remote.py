@@ -103,7 +103,7 @@ class LocalRemote(Remote):
 		"""
 		return LocalResource.create_channel(groupName, subGroup)
 
-	def create_cutout(self, subGroup, dataArray):
+	def create_cutout(self, subGroup, arrayName, dataArray):
 		"""
 			Method to upload data onto the dvid server.
 
@@ -120,7 +120,7 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.create_cutout(subGroup, dataArray)
+		return LocalResource.create_cutout(subGroup, arrayName, dataArray)
 
 	def retrieve(self, path):
 		"""
