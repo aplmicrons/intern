@@ -50,7 +50,7 @@ class LocalRemote(Remote):
 			datastore = LocalResource.create_LocalFile(filePath,datastore)
 			print("Your data store did not exist, so we created one.")
 
-	def get_cutout(self, IDrepos, xspan, yspan, zspan):
+	def get_cutout(self, channelRes, res, xspan, yspan, zspan):
 		"""
 			Method to request a volume of data from dvid server
 
@@ -66,8 +66,13 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
+		return LocalResource.get_cutout(filePath, channelRes, res, xspan, yspan, zspan)
 
+	def get_channel(self,collection,channel,experiment):
+		"""
+
+		"""
+		return LocalResource.get_channel(collection,channel,experiment)
 
 	def create_collection(self, groupName):
 		"""

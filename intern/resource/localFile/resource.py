@@ -79,7 +79,12 @@ class LocalResource(Resource):
         return(dset)
 
     @classmethod
-    def get_cutout(self, filePath, group, subGroup, xspan, yspan, zspan):
+    def get_channel(self,collection,channel,experiment):
+        channelSource = collection + '/' + channel + '/' + experiment
+        return channelSource
+
+    @classmethod
+    def get_cutout(self, datastore, channelRes, res, xspan, yspan, zspan):
 
         """
             ID MUST BE STRING ""
@@ -100,11 +105,9 @@ class LocalResource(Resource):
         zpix = zspan[1]-zspan[0]
         zo = zspan[0]
 
-        size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
-        offset = str(xo) + "_" + str(yo) + "_" + str(zo)
-        ID, repos = IDrepos
-
-        return entire_space2
+        dataLoc = datastore[channelRes]
+        vol = dataLoc[zo:zpix,yo:ypix,xo:xpix]
+        return vol
 
     @classmethod
     def retrieve(self, LocalFileName, path):
