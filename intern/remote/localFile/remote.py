@@ -19,6 +19,7 @@ from intern.resource.localFile.resource import *
 
 LATEST_VERSION = 'v0'
 CONFIG_HOST = "host"
+CONFIG_DATASTORE = "datastore"
 filePath = ""
 
 
@@ -36,16 +37,17 @@ class LocalRemote(Remote):
 			version = LATEST_VERSION
 
 		host = specs[CONFIG_HOST]
+		datastore = specs[CONFIG_DATASTORE]
 
 		global filePath
 		filePath = str(host)
 
-	def create_LocalFile(self,fileName):
-		"""
-
-		"""
-		return LocalResource.create_LocalFile(filePath,fileName)
-
+		global datastore
+		if path.exist(filePath + datastore + ".hdf5") == True:
+			datastore = h5py.File(filePath + datastore + ".hdf5")
+		else:
+			datastore = LocalResource.create_LocalFile(filePath,datastore)
+			print("Your data store did not exist, so we created one.")
 
 	def get_cutout(self, IDrepos, xspan, yspan, zspan):
 		"""
@@ -66,7 +68,7 @@ class LocalRemote(Remote):
 		return LocalResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
 
 
-	def create_collection(self, f, groupName):
+	def create_collection(self, groupName):
 		"""
 			Method to create a project space in the dvid server
 
@@ -81,7 +83,7 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.create_collection(f, groupName)
+		return LocalResource.create_collection(datastore, groupName)
 
 	def create_channel(self, groupName, subGroup):
 		"""
@@ -118,3 +120,41 @@ class LocalRemote(Remote):
 				(KeyError): if given invalid version.
 		"""
 		return LocalResource.create_cutout(subGroup, dataArray)
+
+	def retrieve(self, path):
+		"""
+			Method to upload data onto the dvid server.
+
+			Args:
+				UUID (string): ID of the DVID repository where the instance is found
+				typename (string): type of data accepted by the project space
+				dataname (string): user assigned name of the project space
+				version (string): describes the version of the instance the user is creating (default: 0)
+				fileDir (string): direcotry to the file of png to upload
+
+			Returns:
+				string: Confirmation message
+
+			Raises:
+				(KeyError): if given invalid version.
+		"""
+		return LocalResource.retrieve(datastore,path)
+
+	def list_groups(self):
+		"""
+			Method to upload data onto the dvid server.
+
+			Args:
+				UUID (string): ID of the DVID repository where the instance is found
+				typename (string): type of data accepted by the project space
+				dataname (string): user assigned name of the project space
+				version (string): describes the version of the instance the user is creating (default: 0)
+				fileDir (string): direcotry to the file of png to upload
+
+			Returns:
+				string: Confirmation message
+
+			Raises:
+				(KeyError): if given invalid version.
+		"""
+		return LocalResource.list_groups(datastore)
