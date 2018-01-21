@@ -66,7 +66,7 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.get_cutout(filePath, channelRes, res, xspan, yspan, zspan)
+		return LocalResource.get_cutout(datastore, channelRes, res, xspan, yspan, zspan)
 
 	def get_channel(self,collection,channel,experiment):
 		"""
