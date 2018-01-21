@@ -80,7 +80,7 @@ class LocalResource(Resource):
 
     @classmethod
     def get_channel(self,collection,channel,experiment):
-        channelSource = collection + '/' + channel + '/' + experiment
+        channelSource = str(collection + '/' + channel + '/' + experiment)
         return channelSource
 
     @classmethod
