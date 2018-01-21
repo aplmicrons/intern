@@ -15,12 +15,13 @@
 """
 from intern.remote import Remote
 from intern.resource.localFile.resource import *
-# from intern.service.localFile.service import *
+import os.path
 
 LATEST_VERSION = 'v0'
 CONFIG_HOST = "host"
 CONFIG_DATASTORE = "datastore"
 filePath = ""
+datastore = ""
 
 
 class LocalRemote(Remote):
@@ -43,7 +44,7 @@ class LocalRemote(Remote):
 		filePath = str(host)
 
 		global datastore
-		if path.exist(filePath + datastore + ".hdf5") == True:
+		if os.path.exist(filePath + datastore + ".hdf5") == True:
 			datastore = h5py.File(filePath + datastore + ".hdf5")
 		else:
 			datastore = LocalResource.create_LocalFile(filePath,datastore)
