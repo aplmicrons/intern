@@ -74,7 +74,7 @@ class LocalResource(Resource):
             version(required) = "1"
             The size of the space reserved must be a cube with sides of multiples of 32
         """
-        dset = subgrp.create_dataset("autochunk", data = dataArray)
+        dset = subgrp.create_dataset(str(dataArray), data = dataArray)
 
         return(dset)
 
@@ -108,7 +108,6 @@ class LocalResource(Resource):
 
     @classmethod
     def retrieve(self, LocalFileName, path):
-
         retrF = LocalFileName[path]
         return retrF
 
