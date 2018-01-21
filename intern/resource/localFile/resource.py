@@ -104,9 +104,11 @@ class LocalResource(Resource):
 
         zpix = zspan[1]-zspan[0]
         zo = zspan[0]
-        
+
         dataLoc = datastore[channelRes]
+        print dataLoc.shape
         vol = dataLoc[zo:zpix,yo:ypix,xo:xpix]
+        print vol
         return vol
 
     @classmethod
