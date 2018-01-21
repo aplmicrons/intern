@@ -46,14 +46,12 @@ class LocalResource(Resource):
         return f
 
     @classmethod
-    def create_project(self, filePath, fileName, groupName, subGroup):
+    def create_project(self, f, groupName, subGroup):
 
         """
             Creates a repository for the data to be placed in.
             Returns randomly generated 32 character long UUID
         """
-        groupPath = str(filePath) + str(fileName)
-        f = h5py.File(groupPath, 'w')
         grp = f.create_group(groupName)
         subgrp = grp.create_group(subGroup)
 

@@ -18,7 +18,7 @@ from intern.resource.localFile.resource import *
 # from intern.service.localFile.service import *
 
 LATEST_VERSION = 'v0'
-CONFIG_HOST = "path"
+CONFIG_HOST = "host"
 filePath = ""
 
 
@@ -35,10 +35,10 @@ class LocalRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-		path = specs[CONFIG_HOST]
+		host = specs[CONFIG_HOST]
 
 		global filePath
-		filePath = str(path)
+		filePath = str(host)
 
 	def create_LocalFile(self,fileName):
 		"""
@@ -66,7 +66,7 @@ class LocalRemote(Remote):
 		return LocalResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
 
 
-	def create_project(self, fileName, groupName, subGroup):
+	def create_project(self, f, groupName, subGroup):
 		"""
 			Method to create a project space in the dvid server
 
@@ -81,7 +81,7 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.create_project(filePath, fileName, groupName, subGroup)
+		return LocalResource.create_project(f, groupName, subGroup)
 
 	def create_cutout(self, subGroup, dataArray):
 		"""
