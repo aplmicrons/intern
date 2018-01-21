@@ -46,16 +46,23 @@ class LocalResource(Resource):
         return f
 
     @classmethod
-    def create_project(self, f, groupName, subGroup):
+    def create_collection(self, f, groupName):
 
         """
             Creates a repository for the data to be placed in.
             Returns randomly generated 32 character long UUID
         """
         grp = f.create_group(groupName)
-        subgrp = grp.create_group(subGroup)
+        return (grp)
 
-        return (subgrp)
+    @classmethod
+    def create_channel(self, groupName, subGroup):
+        """
+            Creates a repository for the data to be placed in.
+            Returns randomly generated 32 character long UUID
+        """
+        subgrp = groupName.create_group(subGroup)
+        retunr (subgrp)
 
     @classmethod
     def create_cutout(self, subgrp, dataArray):

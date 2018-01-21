@@ -66,7 +66,7 @@ class LocalRemote(Remote):
 		return LocalResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
 
 
-	def create_project(self, f, groupName, subGroup):
+	def create_collection(self, f, groupName):
 		"""
 			Method to create a project space in the dvid server
 
@@ -81,7 +81,24 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.create_project(f, groupName, subGroup)
+		return LocalResource.create_collection(f, groupName)
+
+	def create_channel(self, groupName, subGroup):
+		"""
+			Method to create a project space in the dvid server
+
+			Args:
+				typename (string): describes data type stored (labelblk, labelvol, imagetile)
+				dataname (string): user desired name of the instance
+				version (int): describes the version of the instance the user is creating (default: 0)
+
+			Returns:
+				string: Confirmation message
+
+			Raises:
+				(KeyError): if given invalid version.
+		"""
+		return LocalResource.create_channel(groupName, subGroup)
 
 	def create_cutout(self, subGroup, dataArray):
 		"""
