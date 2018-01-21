@@ -105,8 +105,6 @@ class LocalResource(Resource):
         zpix = zspan[1]-zspan[0]
         zo = zspan[0]
 
-        print datastore
-        print path
         dataLoc = datastore[path]
         vol = dataLoc[zo:zpix,yo:ypix,xo:xpix]
         return vol
