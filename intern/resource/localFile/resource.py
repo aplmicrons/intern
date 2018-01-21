@@ -62,7 +62,7 @@ class LocalResource(Resource):
             Returns randomly generated 32 character long UUID
         """
         subgrp = groupName.create_group(subGroup)
-        retunr (subgrp)
+        return (subgrp)
 
     @classmethod
     def create_cutout(self, subgrp, dataArray):
