@@ -37,9 +37,17 @@ class LocalResource(Resource):
 
     @classmethod
     def create_LocalFile(self,filePath,fileName):
-        """
 
         """
+            Method to create a local HDF5 datastore. This method is not necessary as the remote
+            initiation immidiately created a local stroe with a given name if it does not exist,
+            however this may be used if that presents problems.
+
+            Args:
+                filePath (string) : directory path to where the datastore is made
+                filename (string) : name of the new local datastore
+        """
+
         form = ".hdf5"
         dirP = str(filePath) + str(fileName) + str(form)
         f = h5py.File(dirP, 'w')
@@ -49,18 +57,32 @@ class LocalResource(Resource):
     def create_collection(self, f, groupName):
 
         """
-            Creates a repository for the data to be placed in.
-            Returns randomly generated 32 character long UUID
+			Method to create a group space within local HDF5 datastore
+
+			Args:
+				groupName (string) : Desired name of the group which will be categorized 'collection'
+
+			Raises:
+				(KeyError): if given invalid version.
         """
+
         grp = f.create_group(groupName)
         return (grp)
 
     @classmethod
     def create_channel(self, groupName, subGroup):
+
         """
-            Creates a repository for the data to be placed in.
-            Returns randomly generated 32 character long UUID
+			Method to create a sub-group space within local HDF5 datastore
+
+			Args:
+				groupName (string) : name of the group (collection) this sub-group (channel) will be created in
+				subGroup (string) : Desired name of the sub-group which will be categorized as the channel
+
+			Raises:
+				(KeyError): if given invalid version.
         """
+
         subgrp = groupName.create_group(subGroup)
         return (subgrp)
 
@@ -68,11 +90,15 @@ class LocalResource(Resource):
     def create_cutout(self, subgrp, ArrayName, dataArray):
 
         """
-            Creates an instance which works as a sub-folder where the data is stored
-            Must specify:
-            dataname(required) = "example1"
-            version(required) = "1"
-            The size of the space reserved must be a cube with sides of multiples of 32
+			Method to create a dataset within local HDF5 datastore
+
+			Args:
+				subGroup (string) : name of the channel (sub-group) in which the data will be saved
+				arrayName (string) : name of the data
+				dataArray (array) : N-Dimensional array which is to be saved
+
+			Raises:
+				(KeyError): if given invalid version.
         """
         dset = subgrp.create_dataset(ArrayName, data = dataArray)
 
@@ -80,6 +106,22 @@ class LocalResource(Resource):
 
     @classmethod
     def get_channel(self,collection,channel,experiment):
+
+        """
+			Method to reques specific collection/channel/experiment where the data is located
+
+			Args:
+				collection (string) : name of collection
+				channel (string) : name of channel
+				experiment (string) : name of experiement (actual dataset)
+
+			Returns:
+				channelSource (string) : amalgamation of all three parameters into a single path string
+
+			Raises:
+				(KeyError): if given invalid version
+        """
+
         channelSource = str(collection + '/' + channel + '/' + experiment)
         return channelSource
 
@@ -87,14 +129,22 @@ class LocalResource(Resource):
     def get_cutout(self, datastore, channelRes, res, xspan, yspan, zspan):
 
         """
-            ID MUST BE STRING ""
-            xpix = "x" how many pixels traveled in x
-            ypix = "y" how many pixels traveled in y
-            zpix = "z" how many pixels traveled in z
-            xo, yo, zo (x,y,z offsets)
-            type = "raw"
-            scale = "grayscale"
+			Method to request a volume of data from local server
+
+			Args:
+				channelRes (string) : hiererchal path of where the data is located
+				res (int) : data resolution
+				xspan (int) : range of pixels in x axis ([1000:1500])
+				yspan (int) : range of pixels in y axis ([1000:1500])
+				zspan (int) : range of pixels in z axis ([1000:1010])
+
+			Returns:
+				array: numpy array representation of the requested volume
+
+			Raises:
+				(KeyError): if given invalid version.
         """
+
         #Defining used variables
         xpix = xspan[1]-xspan[0]
         xo = xspan[0]
@@ -104,20 +154,41 @@ class LocalResource(Resource):
 
         zpix = zspan[1]-zspan[0]
         zo = zspan[0]
-        print zpix, xpix,ypix
+
         dataLoc = datastore[channelRes]
-        print dataLoc[0,:,:]
         vol = dataLoc[zo:zpix,yo:ypix,xo:xpix]
-        print vol
         return vol
 
     @classmethod
     def retrieve(self, datastore, path):
+
+        """
+			Method to retrieve a specific file. Aimed at developer for quick file access
+
+			Args:
+				path (string): desired path to the HDF5 group created
+
+			Raises:
+				(KeyError): if given invalid version.
+        """
+
         retrF = datastore[path]
         return retrF
 
     @classmethod
     def list_groups(self, userFind):
+
+        """
+			Method to retrieve a tree of hirerchy within datastore.
+
+			Returns:
+				printname (string) : list of all possible collections, channels and experiments
+									 created in the current datastore
+
+			Raises:
+				(KeyError): if given invalid version.
+        """
+
         def printname(name):
             print name
         return userFind.visit(printname)

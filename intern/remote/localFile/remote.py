@@ -31,7 +31,7 @@ class LocalRemote(Remote):
 			Constructor:
 			Checks for latest version. If no version is given, assigns version as none
 			Protocol and host specifications are taken in as keys -values of dictionary.
-			global api variable is named and used for every command that requires api.
+			global hos and datastore values are assigned.
 		"""
 
 		if version is None:
@@ -52,10 +52,11 @@ class LocalRemote(Remote):
 
 	def get_cutout(self, channelRes, res, xspan, yspan, zspan):
 		"""
-			Method to request a volume of data from dvid server
+			Method to request a volume of data from local server
 
 			Args:
-				IDrepos (string) : UUID assigned to DVID repository and repository name
+				channelRes (string) : hiererchal path of where the data is located
+				res (int) : data resolution
 				xspan (int) : range of pixels in x axis ([1000:1500])
 				yspan (int) : range of pixels in y axis ([1000:1500])
 				zspan (int) : range of pixels in z axis ([1000:1010])
@@ -70,21 +71,27 @@ class LocalRemote(Remote):
 
 	def get_channel(self, collection,channel,experiment):
 		"""
+			Method to reques specific collection/channel/experiment where the data is located
 
+			Args:
+				collection (string) : name of collection
+				channel (string) : name of channel
+				experiment (string) : name of experiement (actual dataset)
+
+			Returns:
+				channelSource (string) : amalgamation of all three parameters into a single path string
+
+			Raises:
+				(KeyError): if given invalid version
 		"""
 		return LocalResource.get_channel(collection,channel,experiment)
 
 	def create_collection(self, groupName):
 		"""
-			Method to create a project space in the dvid server
+			Method to create a group space within local HDF5 datastore
 
 			Args:
-				typename (string): describes data type stored (labelblk, labelvol, imagetile)
-				dataname (string): user desired name of the instance
-				version (int): describes the version of the instance the user is creating (default: 0)
-
-			Returns:
-				string: Confirmation message
+				groupName (string) : Desired name of the group which will be categorized 'collection'
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -93,15 +100,11 @@ class LocalRemote(Remote):
 
 	def create_channel(self, groupName, subGroup):
 		"""
-			Method to create a project space in the dvid server
+			Method to create a sub-group space within local HDF5 datastore
 
 			Args:
-				typename (string): describes data type stored (labelblk, labelvol, imagetile)
-				dataname (string): user desired name of the instance
-				version (int): describes the version of the instance the user is creating (default: 0)
-
-			Returns:
-				string: Confirmation message
+				groupName (string) : name of the group (collection) this sub-group (channel) will be created in
+				subGroup (string) : Desired name of the sub-group which will be categorized as the channel
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -110,17 +113,12 @@ class LocalRemote(Remote):
 
 	def create_cutout(self, subGroup, arrayName, dataArray):
 		"""
-			Method to upload data onto the dvid server.
+			Method to create a dataset within local HDF5 datastore
 
 			Args:
-				UUID (string): ID of the DVID repository where the instance is found
-				typename (string): type of data accepted by the project space
-				dataname (string): user assigned name of the project space
-				version (string): describes the version of the instance the user is creating (default: 0)
-				fileDir (string): direcotry to the file of png to upload
-
-			Returns:
-				string: Confirmation message
+				subGroup (string) : name of the channel (sub-group) in which the data will be saved
+				arrayName (string) : name of the data
+				dataArray (array) : N-Dimensional array which is to be saved
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -129,17 +127,10 @@ class LocalRemote(Remote):
 
 	def retrieve(self, path):
 		"""
-			Method to upload data onto the dvid server.
+			Method to retrieve a specific file. Aimed at developer for quick file access
 
 			Args:
-				UUID (string): ID of the DVID repository where the instance is found
-				typename (string): type of data accepted by the project space
-				dataname (string): user assigned name of the project space
-				version (string): describes the version of the instance the user is creating (default: 0)
-				fileDir (string): direcotry to the file of png to upload
-
-			Returns:
-				string: Confirmation message
+				path (string): desired path to the HDF5 group created
 
 			Raises:
 				(KeyError): if given invalid version.
@@ -148,17 +139,11 @@ class LocalRemote(Remote):
 
 	def list_groups(self):
 		"""
-			Method to upload data onto the dvid server.
-
-			Args:
-				UUID (string): ID of the DVID repository where the instance is found
-				typename (string): type of data accepted by the project space
-				dataname (string): user assigned name of the project space
-				version (string): describes the version of the instance the user is creating (default: 0)
-				fileDir (string): direcotry to the file of png to upload
+			Method to retrieve a tree of hirerchy within datastore.
 
 			Returns:
-				string: Confirmation message
+				printname (string) : list of all possible collections, channels and experiments
+									 created in the current datastore
 
 			Raises:
 				(KeyError): if given invalid version.
