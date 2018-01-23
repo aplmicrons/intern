@@ -22,12 +22,33 @@ local = LocalRemote({
     })
 Collection1 = local.create_collection('pinky2')
 Channel11 = local.create_channel(Collection1,'em2')
-volume = local.create_cutout(Channel11,'v1',volumeB)
+volumeL = local.create_cutout(Channel11,'v1',volumeB)
 
-#LocalMetadata
+#LocalMetadata updates
+coll_data = {'poc': 'Jane Doe'}
+local.create_metadata(Collection1, coll_data)
 
+exp_data = {'weight': '20g', 'diet': 'C2', 'date': '23-May-2016'}
+local.create_metadata(Channel11, exp_data)
 
-#Local to Boss upload of annotated data
-Collection1 = boss.create_collection('pinky2')
-Channel11 = boss.create_channel(Collection1,'em2')
-volume = boss.create_cutout(Channel11,'v1',volumeB)
+chan_data = {'channel_prep': '342', 'microscope': 'sem4'}
+local.create_metadata(volumeL, chan_data)
+
+chan_keys = local.list_metadata(layer)
+print(chan_keys)
+
+chan_new_data = {'channel_prep': '345', 'microscope': 'sem3'}
+local.update_metadata(channel, chan_new_data)
+
+local.delete_metadata(collection, ['poc'])
+
+#Data processing can also be done here before re-upload
+
+# #Local to Boss upload of annotated data
+# chan_setup = ChannelResource('CHAN_NAME', 'COLL_NAME', 'EXP_NAME', 'image', datatype='uint16')
+# chan = rmt.create_project(chan_setup)
+# xspan = [0, 200]
+# yspan = [0, 90]
+# zspan = [0, 20]
+#
+# BossRemote.create_cutout(chan, 0, xspan, yspan, zspan, VolumeLMeta)
