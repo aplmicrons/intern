@@ -110,9 +110,9 @@ class MetadataService(Service):
             HTTPErrorList on failure.
         """
         i = 0
-        keyN = len(keys_vals.keys())
+        keyN = len(keys.keys())
         while i < keyN:
-            key = keys_vals.keys()[i]
+            key = keys.keys()[i]
             resource.__delitem__(key)
             i = i+1
         return 'Done deleting.'
