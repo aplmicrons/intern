@@ -32,7 +32,7 @@ class MetadataService(Service):
         Will attempt to create all key-value pairs even if a failure is encountered.
 
         Args:
-            resource (intern.resource.boss.BossResource): List keys associated with this resource.
+            resource : List keys associated with this resource.
             keys_vals (dictionary): The metadata to associate with the resource.
 
         Raises:
@@ -40,8 +40,10 @@ class MetadataService(Service):
         """
         i = 0
         keyN = len(keys_vals.keys())
+        print keyN
         while i < keyN:
             key = keys_vals.keys()[i]
+            print key
             value = keys_vals.values()[i]
             resource.__setitem__(key,value)
             i = i+1
@@ -52,7 +54,7 @@ class MetadataService(Service):
         """Get metadata key-value pairs associated with the given resource.
 
         Args:
-            resource (intern.resource.boss.BossResource): Get key-value pairs associated with this resource.
+            resource : Get key-value pairs associated with this resource.
             keys (list): Keys to retrieve.
 
         Returns:
@@ -79,7 +81,7 @@ class MetadataService(Service):
         update all key-value pairs even if a failure is encountered.
 
         Args:
-            resource (intern.resource.boss.BossResource): Update values associated with this resource.
+            resource : Update values associated with this resource.
             keys_vals (dictionary): The metadata to update for the resource.
 
         Raises:
@@ -102,7 +104,7 @@ class MetadataService(Service):
         occurs.
 
         Args:
-            resource (intern.resource.boss.BossResource): Delete key-value pairs associated with this resource.
+            resource : Delete key-value pairs associated with this resource.
             keys (list): Keys to delete.
 
         Raises:
