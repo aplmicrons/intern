@@ -90,7 +90,8 @@ class MetadataService(Service):
         while i < keyN:
             key = keys_vals.keys()[i]
             value = keys_vals.values()[i]
-            resource.modify(key,value)
+            resource.__setitem__(key,value)
+            print 'This worked'
             i = i+1
         print 'Done updating metadata.'
 
