@@ -9,7 +9,7 @@ import numpy as np
 boss = BossRemote({
     "protocol": "https",
     "host": "api.theboss.io",
-    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
+    "token": "Token",
 })
 volumeB = boss.get_cutout(
     boss.get_channel("em", "pinky40", "v7"), 1,
@@ -18,7 +18,7 @@ volumeB = boss.get_cutout(
 #Local Upload
 local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
-    "datastore":"LocalBossDummy"
+    "datastore":"LocalBossDummy2"
     })
 Collection1 = local.create_collection('pinky2')
 Channel11 = local.create_channel(Collection1,'em2')
@@ -41,11 +41,11 @@ local.delete_metadata(Collection1, ['poc'])
 
 #Data processing can also be done here before re-upload
 
-# #Local to Boss upload of annotated data
-# chan_setup = ChannelResource('CHAN_NAME', 'COLL_NAME', 'EXP_NAME', 'image', datatype='uint16')
-# chan = rmt.create_project(chan_setup)
-# xspan = [0, 200]
-# yspan = [0, 90]
-# zspan = [0, 20]
-#
-# BossRemote.create_cutout(chan, 0, xspan, yspan, zspan, VolumeLMeta)
+#Local to Boss upload of annotated data
+chan_setup = ChannelResource('CHAN_NAME', 'COLL_NAME', 'EXP_NAME', 'image', datatype='uint16')
+chan = BossRemote.create_project(chan_setup)
+xspan = [0, 200]
+yspan = [0, 90]
+zspan = [0, 20]
+
+BossRemote.create_cutout(chan, 0, xspan, yspan, zspan, VolumeLMeta)

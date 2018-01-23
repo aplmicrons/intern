@@ -8,7 +8,7 @@ import numpy as np
 boss = BossRemote({
     "protocol": "https",
     "host": "api.theboss.io",
-    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88"
+    "token": "Token"
 })
 
 #Here you will specify form where the data is coming from, the resolution, and the size of your image.

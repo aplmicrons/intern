@@ -10,7 +10,7 @@ from PIL import Image
 	# git status and make sure you are inside the integration branch
 	# git pull
 	# pip install -U .
-#You are ready! 
+#You are ready!
 #If you would like to get multiple images you can make a while loop or for loop, let me know
 #if you want me to do it :)
 
@@ -18,7 +18,7 @@ boss = BossRemote({
     "protocol": "https",
     "host": "api.theboss.io",
     #Remember to change your token here. You can get your own at: https://api.theboss.io/token/
-    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88"
+    "token": "Token"
 })
 
 #Here you will specify form where the data is coming from, the resolution, and the size of your image.
@@ -42,7 +42,7 @@ volume4 = boss.get_cutout(
     [5000, 6000], [8000, 9000], [1100, 1200],
 )
 
-#We can print all the volume variables. This is most likely what you will need to 
+#We can print all the volume variables. This is most likely what you will need to
 #analyze the data. So you would use the volume variables as you wish. Remember these are saved as
 #numpy arrays!
 print(volume)
@@ -61,7 +61,7 @@ plt.imshow(volume3[1,:,:])
 fig4 = plt.figure(4)
 plt.imshow(volume4[1,:,:])
 
-#This will save all the figures created above, which we will then use to overlay. 
+#This will save all the figures created above, which we will then use to overlay.
 fig1.savefig("cc.png")
 fig2.savefig("mit.png")
 fig3.savefig("syn.png")
