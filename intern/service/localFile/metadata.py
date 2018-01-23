@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from intern.service.local import LocalService
+from intern.service import Service
 import h5py
 
 class MetadataService(Service):
@@ -20,14 +20,8 @@ class MetadataService(Service):
     """
 
     def __init__(self):
-        """Constructor.
-
-        Attributes:
-            base_url (string): Base url to project service such as 'api.boss.io'.
-            version (string): Version of Boss API to use.
-
-        Raises:
-            (KeyError): if given invalid version.
+        """
+            Constructor.
         """
         service.__init__(self)
 
@@ -50,7 +44,7 @@ class MetadataService(Service):
             value = keys_vals.values()[i]
             resource.__setitem__(key,value)
             i = i+1
-        return 'Done'
+        return 'Done creating metadata'
 
     def get(self, resource, keys):
         """Get metadata key-value pairs associated with the given resource.
@@ -95,7 +89,7 @@ class MetadataService(Service):
             value = keys_vals.values()[i]
             resource.__setitem__(key,value)
             i = i+1
-        return 'Done'
+        print 'Done updating metadata.'
 
     def delete(self, resource, keys):
         """Delete metadata key-value pairs associated with the given resource.
@@ -110,6 +104,11 @@ class MetadataService(Service):
         Raises:
             HTTPErrorList on failure.
         """
-        self.service.delete(
-            resource, keys, self.url_prefix, self.auth, self.session,
-            self.session_send_opts)
+        i = 0
+        keyN = len(keys_vals.keys())
+        while i < keyN:
+            key = keys_vals.keys()[i]
+            value = keys_vals.values()[i]
+            resource.__delitem__(key,value)
+            i = i+1
+        return 'Done deleting.'
