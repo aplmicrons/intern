@@ -176,7 +176,7 @@ class LocalResource(Resource):
         return retrF
 
     @classmethod
-    def list_groups(self, userFind):
+    def list(self, userFind):
 
         """
 			Method to retrieve a tree of hirerchy within datastore.

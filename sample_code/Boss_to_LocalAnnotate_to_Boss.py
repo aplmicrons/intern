@@ -24,7 +24,7 @@ Collection1 = local.create_collection('pinky2')
 Channel11 = local.create_channel(Collection1,'em2')
 volume = local.create_cutout(Channel11,'v1',volumeB)
 
-#LocalAnnotation
+#LocalMetadata
 
 
 #Local to Boss upload of annotated data

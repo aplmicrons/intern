@@ -137,7 +137,7 @@ class LocalRemote(Remote):
 		"""
 		return LocalResource.retrieve(datastore,path)
 
-	def list_groups(self):
+	def list(self):
 		"""
 			Method to retrieve a tree of hirerchy within datastore.
 
@@ -148,4 +148,4 @@ class LocalRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return LocalResource.list_groups(datastore)
+		return LocalResource.list(datastore)
