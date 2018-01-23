@@ -149,3 +149,72 @@ class LocalRemote(Remote):
 				(KeyError): if given invalid version.
 		"""
 		return LocalResource.list(datastore)
+
+	def create_metadata(self, resource, keys_vals):
+
+		"""
+		Create the given key-value pairs for the given resource.
+
+		Will attempt to create all key-value pairs even if a failure is encountered.
+
+		Args:
+			resource (intern.resource.boss.BossResource): List keys associated with this resource.
+			keys_vals (dictionary): The metadata to associate with the resource.
+
+		Raises:
+			HTTPErrorList on failure.
+			"""
+		return LocalService.create(resource,keys_vals)
+
+	def get_metadata(self, resource, keys):
+
+		"""
+			Get metadata key-value pairs associated with the given resource.
+
+			Args:
+				resource (intern.resource.boss.BossResource): Get key-value pairs associated with this resource.
+				keys (list): Keys to retrieve.
+
+			Returns:
+				(dictionary): The requested metadata for the given resource.
+
+			Raises:
+				HTTPErrorList on failure.
+		"""
+		return LocalService.get(resource,keys)
+
+	def update_metadata(self, resource, keys_vals):
+
+		"""
+			Update the given key-value pairs for the given resource.
+
+			Keys must already exist before they may be updated.  Will attempt to
+			update all key-value pairs even if a failure is encountered.
+
+			Args:
+				resource (intern.resource.boss.BossResource): Update values associated with this resource.
+				keys_vals (dictionary): The metadata to update for the resource.
+
+			Raises:
+				HTTPErrorList on failure.
+		"""
+
+		return LocalService.update(resource,keys_vals)
+
+	def delete_metadata(self, resource, keys):
+
+		"""
+			Delete metadata key-value pairs associated with the given resource.
+
+			Will attempt to delete all given key-value pairs even if a failure
+			occurs.
+
+			Args:
+				resource (intern.resource.boss.BossResource): Delete key-value pairs associated with this resource.
+				keys (list): Keys to delete.
+
+			Raises:
+				HTTPErrorList on failure.
+		"""
+
+		return LocalService.delete(resource,keys)
