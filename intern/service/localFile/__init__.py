@@ -17,4 +17,4 @@
 Author:
     Luis Rodriguez
 """
-from intern.service.local.service import LocalService
+from intern.service import Service
