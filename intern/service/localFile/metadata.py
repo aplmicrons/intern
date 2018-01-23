@@ -90,8 +90,8 @@ class MetadataService(Service):
         while i < keyN:
             key = keys_vals.keys()[i]
             value = keys_vals.values()[i]
+            resource.__delitem__(key)
             resource.__setitem__(key,value)
-            print 'This worked'
             i = i+1
         print 'Done updating metadata.'
 
@@ -113,7 +113,6 @@ class MetadataService(Service):
         keyN = len(keys_vals.keys())
         while i < keyN:
             key = keys_vals.keys()[i]
-            value = keys_vals.values()[i]
-            resource.__delitem__(key,value)
+            resource.__delitem__(key)
             i = i+1
         return 'Done deleting.'
