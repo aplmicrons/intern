@@ -18,7 +18,7 @@ volumeB = boss.get_cutout(
 #Local Upload
 local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
-    "datastore":"LocalBossDummy"
+    "datastore":"LocalBossDummy2"
     })
 Collection1 = local.create_collection('pinky2')
 Channel11 = local.create_channel(Collection1,'em2')

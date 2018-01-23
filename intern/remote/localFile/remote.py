@@ -165,7 +165,7 @@ class LocalRemote(Remote):
 		Raises:
 			HTTPErrorList on failure.
 			"""
-		return LocalService.create(resource,keys_vals)
+		return MetadataService.create(resource,keys_vals)
 
 	def get_metadata(self, resource, keys):
 
@@ -182,7 +182,7 @@ class LocalRemote(Remote):
 			Raises:
 				HTTPErrorList on failure.
 		"""
-		return LocalService.get(resource,keys)
+		return MetadataService.get(resource,keys)
 
 	def update_metadata(self, resource, keys_vals):
 
@@ -200,7 +200,7 @@ class LocalRemote(Remote):
 				HTTPErrorList on failure.
 		"""
 
-		return LocalService.update(resource,keys_vals)
+		return MetadataService.update(resource,keys_vals)
 
 	def delete_metadata(self, resource, keys):
 
@@ -218,4 +218,4 @@ class LocalRemote(Remote):
 				HTTPErrorList on failure.
 		"""
 
-		return LocalService.delete(resource,keys)
+		return MetadataService.delete(resource,keys)
