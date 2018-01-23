@@ -15,7 +15,7 @@
 """
 from intern.remote import Remote
 from intern.resource.localFile.resource import *
-from intern.service.localFile.metadata import MetadataService
+from intern.service.localFile.metadata import *
 import os.path
 
 LATEST_VERSION = 'v0'

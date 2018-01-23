@@ -25,6 +25,7 @@ class MetadataService(Service):
         """
         service.__init__(self)
 
+    @classmethod
     def create(self, resource, keys_vals):
         """Create the given key-value pairs for the given resource.
 
@@ -46,6 +47,7 @@ class MetadataService(Service):
             i = i+1
         return 'Done creating metadata'
 
+    @classmethod
     def get(self, resource, keys):
         """Get metadata key-value pairs associated with the given resource.
 
@@ -69,6 +71,7 @@ class MetadataService(Service):
             i = i+1
         return output
 
+    @classmethod
     def update(self, resource, keys_vals):
         """Update the given key-value pairs for the given resource.
 
@@ -91,6 +94,7 @@ class MetadataService(Service):
             i = i+1
         print 'Done updating metadata.'
 
+    @classmethod
     def delete(self, resource, keys):
         """Delete metadata key-value pairs associated with the given resource.
 
