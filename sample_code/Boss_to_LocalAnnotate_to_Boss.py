@@ -18,7 +18,7 @@ volumeB = boss.get_cutout(
 #Local Upload
 local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
-    "datastore":"LocalBossDummy7"
+    "datastore":"LocalBossDummy8"
     })
 chan_setup = local.get_channel('em','pinky40')
 proj = local.create_project(chan_setup)
@@ -27,17 +27,17 @@ volume = local.create_cutout(proj,'v1',volumeB)
 
 #LocalMetadata updates
 coll_data = {'poc': 'Jane Doe'}
-local.create_metadata(Collection1, coll_data)
+local.create_metadata(volume, coll_data)
 
 exp_data = {'weight': '20g', 'diet': 'C2', 'date': '23-May-2016'}
-local.create_metadata(Channel11, exp_data)
+local.create_metadata(volume, exp_data)
 
 chan_new_data = {'weight': '45g', 'date': '23-May-2017'}
-local.update_metadata(Channel11, chan_new_data)
+local.update_metadata(volume, chan_new_data)
 
-local.delete_metadata(Collection1, ['poc'])
+local.delete_metadata(volume, ['poc'])
 
-ChannelMeta= local.list_metadata(Channel11)
+ChannelMeta= local.list_metadata(volume)
 print ChannelMeta
 
 #Data processing can also be done here before re-upload
