@@ -113,19 +113,20 @@ class LocalRemote(Remote):
 		return LocalResource.create_channel(groupName, subGroup)
 
 	def create_project(self, chan_setup):
-        """
-            Creates the space in which data will be stored
+		"""
+			Method to reques specific collection/channel/experiment where the data is located
 
-            Args:
-                chan_setup (string) : desired path to new or existing dataset
+			Args:
+				collection (string) : name of collection
+				channel (string) : name of channel
+				experiment (string) : name of experiement (actual dataset)
 
-            Returns:
-                subGrp (HDF5) : group to which the new dataset will be added
+			Returns:
+				channelSource (string) : amalgamation of all three parameters into a single path string
 
-            Raises:
-                The program tries to create the groups, if they already exist then
-                it simply opens them.
-        """
+			Raises:
+				(KeyError): if given invalid version
+		"""
 
 		return LocalResource.create_project(datastore,chan_setup)
 
