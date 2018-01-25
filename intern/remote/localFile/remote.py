@@ -70,7 +70,7 @@ class LocalRemote(Remote):
 		"""
 		return LocalResource.get_cutout(datastore, channelRes, res, xspan, yspan, zspan)
 
-	def get_channel(self, collection,channel,experiment):
+	def get_channel(self, collection,channel,experiment=''):
 		"""
 			Method to reques specific collection/channel/experiment where the data is located
 
@@ -118,7 +118,7 @@ class LocalRemote(Remote):
 		"""
 
 		return LocalResource.create_project(datastore,chan_setup)
-	
+
 	def create_cutout(self, subGroup, arrayName, dataArray):
 		"""
 			Method to create a dataset within local HDF5 datastore

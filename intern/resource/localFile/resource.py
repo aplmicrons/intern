@@ -115,7 +115,7 @@ class LocalResource(Resource):
         return subGrp2
 
     @classmethod
-    def get_channel(self,channel,collection,experiment=None):
+    def get_channel(self,channel,collection,experiment=''):
 
         """
 			Method to reques specific collection/channel/experiment where the data is located
