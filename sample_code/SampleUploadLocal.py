@@ -24,15 +24,14 @@ local = LocalRemote({
     "datastore":"LocalBossDummy"
     })
 
-#Creating a collection and channel to store the data within the local datastore
-Collection1 = local.create_collection('pinky2')
-Channel11 = local.create_channel(Collection1,'em2')
-#The actual volume of data to be uploaded to the desired channel
-volume = local.create_cutout(Channel11,'v1',volumeB)
+chan_setup = local.get_channel('em','pinky40')
+proj = local.create_project(chan_setup)
+
+volume = local.create_cutout(proj,'v1',volumeB)
 
 #To download the data you can use the get_cutout function just as in the boss remote
 volumeL = local.get_cutout(
-    local.get_channel('pinky2', 'em2', 'v1'), 1,
+    local.get_channel('em', 'pinky40', 'v1'), 1,
     [0, 200], [0, 90], [0, 20]
 )
 
@@ -42,15 +41,16 @@ plt.show()
 
 #Creating a extra collection and channel for demonstration purposes
 Collection2 = local.create_collection('MouseBrain2')
-Collection3 = local.create_collection('FlyBrain2')
-Collection4 = local.create_collection('PinkyBrain2')
-Channel21 = local.create_channel(Collection2,'em')
-Channel22 = local.create_channel(Collection2,'flo')
-Channel31 = local.create_channel(Collection3,'fly')
+chan_setup = local.get_channel('MouseBrain','testSet')
+proj = local.create_project(chan_setup)
+chan_setup = local.get_channel('FlyBrain','testSet1')
+proj = local.create_project(chan_setup)
+chan_setup = local.get_channel('FlyBrain','testSet2')
+proj = local.create_project(chan_setup)
 
 #Additional possible functions
 print 'This is a list of all the posible files you can access within this local datastore:'
-print local.list_groups()
+print local.list()
 
 print 'Using local.retrieve you can get the HDF5 dataset saved on the requested path:'
-print local.retrieve('pinky2/em2/v1')
+print local.retrieve('em/pinky40/v1')
