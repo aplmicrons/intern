@@ -112,7 +112,7 @@ class LocalResource(Resource):
         chan,col = chan_setup[0],chan_setup[1]
         grp = datastore.create_group(chan)
         subGrp = datastore.create_group(col)
-        return subGrp2
+        return subGrp
 
     @classmethod
     def get_channel(self,channel,collection,experiment=''):
