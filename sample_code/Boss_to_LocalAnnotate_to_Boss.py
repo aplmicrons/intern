@@ -9,7 +9,7 @@ import numpy as np
 boss = BossRemote({
     "protocol": "https",
     "host": "api.theboss.io",
-    "token": "Token",
+    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
 })
 volumeB = boss.get_cutout(
     boss.get_channel("em", "pinky40", "v7"), 1,
@@ -18,11 +18,11 @@ volumeB = boss.get_cutout(
 #Local Upload
 local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
-    "datastore":"LocalBossDummy2"
+    "datastore":"LocalBossDummy3"
     })
 Collection1 = local.create_collection('pinky2')
 Channel11 = local.create_channel(Collection1,'em2')
-volumeL = local.create_cutout(Channel11,'v1',volumeB)
+volumeLMeta = local.create_cutout(Channel11,'v1',volumeB)
 
 #LocalMetadata updates
 coll_data = {'poc': 'Jane Doe'}
@@ -48,4 +48,5 @@ xspan = [0, 200]
 yspan = [0, 90]
 zspan = [0, 20]
 
+VolumeLmeta.astype(numpy.uint16)
 BossRemote.create_cutout(chan, 0, xspan, yspan, zspan, VolumeLMeta)

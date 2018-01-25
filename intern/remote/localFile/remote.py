@@ -15,7 +15,7 @@
 """
 from intern.remote import Remote
 from intern.resource.localFile.resource import *
-from intern.service.localFile.metadata import *
+from intern.service.localFile.metadata import MetadataService
 import os.path
 
 LATEST_VERSION = 'v0'
@@ -219,3 +219,20 @@ class LocalRemote(Remote):
 		"""
 
 		return MetadataService.delete(resource,keys)
+
+	@classmethod
+	def list_metadata(self,resource):
+		"""
+			Method to retrieve a tree of hirerchy within datastore.
+
+			Args:
+				resource (string): name of the resource of which metadata attributes will be listed
+
+			Returns:
+				printname (string) : list of all possible collections, channels and experiments
+									 created in the current datastore
+
+			Raises:
+				(KeyError): if given invalid version.
+		"""
+		return MetadataService.list(resource)

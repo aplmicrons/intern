@@ -43,7 +43,7 @@ class MetadataService(Service):
         while i < keyN:
             key = keys_vals.keys()[i]
             value = keys_vals.values()[i]
-            resource.__setitem__(key,value)
+            resource.attrs.__setitem__(key,value)
             i = i+1
         print 'Done creating metadata'
 
@@ -66,7 +66,7 @@ class MetadataService(Service):
         output = [0]*keyN
         while i < keyN:
             key = keys[i]
-            meta = resource.__getitem__(key)
+            meta = resource.attrs.__getitem__(key)
             output[i] = meta
             i = i+1
         return output
@@ -90,8 +90,7 @@ class MetadataService(Service):
         while i < keyN:
             key = keys_vals.keys()[i]
             value = keys_vals.values()[i]
-            resource.__delitem__(key)
-            resource.__setitem__(key,value)
+            resource.attrs.modify(key,value)
             i = i+1
         print 'Done updating metadata.'
 
@@ -112,6 +111,21 @@ class MetadataService(Service):
         i = 0
         keyN = len(keys)
         while i < keyN:
-            resource.__delitem__(keys[i])
+            resource.attrs.__delitem__(keys[i])
             i = i+1
         print 'Done deleting.'
+
+    @classmethod
+    def list(self,resource):
+        """
+            Lists all metadata attributes related to this data
+
+            Args:
+                resource (string): The object of which the metadata attributes will be listed
+
+            Returns:
+                ls (list): list of all associated keys
+        """
+
+            ls = resource.attrs.keys()
+            return ls
