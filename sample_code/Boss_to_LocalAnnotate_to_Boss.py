@@ -1,7 +1,8 @@
 import intern
 from intern.remote.localFile import LocalRemote
 from intern.remote.boss import BossRemote
-from intern.resource.boss.resource import ChannelResource
+from intern.resource.boss.resource import *
+from intern.resource.localFile.resource import *
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -20,12 +21,17 @@ local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
     "datastore":"LocalBossDummy8"
     })
+print local
 chan_setup = local.get_channel('em','pinky40')
 proj = local.create_project(chan_setup)
-
 volume = local.create_cutout(proj,'v1',volumeB)
 
 #LocalMetadata updates
+Collection1 = CollectionResource(local,'em','pinky40')
+print Collection1
+Channel1 = ChannelResource(local,'em')
+print Channel1
+
 coll_data = {'poc': 'Jane Doe'}
 local.create_metadata(volume, coll_data)
 

@@ -221,7 +221,7 @@ class LocalResource(Resource):
 
 class ChannelResource(LocalResource):
     def __init__(
-        self, datastore, channel):
+        datastore, channel):
         """Constructor.
 
         Args:
@@ -235,7 +235,7 @@ class ChannelResource(LocalResource):
 
 class CollectionResource(LocalResource):
     def __init__(
-        self, datastore, channel, collection):
+        datastore, channel, collection):
         """Constructor.
 
         Args:
