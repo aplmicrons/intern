@@ -126,6 +126,5 @@ class MetadataService(Service):
             Returns:
                 ls (list): list of all associated keys
         """
-
-            ls = resource.attrs.keys()
-            return ls
+        ls = resource.attrs.keys()
+        return ls
