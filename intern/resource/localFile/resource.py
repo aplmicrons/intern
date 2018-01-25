@@ -218,32 +218,3 @@ class LocalResource(Resource):
         def printname(name):
             print name
         return userFind.visit(printname)
-
-class ChannelResource(LocalResource):
-    def __init__(
-        datastore, channel):
-        """Constructor.
-
-        Args:
-            name (string): Collection name.
-            description (optional[string]): Collection description.  Defaults to empty.
-            creator (optional[string]): Resource creator.
-            raw (optional[dictionary]): Holds JSON data returned by the Boss API on a POST (create) or GET operation.
-        """
-        retrF = datastore[channel]
-        return retrF
-
-class CollectionResource(LocalResource):
-    def __init__(
-        datastore, channel, collection):
-        """Constructor.
-
-        Args:
-            name (string): Collection name.
-            description (optional[string]): Collection description.  Defaults to empty.
-            creator (optional[string]): Resource creator.
-            raw (optional[dictionary]): Holds JSON data returned by the Boss API on a POST (create) or GET operation.
-        """
-        path = channel + '/' + collection
-        retrF = datastore[path]
-        return retrF
