@@ -54,7 +54,7 @@ class LocalResource(Resource):
         return f
 
     @classmethod
-    def create_collection(self, f, groupName):
+    def create_collection(self,datastore, groupName):
 
         """
 			Method to create a group space within local HDF5 datastore
@@ -66,7 +66,7 @@ class LocalResource(Resource):
 				(KeyError): if given invalid version.
         """
 
-        grp = f.create_group(groupName)
+        grp = datastore.create_group(groupName)
         return (grp)
 
     @classmethod
@@ -100,12 +100,24 @@ class LocalResource(Resource):
 			Raises:
 				(KeyError): if given invalid version.
         """
-        dset = subgrp.create_dataset(ArrayName, data = dataArray)
-
+        dset = subgrp.create_dataset(ArrayName, data = dataArray, compression = 'gzip')
         return(dset)
 
     @classmethod
-    def get_channel(self,collection,channel,experiment):
+    def create_project(self, datastore ,chan_setup):
+        """
+            Creates the space in which data will be stored
+        """
+        chan_setup = chan_setup.split('/')
+        chan,col,exp = chan_setup[0],chan_setup[1],chan_setup[2]
+        grp = f.create_group(chan)
+        subGrp = f.create_group(col)
+        subGrp2 = f.create_group(exp)
+        return subGrp2
+
+
+    @classmethod
+    def get_channel(self,channel,collection,experiment):
 
         """
 			Method to reques specific collection/channel/experiment where the data is located
@@ -122,7 +134,7 @@ class LocalResource(Resource):
 				(KeyError): if given invalid version
         """
 
-        channelSource = str(collection + '/' + channel + '/' + experiment)
+        channelSource = str(channel + '/' + collection + '/' + experiment)
         return channelSource
 
     @classmethod

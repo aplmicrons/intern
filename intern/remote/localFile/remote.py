@@ -112,6 +112,13 @@ class LocalRemote(Remote):
 		"""
 		return LocalResource.create_channel(groupName, subGroup)
 
+	def create_project(self, chan_setup):
+		"""
+			Method to create space in which data can be saved.
+		"""
+
+		return LocalResource.create_project(datastore,chan_setup)
+	
 	def create_cutout(self, subGroup, arrayName, dataArray):
 		"""
 			Method to create a dataset within local HDF5 datastore

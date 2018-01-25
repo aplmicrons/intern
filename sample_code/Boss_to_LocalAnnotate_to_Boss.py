@@ -18,7 +18,7 @@ volumeB = boss.get_cutout(
 #Local Upload
 local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
-    "datastore":"LocalBossDummy4"
+    "datastore":"LocalBossDummy7"
     })
 Collection1 = local.create_collection('pinky2')
 Channel11 = local.create_channel(Collection1,'em2')
@@ -36,8 +36,10 @@ print(chan_keys)
 
 chan_new_data = {'weight': '45g', 'date': '23-May-2017'}
 local.update_metadata(Channel11, chan_new_data)
-
 local.delete_metadata(Collection1, ['poc'])
+
+ChannelMeta= local.list_metadata(Channel11)
+print ChannelMeta
 
 #Data processing can also be done here before re-upload
 
