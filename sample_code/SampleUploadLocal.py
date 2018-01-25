@@ -26,7 +26,6 @@ local = LocalRemote({
 
 chan_setup = local.get_channel('em','pinky40')
 proj = local.create_project(chan_setup)
-
 volume = local.create_cutout(proj,'v1',volumeB)
 
 #To download the data you can use the get_cutout function just as in the boss remote
@@ -40,11 +39,12 @@ imgplot = plt.imshow(volumeL[0,:,:])
 plt.show()
 
 #Creating a extra collection and channel for demonstration purposes
-Collection2 = local.create_collection('MouseBrain2')
 chan_setup = local.get_channel('MouseBrain','testSet')
 proj = local.create_project(chan_setup)
+
 chan_setup = local.get_channel('FlyBrain','testSet1')
 proj = local.create_project(chan_setup)
+
 chan_setup = local.get_channel('FlyBrain','testSet2')
 proj = local.create_project(chan_setup)
 
