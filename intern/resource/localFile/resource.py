@@ -111,7 +111,7 @@ class LocalResource(Resource):
         chan_setup = chan_setup.split('/')
         chan,col = chan_setup[0],chan_setup[1]
         grp = datastore.create_group(chan)
-        subGrp = datastore.create_group(col)
+        subGrp = grp.create_group(col)
         return subGrp
 
     @classmethod
