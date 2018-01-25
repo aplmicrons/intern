@@ -107,6 +107,16 @@ class LocalResource(Resource):
     def create_project(self, datastore ,chan_setup):
         """
             Creates the space in which data will be stored
+
+            Args:
+                chan_setup (string) : desired path to new or existing dataset
+
+            Returns:
+                subGrp (HDF5) : group to which the new dataset will be added
+
+            Raises:
+                The program tries to create the groups, if they already exist then
+                it simply opens them.
         """
         chan_setup = chan_setup.split('/')
         chan,col = chan_setup[0],chan_setup[1]
