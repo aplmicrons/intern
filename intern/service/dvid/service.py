@@ -78,7 +78,7 @@ class DvidService(Service):
 		"""
 			Returns JSON for server properties
 		"""
-		raise RuntimeError('Something went wrong when trying to get your server info')
+		# raise RuntimeError('Something went wrong when trying to get your server info')
 		info = requests.get(api + "/api/server")
 		infoM = info.content
 		return infoM
@@ -90,7 +90,7 @@ class DvidService(Service):
 		"""
 		    Creates an instance within an existing repository
 		"""
-		raise RuntimeError('Unable to sync project spaces')
+		# raise RuntimeError('Unable to sync project spaces')
 
 		dat1 = requests.post(api + "/api/repo/"+ UUID + "/instance",
 		    data=json.dumps({"typename": typename,
@@ -113,7 +113,7 @@ class DvidService(Service):
 			"parents": [ "parent-uuid1", "parent-uuid2", ... ],
 			"note": "this is a description of what I did on this commit"
 		"""
-		raise RuntimeError('Unidentified API')
+		# raise RuntimeError('Unidentified API')
 
 		merge1 = requests.post(api + "/api/repo/" + UUID + "/merge",
 			mergeType = "conflict-free",
@@ -139,7 +139,7 @@ class DvidService(Service):
 			"parents": [ "parent-uuid1", "parent-uuid2", ... ],
 			"note": "this is a description of what I did on this commit"
 		"""
-		raise RuntimeError('Unidentified API')
+		# raise RuntimeError('Unidentified API')
 
 		resolve1 = requests.post(api + "/api/repo/" + UUID + "/resolve",
 			data = data,
@@ -153,7 +153,6 @@ class DvidService(Service):
 		"""
 			Deletes the repository holding a node with the given UUID.
 		"""
-		#raise RuntimeError('One of your inputs is not correct')
 		del1 = requests.delete(api + "/api/repo/" + UUID + "?imsure=true")
 		return ("The repository with UUID: " + UUID + " has been successfully deleted.")
 
@@ -162,7 +161,7 @@ class DvidService(Service):
 		"""
 			Deletes a data instance of given dataname within the given UUID.
 		"""
-		raise RuntimeError('One of your inputs is not correct')
+		# raise RuntimeError('One of your inputs is not correct')
 		del2 = requests. delete(api + "/api/repo/" + UUID + "/" + dataname + "?imsure=true")
 		return ("The instance: " + dataname + " within UUID: " + UUID + " has been successfully deleted.")
 
@@ -189,5 +188,4 @@ class DvidService(Service):
 			)
 		settingM = setting.content
 		return ("Your settings have been changed.")
-
 		raise NotImplemented
