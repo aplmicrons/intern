@@ -104,15 +104,10 @@ class DvidResource(Resource):
         raise RuntimeError('Unable to create project space on the dvid server')
 
         a = requests.post(api + "/api/repos")
-        UUID = a["root"]
+        cont = ast.literal_eval(a.content)
+        UUID = cont["root"]
 
-        dat1 = requests.post(api + "/api/repo/"+ UUID + "/instance",
-            data=json.dumps({"typename": typename,
-                "dataname" : dataname,
-                "versioned": version
-            }))
-
-        return str(UUID)
+        return UUID
 
     @classmethod
     def create_cutout(self, api, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
@@ -133,3 +128,8 @@ class DvidResource(Resource):
             )
 
         return(res.content)
+
+    @classmethod
+    def delete_project(self, api, UUID):
+        requests.delete(api + "/api/repo/" + UUID + "?imsure=true")
+        return "Your instance has been deleted"

@@ -236,7 +236,7 @@ class DVIDRemote(Remote):
 
 		return DvidService.resolve(api, UUID, data, parents, note)
 
-	def delete_repo(self, UUID):
+	def delete_rproject(self, UUID):
 		"""
 			Method to obtain information about the server
 
@@ -250,15 +250,14 @@ class DVIDRemote(Remote):
 			    (Runtime error)
 		"""
 
-		return DvidService.delete_repo(api, UUID)
+		return DvidService.delete_project(api, UUID)
 
-	def delete_instance(self, UUID, dataname):
+	def delete_data(self, api, UUID,dataname):
 		"""
 			Method to obtain information about the server
 
 			Args:
 			    UUID (string): UUID of Dvid repository
-			    dataname (string) : name of the instance to delete
 
 			Returns:
 			    string: Server information
@@ -267,7 +266,7 @@ class DVIDRemote(Remote):
 			    (Runtime error)
 		"""
 
-		return DvidService.delete_instance(api, UUID, dataname)
+		return DvidService.delete_data(api, UUID, dataname)
 
 	def change_server_setting(self,gc1,throt1):
 		"""

@@ -17,18 +17,18 @@ import requests
 
 
 class DvidService(Service):
-	
+
 	"""
 		Partial implementation of intern.service.service.Service for the Dvid' services.
-	
+
 	"""
-	
+
 	def __init__(self):
 		Service.__init__(self)
 
 	@classmethod
 	def get_info(self,api, UUID):
-	
+
 		"""
 			Returns JSON for just the repository with given root UUID.  The UUID string can be
 			shortened as long as it is uniquely identifiable across the managed repositories.
@@ -42,7 +42,7 @@ class DvidService(Service):
 
 	@classmethod
 	def get_log(self,api, UUID):
-	
+
 		"""
 			The log is a list of strings that will be appended to the repo's log.  They should be
 			descriptions for the entire repo and not just one node.  For particular versions, use
@@ -57,12 +57,12 @@ class DvidService(Service):
 
 	@classmethod
 	def post_log(self,api, UUID,log1):
-	
+
 		"""
 			Allows the user to write a short description of the content in the repository
 			{ "log": [ "provenance data...", "provenance data...", ...] }
 		"""
-		
+
 		if  UUID is '':
 			raise ValueError('The UUID was not specified')
 		elif log1 is '':
@@ -74,7 +74,7 @@ class DvidService(Service):
 
 	@classmethod
 	def get_server_info(self,api):
-	
+
 		"""
 			Returns JSON for server properties
 		"""
@@ -86,7 +86,7 @@ class DvidService(Service):
 
 	@classmethod
 	def create_project_addon(self, api, UUID, typename, dataname, sync, version=0):
-	    
+
 		"""
 		    Creates an instance within an existing repository
 		"""
@@ -118,7 +118,7 @@ class DvidService(Service):
 		merge1 = requests.post(api + "api/repo/" + UUID + "/merge",
 			mergeType = "conflict-free",
 			parents = parents,
-			note = note 
+			note = note
 			)
 
 		return ("Your merge was successfully completed")
@@ -128,12 +128,12 @@ class DvidService(Service):
 		"""
 			Forces a merge of a set of committed parent UUIDs into a child by specifying a
 			UUID order that establishes priorities in case of conflicts (see "parents" description
-			below.  
+			below.
 
-			Unlike the very fast but lazily-enforced 'merge' endpoint, this request spawns an 
+			Unlike the very fast but lazily-enforced 'merge' endpoint, this request spawns an
 			asynchronous routine that checks all data for the given data instances (see "data" in
-			JSON post), creates versions to delete conflicts, and then performs the conflict-free 
-			merge to a final child.  
+			JSON post), creates versions to delete conflicts, and then performs the conflict-free
+			merge to a final child.
 
 			"data": [ "instance-name-1", "instance-name2", ... ],
 			"parents": [ "parent-uuid1", "parent-uuid2", ... ],
@@ -144,12 +144,12 @@ class DvidService(Service):
 		resolve1 = requests.post(api + "api/repo/" + UUID + "/resolve",
 			data = data,
 			parents = parents,
-			note = note 
+			note = note
 			)
 		return ("You resolved the merger conflict.")
 
 	@classmethod
-	def delete_repo(self, api, UUID):
+	def delete_project(self, api, UUID):
 		"""
 			Deletes the repository holding a node with the given UUID.
 		"""
@@ -158,17 +158,17 @@ class DvidService(Service):
 		return ("The repository with UUID: " + UUID + " has been successfully deleted.")
 
 	@classmethod
-	def delete_instance(self, api, UUID, dataname):
+	def delete_data(self, api, UUID, dataname):
 		"""
 			Deletes a data instance of given dataname within the given UUID.
 		"""
 		raise RuntimeError('One of your inputs is not correct')
 		del2 = requests. delete(api + "/api/repo/" + UUID + "/" + dataname + "?imsure=true")
 		return ("The instance: " + dataname + " within UUID: " + UUID + " has been successfully deleted.")
-	
+
 	@classmethod
 	def change_server_setting(self,api,gc1,throt1):
-	
+
 		"""
 			Sets server parameters.  Expects JSON to be posted with optional keys denoting parameters:
 			{
@@ -182,7 +182,7 @@ class DvidService(Service):
 			throttle  Maximum number of CPU-intensive requests that can be executed under throttle mode.
 			            See imageblk and labelblk GET 3d voxels and POST voxels.
 		"""
-	
+
 		setting = requests.post(api,
 			gc = {"gc": [gc1]},
 			throttle = {"throttle": [throt1]}
@@ -190,5 +190,4 @@ class DvidService(Service):
 		settingM = setting.content
 		return ("Your settings have been changed.")
 
-		raise NotImplemented 
-
+		raise NotImplemented

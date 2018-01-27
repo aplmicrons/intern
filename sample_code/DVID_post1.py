@@ -24,23 +24,40 @@ import json
 from PIL import Image
 import math
 
-# BOSS Data fetch which we will upload to the Local Storage:
-boss = BossRemote({
-    "protocol": "https",
-    "host": "api.theboss.io",
-    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
-})
-volumeB = boss.get_cutout(
-    boss.get_channel("em", "pinky40", "v7"), 1,
-    [10000, 10200], [10000, 10090], [500, 520],
-)
+import ast
 
-r = requests.get("http://localhost:8000/api/node/5cc94d532799484cb01788fcdb7cd9f0/grayscale/blocks/10_20_30/8")
-with open("code3.zip","wb") as code:
-    code.write(r.content)
+# # BOSS Data fetch which we will upload to the Local Storage:
+# boss = BossRemote({
+#     "protocol": "https",
+#     "host": "api.theboss.io",
+#     "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
+# })
+# volumeB = boss.get_cutout(
+#     boss.get_channel("em", "pinky40", "v7"), 1,
+#     [10000, 10200], [10000, 10090], [500, 520],
+# )
+
+api = "http://localhost:8000"
+
+#CREATE REPOS
+a = requests.post(api + "/api/repos")
+cont = a.content
+cont = ast.literal_eval(cont)
+UUID = cont["root"]
+print UUID
+
+##DELETE REPOS
+requests.delete(api+ "/api/repo/" + UUID + "?imsure=true")
 
 
 
+
+
+
+
+# r = requests.get("http://localhost:8000/api/node/5cc94d532799484cb01788fcdb7cd9f0/grayscale/blocks/10_20_30/8")
+# with open("code3.zip","wb") as code:
+#     code.write(r.content)
 
 # r = requests.get("http://localhost:8000/api/node/5cc94d532799484cb01788fcdb7cd9f0/grayscale/raw/0_1_2/2300_2300_1380/100_100_1/octet-stream")
 # octet_stream = r.content

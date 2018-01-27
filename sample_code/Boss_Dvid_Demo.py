@@ -33,6 +33,11 @@ print(volumeD)
 print("Boss volume: ")
 print(volumeB)
 
+#DVID Data Post:
+inst = dvid.create_project('imagetile','LuisData')
+print inst
+volumeD = dvid.create_cutout(inst,"BossUpload",volumeB,500,500,50,0,0,0)
+
 #Graphing Boss:
 imgplot = plt.imshow(volumeB[0,:,:])
 one = volumeB[0,:,:]
@@ -42,3 +47,4 @@ one_size = one.size
 imgplot = plt.imshow(volumeD[0,:,:])
 one = volumeD[0,:,:]
 one_size = one.size
+plt.show()
