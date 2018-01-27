@@ -46,14 +46,24 @@ cont = ast.literal_eval(cont)
 UUID = cont["root"]
 print UUID
 
+dvid = DVIDRemote({
+	"protocol": "http",
+	"host": "localhost:8000",
+	})
+
+dvid.delete_project(UUID)
 ##DELETE REPOS
-requests.delete(api+ "/api/repo/" + UUID + "?imsure=true")
+#requests.delete(api+ "/api/repo/" + UUID + "?imsure=true")
 
 
 
 
 
-
+# dat1 = requests.post(api + "/api/repo/"+ UUID + "/instance",
+# data=json.dumps({"typename": typename,
+#     "dataname" : dataname,
+#     "versioned": version
+# }))
 
 # r = requests.get("http://localhost:8000/api/node/5cc94d532799484cb01788fcdb7cd9f0/grayscale/blocks/10_20_30/8")
 # with open("code3.zip","wb") as code:

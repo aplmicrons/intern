@@ -236,7 +236,7 @@ class DVIDRemote(Remote):
 
 		return DvidService.resolve(api, UUID, data, parents, note)
 
-	def delete_rproject(self, UUID):
+	def delete_project(self, UUID):
 		"""
 			Method to obtain information about the server
 
