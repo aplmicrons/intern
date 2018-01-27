@@ -112,7 +112,7 @@ class DvidResource(Resource):
                 "versioned": version
             }))
 
-        return ("This is you UUID: " + UUID + "." + dat1.content)
+        return str(UUID)
 
     @classmethod
     def create_cutout(self, api, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):

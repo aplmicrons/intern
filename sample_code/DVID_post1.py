@@ -1,5 +1,10 @@
 from intern.remote.dvid import DVIDRemote
 import intern
+from intern.remote.localFile import LocalRemote
+from intern.remote.boss import BossRemote
+from intern.resource.boss.resource import *
+import matplotlib.pyplot as plt
+import numpy as np
 import matplotlib.pyplot as plt
 import os
 import platform
@@ -18,6 +23,22 @@ from io import BytesIO
 import json
 from PIL import Image
 import math
+
+# BOSS Data fetch which we will upload to the Local Storage:
+boss = BossRemote({
+    "protocol": "https",
+    "host": "api.theboss.io",
+    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
+})
+volumeB = boss.get_cutout(
+    boss.get_channel("em", "pinky40", "v7"), 1,
+    [10000, 10200], [10000, 10090], [500, 520],
+)
+
+r = requests.get("http://localhost:8000/api/node/5cc94d532799484cb01788fcdb7cd9f0/grayscale/blocks/10_20_30/8")
+with open("code3.zip","wb") as code:
+    code.write(r.content)
+
 
 
 
@@ -41,14 +62,14 @@ import math
 
 
 
-p = requests.post("http://localhost:8000/api/repos")
-print(type(p.content))
-
-# UUID = p.content
+# p = requests.post("http://localhost:8000/api/repos")
+# print(type(p.content))
+#
+# # UUID = p.content
+# # print(UUID)
+#
+# UUID = p["root"]
 # print(UUID)
-
-UUID = p["root"]
-print(UUID)
 
 
 
@@ -75,28 +96,28 @@ print(UUID)
 
 
 
-# dat1 = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# dat1 = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" ,
 # 	data=json.dumps({"typename" : "png",
 # 		  "dataname" : "Luis3",
 # 		  "versioned" : "0"
 # 	}))
 # print(dat1.content)
 
-# lab = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# lab = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" ,
 # 	data=json.dumps({"typename" : "labelblk",
 # 		  "dataname" : "labels3",
 # 		  "sync" : "bodies3"
 # 	}))
 # print(lab.content)
 
-# bod = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# bod = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" ,
 # 	data=json.dumps({"typename" : "labelvol",
 # 		  "dataname" : "bodies3",
 # 		  "sync" : "labels3"
 # 	}))
 # print(bod.content)
 
-# gtile = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" , 
+# gtile = requests.post("http://34.200.231.1/api/repo/" + UUID + "/instance" ,
 # 	data=json.dumps({"typename" : "imagetile",
 # 		  "dataname" : "luistiles3",
 # 		  "compression" : "none",

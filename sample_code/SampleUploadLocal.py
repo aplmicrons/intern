@@ -21,7 +21,7 @@ volumeB = boss.get_cutout(
 #otherwise you may continue.
 local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
-    "datastore":"LocalBossDummy"
+    "datastore":"LocalBossDummy2"
     })
 
 chan_setup = local.get_channel('em','pinky40')

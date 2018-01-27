@@ -2,7 +2,6 @@ import intern
 from intern.remote.localFile import LocalRemote
 from intern.remote.boss import BossRemote
 from intern.resource.boss.resource import *
-from intern.resource.localFile.resource import *
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -19,7 +18,7 @@ volumeB = boss.get_cutout(
 #Local Upload
 local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
-    "datastore":"LocalBossDummy4"
+    "datastore":"LocalBossDummy"
     })
 print local
 chan_setup = local.get_channel('em','pinky40')

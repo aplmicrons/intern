@@ -10,7 +10,7 @@ import numpy as np
 boss = BossRemote({
     "protocol": "https",
     "host": "api.theboss.io",
-    "token": "Token",
+    "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
 })
 volumeB = boss.get_cutout(
     boss.get_channel("em", "pinky40", "v7"), 1,
