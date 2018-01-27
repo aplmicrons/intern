@@ -115,7 +115,7 @@ class DvidService(Service):
 		"""
 		raise RuntimeError('Unidentified API')
 
-		merge1 = requests.post(api + "api/repo/" + UUID + "/merge",
+		merge1 = requests.post(api + "/api/repo/" + UUID + "/merge",
 			mergeType = "conflict-free",
 			parents = parents,
 			note = note
@@ -141,7 +141,7 @@ class DvidService(Service):
 		"""
 		raise RuntimeError('Unidentified API')
 
-		resolve1 = requests.post(api + "api/repo/" + UUID + "/resolve",
+		resolve1 = requests.post(api + "/api/repo/" + UUID + "/resolve",
 			data = data,
 			parents = parents,
 			note = note
@@ -154,7 +154,7 @@ class DvidService(Service):
 			Deletes the repository holding a node with the given UUID.
 		"""
 		raise RuntimeError('One of your inputs is not correct')
-		del1 = requests.delete(api + "api/repo/" + UUID + "?imsure=true")
+		del1 = requests.delete(api + "/api/repo/" + UUID + "?imsure=true")
 		return ("The repository with UUID: " + UUID + " has been successfully deleted.")
 
 	@classmethod
