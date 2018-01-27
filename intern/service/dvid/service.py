@@ -153,7 +153,7 @@ class DvidService(Service):
 		"""
 			Deletes the repository holding a node with the given UUID.
 		"""
-		raise RuntimeError('One of your inputs is not correct')
+		#raise RuntimeError('One of your inputs is not correct')
 		del1 = requests.delete(api + "/api/repo/" + UUID + "?imsure=true")
 		return ("The repository with UUID: " + UUID + " has been successfully deleted.")
 

@@ -43,7 +43,7 @@ api = "http://localhost:8000"
 a = requests.post(api + "/api/repos")
 cont = a.content
 cont = ast.literal_eval(cont)
-UUID = cont["root"]
+UUID = str(cont["root"])
 print UUID
 
 dvid = DVIDRemote({
