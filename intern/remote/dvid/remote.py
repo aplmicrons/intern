@@ -80,7 +80,7 @@ class DVIDRemote(Remote):
 		return DvidResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
 
 
-	def create_project(self, typename,dataname,version=0):
+	def create_project(self, dataname, description):
 		"""
 			Method to create a project space in the dvid server
 
@@ -95,7 +95,7 @@ class DVIDRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.create_project(api,typename,dataname,version)
+		return DvidResource.create_project(api,dataname,description)
 
 	def create_cutout(self, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
 		"""

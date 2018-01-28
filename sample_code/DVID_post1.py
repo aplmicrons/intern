@@ -25,7 +25,7 @@ from PIL import Image
 import math
 
 import ast
-
+import codecs
 # # BOSS Data fetch which we will upload to the Local Storage:
 # boss = BossRemote({
 #     "protocol": "https",
@@ -40,20 +40,41 @@ import ast
 api = "http://localhost:8000"
 
 #CREATE REPOS
-a = requests.post(api + "/api/repos")
+a = requests.post(api + "/api/repos",
+    data=json.dumps({"Alias" : "LuisRTest1",
+        "Description" : "Boss Uploaded data"})
+    )
 cont = a.content
 cont = ast.literal_eval(cont)
 UUID = cont["root"]
 print UUID
+
+# # BOSS Data fetch:
+# boss = BossRemote({
+#     "protocol": "https",
+#     "host": "api.theboss.io",
+#     "token": "db1cec2c865fc84e48772f4f4a5f010c0a180b88",
+# })
+# volumeB = boss.get_cutout(
+#     boss.get_channel("em", "pinky40", "v7"), 1,
+#     [10000, 10500], [10000, 10500], [500, 550],
+# )
+# volumeB = volumeB.tobytes()
+# volumeB = volumeB.encode('8-bit').strip()
+volumeB = [12345,123,12]
+p = requests.post(api + "/node/" + UUID + "/" + volumeB + "/" + "tile/xy/0/100000,100000,10")
+print p.content
+
 
 dvid = DVIDRemote({
 	"protocol": "http",
 	"host": "localhost:8000",
 	})
 
-dvid.delete_project(UUID)
-##DELETE REPOS
-#requests.delete(api+ "/api/repo/" + UUID + "?imsure=true")
+# UUID = "b0d3e563a8b14e2e87543903a1233652"
+#
+# requests.delete(api+ "/api/repo/" + UUID + "?imsure=true")
+#
 
 
 

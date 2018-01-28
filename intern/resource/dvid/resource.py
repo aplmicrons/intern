@@ -95,7 +95,7 @@ class DvidResource(Resource):
         return entire_space2
 
     @classmethod
-    def create_project(self, api, typename,dataname,version=0):
+    def create_project(self, api, name, description):
 
         """
             Creates a repository for the data to be placed in.
@@ -103,10 +103,13 @@ class DvidResource(Resource):
         """
         raise RuntimeError('Unable to create project space on the dvid server')
 
-        a = requests.post(api + "/api/repos")
+        a = requests.post(api + "/api/repos",
+            data = json.dumps({}"Alias" : name,
+                "Description" : description}
+            )
+        )
         cont = ast.literal_eval(a.content)
         UUID = cont["root"]
-
         return UUID
 
     @classmethod
