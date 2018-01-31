@@ -18,6 +18,7 @@ from io import BytesIO
 import numpy as np
 import requests
 import json
+import ast
 
 
 class DvidResource(Resource):
