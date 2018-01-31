@@ -1,7 +1,6 @@
 #Before running this program you should make sure to have the correct version of intern installed on your device.
 from intern.remote.dvid import DVIDRemote
 import intern
-import matplotlib.pyplot as plt
 import os
 import platform
 from PIL import Image
@@ -42,22 +41,4 @@ volumeD = dvid.get_cutout(
 print(volumeD)
 
 imgplot = plt.imshow(volumeD[9,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[8,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[7,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[6,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[5,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[4,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[3,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[2,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[1,:,:])
-plt.show()
-imgplot = plt.imshow(volumeD[0,:,:])
 plt.show()

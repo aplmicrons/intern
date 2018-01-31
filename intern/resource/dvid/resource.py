@@ -124,6 +124,9 @@ class DvidResource(Resource):
 
         volume = volume.tobytes()
         dif = (x * y * z) - len(volume)
+        if x!=y or x!=z or y!=z:
+            print "The range is not a cube of sides multiples of 32"
+
         dataBytes = volume + str("".join((["0"] * dif)))
 
         res = requests.post(
