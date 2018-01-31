@@ -80,7 +80,7 @@ class DVIDRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.get_cutout(api, chan, res, xspan, yspan)
+		return DvidResource.get_cutout(api, chan, res, xspan, yspan, zspan)
 
 
 	def create_project(self, chan):
