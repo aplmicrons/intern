@@ -61,7 +61,7 @@ class DVIDRemote(Remote):
 		"""
 		return DvidResource.get_UUID(ID,repos)
 
-	def get_channel(self, UUID, coll, exp):
+	def get_channel(self, UUID, exp, chan):
 		return DvidResource.get_channel(UUID,coll,exp)
 
 	def get_cutout(self, chan, res, xspan, yspan, zspan):
@@ -119,8 +119,21 @@ class DVIDRemote(Remote):
 		"""
 		return DvidResource.create_cutout(api, chan, xrang, yrang, zrang, volume)
 
-	def ChannelResource(self, coll, exp, des, datatype =  "uint8blk"):
-		return DvidResource.ChannelResource(api, coll, exp, des, datatype)
+	def ChannelResource(self, coll, exp, chan, des, datatype =  "uint8blk"):
+		"""
+		Method to create a channel within specified collection, experiment and of a known datatype
+
+		Args:
+			Coll (str) : Alias of the UUID
+			exp (str) : Name of the instance of data that will be created
+			des (str) : Description of what is saved under the given UUID
+			datatype (str) : Type of data that will be uploaded. Deafaults to uint8blk
+
+		Returns:
+			chan (str) : composed of UUID, exp and chan for use in create_cutout function
+		"""
+
+		return DvidResource.ChannelResource(api, coll, exp, chan, des, datatype)
 
 	def get_info(self, UUID):
 		"""
@@ -244,16 +257,13 @@ class DVIDRemote(Remote):
 
 	def delete_project(self, UUID):
 		"""
-			Method to obtain information about the server
+        Method to delete a project
 
-			Args:
-				UUID (string): UUID of Dvid repository
+        Args:
+            UUID (str) : hexadecimal character long string characterizing the project
 
-			Returns:
-			    string: Server information
-
-			Raises:
-			    (Runtime error)
+        Returns:
+            (str) : Confirmation message
 		"""
 
 		return DvidService.delete_project(api, UUID)

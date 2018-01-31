@@ -17,7 +17,7 @@ dvid = DVIDRemote({
 	"host": "localhost:8000",
     })
 
-chan_setup = dvid.ChannelResource('Proj4','dyer15_3_maskim', 'Data uploaded from XBrain experiments')
+chan_setup = dvid.ChannelResource('Proj4','dyer15_3_maskim', 'Data uploaded from XBrain experiments (Final)')
 proj = dvid.create_project(chan_setup)
 # UUID = chan_setup.split("/")
 # UUID = UUID[0]

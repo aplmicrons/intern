@@ -124,12 +124,16 @@ class DvidResource(Resource):
         y = yrang[1] - yrang[0]
         z = zrang[1] - zrang[0]
 
+        chan = chan.split("/")
+        UUID_exp = chan[0] + chan[1]
+        chan = chan[2]
+
         volume = volume.tobytes()
         dif = (x * y * x) - len(volume)
         dataBytes = volume + str("".join((["/"] * dif)))
 
         res = requests.post(
-            api + "/api/node/" + chan + "/raw/0_1_2/{}_{}_{}/{}_{}_{}".format(
+            api + "/api/node/" + UUID_exp + "/raw/0_1_2/{}_{}_{}/{}_{}_{}".format(
             x,y,x,xrang[0],yrang[0],zrang[1]
             ),
             data = dataBytes
@@ -137,16 +141,22 @@ class DvidResource(Resource):
         print "Your data has been uploaded."
 
     @classmethod
-    def ChannelResource(self, api, coll, exp, des, datatype):
+    def ChannelResource(self, api, coll, exp, chan, des, datatype):
         """
-            Coll (str) : Alias of the UUID
-            exp (str) : Name of the instance of data that will be created
-            des (str) : Description of what is saved under the given UUID
-            datatype (str) : Type of data that will be uploaded. Deafaults to uint8blk
+		Method to create a channel within specified collection, experiment and of a known datatype
+
+		Args:
+			Coll (str) : Alias of the UUID
+			exp (str) : Name of the instance of data that will be created
+			des (str) : Description of what is saved under the given UUID
+			datatype (str) : Type of data that will be uploaded. Deafaults to uint8blk
+
+		Returns:
+			chan (str) : composed of UUID, exp and chan for use in create_cutout function
         """
 
         a = requests.post(api + "/api/repos",
-            data = json.dumps({"Alias" : exp,
+            data = json.dumps({"Alias" : coll,
                 "Description" : des}
                 )
         )
@@ -155,13 +165,23 @@ class DvidResource(Resource):
 
         dat1 = requests.post(api + "/api/repo/" + UUID + "/instance" ,
             data=json.dumps({"typename" : datatype,
-                "dataname" : coll,
+                "dataname" : exp,
                 "versioned" : "0"
             }))
-        chan = str(UUID) + "/" + str(coll)
+        chan = str(UUID) + "/" + str(exp) + str(chan)
         return chan
 
     @classmethod
     def delete_project(self, api, UUID):
+        """
+        Method to delete a project
+
+        Args:
+            UUID (str) : hexadecimal character long string characterizing the project
+
+        Returns:
+            (str) : Confirmation message
+        """
+
         requests.delete(api + "/api/repo/" + UUID + "?imsure=true")
         return "Your instance has been deleted"
