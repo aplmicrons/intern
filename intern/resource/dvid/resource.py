@@ -75,6 +75,7 @@ class DvidResource(Resource):
         UUID = chan[0]
         coll = chan[1]
         exp = chan[0]
+
         xpix = xspan[1]-xspan[0]
         xo = xspan[0]
         ypix = yspan[1]-yspan[0]
@@ -90,7 +91,7 @@ class DvidResource(Resource):
         address = api + "/api/node/" + UUID + "/" + coll + "/raw/0_1_2/" + size + "/" + offset + "/octet-stream"
         r = requests.get(address)
         octet_stream = r.content
-        dat = octet_stream.split("0000")
+        dat = octet_stream.split("000000")
         dat = dat[0]
         block = np.fromstring(dat, dtype = np.uint8)
         volumeOut =  block.reshape(xpix,ypix,zpix)
