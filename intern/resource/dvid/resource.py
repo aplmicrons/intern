@@ -84,7 +84,6 @@ class DvidResource(Resource):
 
         size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
         offset = str(xo) + "_" + str(yo) + "_" + str(zo)
-        ID, repos = IDrepos
 
         #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
         #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
