@@ -89,7 +89,7 @@ class DvidResource(Resource):
         #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
         address = api + "/api/node/" + UUID + "/" + coll + "/raw/0_1_2/256_256_256/" + offset + "/octet-stream"
         r = requests.get(address)
-        octet_stream = r.content
+        octet_stream = str(r.content)
         dat = octet_stream.split("///////////////")
         dat = dat[0]
         print len(dat)
