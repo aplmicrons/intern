@@ -35,7 +35,6 @@ while iNumS <= iNumE:
     yrang = [0, 256]
     zrang = [start,end]
     volume = dvid.create_cutout(proj,xrang,yrang,zrang,data)
-    start = start + 32
     end = end + 32
     iNumS = iNumS + 1
 

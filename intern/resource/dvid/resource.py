@@ -130,7 +130,7 @@ class DvidResource(Resource):
 
         res = requests.post(
             api + "/api/node/" + chan + "/raw/0_1_2/{}_{}_{}/{}_{}_{}".format(
-            x,y,x,xrang[0],yrang[0],zrang[0]
+            x,y,x,xrang[0],yrang[0],zrang[1]
             ),
             data = dataBytes
         )
