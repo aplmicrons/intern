@@ -92,6 +92,7 @@ class DvidResource(Resource):
         octet_stream = r.content
         dat = octet_stream.split("....")
         dat = dat[0]
+        print len(dat)
         block = np.fromstring(dat, dtype = np.uint8)
         volumeOut =  block.reshape(xpix,ypix,zpix)
 
