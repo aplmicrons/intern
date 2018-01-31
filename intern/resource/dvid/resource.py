@@ -83,7 +83,7 @@ class DvidResource(Resource):
         zpix = zspan[1]-zspan[0]
         zo = zspan[0]
 
-        size = str(xpix) + "_" + str(ypix) + "_" + str(zpix)
+        size = str(xpix) + "_" + str(ypix) + "_" + str(xpix)
         offset = str(xo) + "_" + str(yo) + "_" + str(zo)
 
         #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
