@@ -61,7 +61,10 @@ class DVIDRemote(Remote):
 		"""
 		return DvidResource.get_UUID(ID,repos)
 
-	def get_cutout(self, IDrepos, xspan, yspan, zspan):
+	def get_channel(self, UUID, coll, exp):
+		return DvidResource.get_channel(UUID,coll,exp)
+
+	def get_cutout(self, chan, res, xspan, yspan, zspan):
 		"""
 			Method to request a volume of data from dvid server
 
@@ -77,10 +80,10 @@ class DVIDRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.get_cutout(api,IDrepos,xspan,yspan,zspan)
+		return DvidResource.get_cutout(api, chan, res, xspan, yspan)
 
 
-	def create_project(self, dataname, description):
+	def create_project(self, chan):
 		"""
 			Method to create a project space in the dvid server
 
@@ -95,9 +98,9 @@ class DVIDRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.create_project(api,dataname,description)
+		return DvidResource.create_project(api, chan)
 
-	def create_cutout(self, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
+	def create_cutout(self, chan, xrang, yrang, zrang, volume):
 		"""
 			Method to upload data onto the dvid server.
 
@@ -114,7 +117,10 @@ class DVIDRemote(Remote):
 			Raises:
 				(KeyError): if given invalid version.
 		"""
-		return DvidResource.create_cutout(api, UUID, dataname, volume, x, y, z, x0, y0, z0, version)
+		return DvidResource.create_cutout(api, chan, xrang, yrang, zrang, volume)
+
+	def ChannelResource(self, coll, exp, des, datatype =  "uint8blk"):
+		return DvidResource.ChannelResource(api, coll, exp, des, datatype)
 
 	def get_info(self, UUID):
 		"""

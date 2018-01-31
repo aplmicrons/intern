@@ -52,9 +52,13 @@ class DvidResource(Resource):
             IDrepos = (ID, repos)
             return IDrepos
 
+    @classmethod
+    def get_channel(self, UUID, coll, exp):
+        chan = UUID + "/" + coll + "/" + exp
+        return chan
 
     @classmethod
-    def get_cutout(self, api, IDrepos, xspan, yspan, zspan):
+    def get_cutout(self, api, chan, res, xspan, yspan, zspan):
 
         """
             ID MUST BE STRING ""
@@ -66,12 +70,14 @@ class DvidResource(Resource):
             scale = "grayscale"
         """
         #Defining used variables
+        chan = chan.split("/")
+        UUID = chan[0]
+        coll = chan[1]
+        exp = chan[0]
         xpix = xspan[1]-xspan[0]
         xo = xspan[0]
-
         ypix = yspan[1]-yspan[0]
         yo = yspan[0]
-
         zpix = zspan[1]-zspan[0]
         zo = zspan[0]
 
@@ -81,39 +87,29 @@ class DvidResource(Resource):
 
         #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
         #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-        address = api + "/api/node/" + ID + "/" + repos + "/raw" + "/0_1_2/" + size + "/" + offset + "/octet-stream"
+        address = api + "/api/node/" + UUID + "/" + coll + "/raw/0_1_2/32_32_32/" + offset + "/octet-stream"
         r = requests.get(address)
         octet_stream = r.content
-
-        #Converts obtained octet-stream into a numpy array of specified type uint8
-        entire_space = np.fromstring(octet_stream,dtype=np.uint8)
-
-        #Specifies the 3 dimensional shape of the numpy array of the size given by the user
-        entire_space2 = entire_space.reshape(zpix,ypix,xpix)
+        dat = octet_stream[:(xpix*ypix*zpix)]
+        block = np.fromstring(dat, dtype = np.uint8)
+        volumeOut =  block.reshape(xpix,ypix,zpix)
 
         #Returns a 3-dimensional numpy array to the user
-        return entire_space2
+        return volumeOut
 
     @classmethod
-    def create_project(self, api, name, description):
+    def create_project(self, api, chan):
 
         """
             Creates a repository for the data to be placed in.
             Returns randomly generated 32 character long UUID
         """
-        raise RuntimeError('Unable to create project space on the dvid server')
 
-        a = requests.post(api + "/api/repos",
-            data = json.dumps({}"Alias" : name,
-                "Description" : description}
-            )
-        )
-        cont = ast.literal_eval(a.content)
-        UUID = cont["root"]
-        return UUID
+        print "Your Channel/Collection/Experiment space has been created: " + str(chan)
+        return chan
 
     @classmethod
-    def create_cutout(self, api, UUID, dataname, volume, x, y, z, x0, y0,z0 , version=0):
+    def create_cutout(self, api, chan, xrang, yrang, zrang, volume):
 
         """
             Creates an instance which works as a sub-folder where the data is stored
@@ -122,15 +118,46 @@ class DvidResource(Resource):
             version(required) = "1"
             The size of the space reserved must be a cube with sides of multiples of 32
         """
+        x = xrang[1] - xrang[0]
+        y = yrang[1] - yrang[0]
+        z = zrang[1] - zrang[0]
+
+        volume = volume.tobytes()
+        dif = (x * y * z) - len(volume)
+        dataBytes = volume + str("".join((["0"] * dif)))
 
         res = requests.post(
-            api + "/api/node/" + UUID + "/"+ dataname + "/raw/0_1_2/{}_{}_{}/{}_{}_{}/".format(
-                x,y,z,x0,y0,z0
-                ),
-            data= volume.all()
-            )
+            api + "/api/node/" + chan + "/raw/0_1_2/{}_{}_{}/{}_{}_{}".format(
+            x,y,z,xrang[0],yrang[0],zrang[0]
+            ),
+            data = dataBytes
+        )
+        print "Your data has been uploaded."
 
-        return(res.content)
+    @classmethod
+    def ChannelResource(self, api, coll, exp, des, datatype):
+        """
+            Coll (str) : Alias of the UUID
+            exp (str) : Name of the instance of data that will be created
+            des (str) : Description of what is saved under the given UUID
+            datatype (str) : Type of data that will be uploaded. Deafaults to uint8blk
+        """
+
+        a = requests.post(api + "/api/repos",
+            data = json.dumps({"Alias" : exp,
+                "Description" : des}
+                )
+        )
+        cont = ast.literal_eval(a.content)
+        UUID = cont["root"]
+
+        dat1 = requests.post(api + "/api/repo/" + UUID + "/instance" ,
+            data=json.dumps({"typename" : datatype,
+                "dataname" : coll,
+                "versioned" : "0"
+            }))
+        chan = str(UUID) + "/" + str(coll)
+        return chan
 
     @classmethod
     def delete_project(self, api, UUID):
