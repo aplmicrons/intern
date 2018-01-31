@@ -28,8 +28,8 @@ proj = dvid.create_project(chan_setup)
 UUID = chan_setup.split("/")
 UUID = UUID[0]
 
-xrang = [0, 64]
-yrang = [0, 64]
+xrang = [0, 32]
+yrang = [0, 32]
 zrang = [32,64]
 
 volume = dvid.create_cutout(proj,xrang,yrang,zrang,volumeB)

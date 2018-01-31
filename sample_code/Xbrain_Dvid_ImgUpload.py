@@ -31,11 +31,11 @@ while iNumS <= iNumE:
     print 'Processing:  ' + filename
     img = Image.open(pathname)
     data = np.array(img)
-    xrang = [0, 32]
-    yrang = [0, 32]
+    xrang = [0, 256]
+    yrang = [0, 256]
     zrang = [start,end]
     volume = dvid.create_cutout(proj,xrang,yrang,zrang,data)
-    start = start+ 32
+    start = start + 32
     end = end + 32
     iNumS = iNumS + 1
 

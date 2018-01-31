@@ -87,10 +87,11 @@ class DvidResource(Resource):
 
         #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
         #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-        address = api + "/api/node/" + UUID + "/" + coll + "/raw/0_1_2/32_32_32/" + offset + "/octet-stream"
+        address = api + "/api/node/" + UUID + "/" + coll + "/raw/0_1_2/" + size + "/" + offset + "/octet-stream"
         r = requests.get(address)
         octet_stream = r.content
-        dat = octet_stream[:(xpix*ypix*zpix)]
+        dat = octet_stream.split("0000")
+        dat = dat[0]
         block = np.fromstring(dat, dtype = np.uint8)
         volumeOut =  block.reshape(xpix,ypix,zpix)
 
@@ -131,7 +132,7 @@ class DvidResource(Resource):
 
         res = requests.post(
             api + "/api/node/" + chan + "/raw/0_1_2/{}_{}_{}/{}_{}_{}".format(
-            x,y,z,xrang[0],yrang[0],zrang[0]
+            x,y,x,xrang[0],yrang[0],zrang[0]
             ),
             data = dataBytes
         )
