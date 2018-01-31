@@ -53,8 +53,21 @@ class DvidResource(Resource):
             return IDrepos
 
     @classmethod
-    def get_channel(self, UUID, col, exp):
-        chan = UUID + "/" + col + "/" + exp
+    def get_channel(self, UUID, coll, exp):
+        """
+            Method to input all channel hierarchy requirememnts, works as a dummy
+            for BossRemote Parallelism.
+
+            Args:
+                UUID (str) : Root UUID of the repository
+                col (str) : Name of collection
+                exp (str) : Name of experiment
+
+            Returns:
+                chan (str) : String of UUID/col/exp
+        """
+
+        chan = UUID + "/" + coll + "/" + exp
         return chan
 
     @classmethod
