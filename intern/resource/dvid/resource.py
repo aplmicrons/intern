@@ -53,8 +53,8 @@ class DvidResource(Resource):
             return IDrepos
 
     @classmethod
-    def get_channel(self, UUID, coll, exp):
-        chan = UUID + "/" + coll + "/" + exp
+    def get_channel(self, UUID, col, exp):
+        chan = UUID + "/" + col + "/" + exp
         return chan
 
     @classmethod
@@ -72,7 +72,7 @@ class DvidResource(Resource):
         #Defining used variables
         chan = chan.split("/")
         UUID = chan[0]
-        coll = chan[1]
+        exp = chan[2]
 
         xpix = xspan[1]-xspan[0]
         xo = xspan[0]
@@ -86,7 +86,7 @@ class DvidResource(Resource):
 
         #User entered IP address with added octet-stream line to obtain data from api in octet-stream form
         #0_1_2 specifies a 3 dimensional octet-stream "xy" "xz" "yz"
-        address = api + "/api/node/" + UUID + "/" + coll + "/raw/0_1_2/256_256_256/" + offset + "/octet-stream"
+        address = api + "/api/node/" + UUID + "/" + exp + "/raw/0_1_2/256_256_256/" + offset + "/octet-stream"
         r = requests.get(address)
         octet_stream = str(r.content)
         dat = octet_stream.split("///////////////")
