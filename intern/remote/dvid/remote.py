@@ -78,7 +78,7 @@ class DVIDRemote(Remote):
 
 	def get_cutout(self, chan, res, xspan, yspan, zspan):
 		"""
-			Method to request a volume of data from dvid server
+			Method to request a volume of data from dvid server uploaded through command window
 
 			Args:
 				IDrepos (string) : UUID assigned to DVID repository and repository name
@@ -93,6 +93,24 @@ class DVIDRemote(Remote):
 				(KeyError): if given invalid version.
 		"""
 		return DvidResource.get_cutout(api, chan, res, xspan, yspan, zspan)
+
+	def get_cutoutI(self, chan, res, xspan, yspan, zspan):
+		"""
+			Method to request a volume of data from dvid server of data uploaded by intern
+
+			Args:
+				IDrepos (string) : UUID assigned to DVID repository and repository name
+				xspan (int) : range of pixels in x axis ([1000:1500])
+				yspan (int) : range of pixels in y axis ([1000:1500])
+				zspan (int) : range of pixels in z axis ([1000:1010])
+
+			Returns:
+				array: numpy array representation of the requested volume
+
+			Raises:
+				(KeyError): if given invalid version.
+		"""
+		return DvidResource.get_cutoutI(api, chan, res, xspan, yspan, zspan)
 
 
 	def create_project(self, chan):
