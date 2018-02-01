@@ -23,7 +23,7 @@ dvid = DVIDRemote({
 	"host": "localhost:8000",
 	})
 volumeD = dvid.get_cutout(
-	dvid.get_UUID("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
+	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","grayscale",""),0,
 	[2300,4600],[2300,4600],[1380,1390]
 	)
 
@@ -33,18 +33,19 @@ print(volumeD)
 print("Boss volume: ")
 print(volumeB)
 
-#DVID Data Post:
-inst = dvid.create_project('imagetile','LuisData')
-print inst
-volumeD = dvid.create_cutout(inst,"BossUpload",volumeB,500,500,50,0,0,0)
+# #DVID Data Post:
+# inst = dvid.create_project('imagetile','LuisData')
+# print inst
+# volumeD = dvid.create_cutout(inst,"BossUpload",volumeB,500,500,50,0,0,0)
 
 #Graphing Boss:
 imgplot = plt.imshow(volumeB[0,:,:])
 one = volumeB[0,:,:]
 one_size = one.size
+plt.show()
 
 #Graphing Dvid:
 imgplot = plt.imshow(volumeD[0,:,:])
-one = volumeD[0,:,:]
+one = volumeD[:,:,0]
 one_size = one.size
 plt.show()
