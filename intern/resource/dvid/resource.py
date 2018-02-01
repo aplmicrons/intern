@@ -137,7 +137,7 @@ class DvidResource(Resource):
         z = zrang[1] - zrang[0]
 
         chan = chan.split("/")
-        UUID_exp = chan[0] + chan[1]
+        UUID_exp = chan[0] + "/" + chan[1]
         chan = chan[2]
 
         volume = volume.tobytes()
