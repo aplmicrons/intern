@@ -103,10 +103,12 @@ class DvidResource(Resource):
         r = requests.get(address)
         octet_stream = str(r.content)
 
+         #Converts obtained octet-stream into a numpy array of specified type uint8
         block = np.fromstring(octet_stream, dtype = np.uint8)
 
-        volumeOut =  block.reshape(xpix,ypix,zpix)
-        
+        #Specifies the 3 dimensional shape of the numpy array of the size given by the user
+        volumeOut =  block.reshape(zpix,ypix,xpix)
+
         #Returns a 3-dimensional numpy array to the user
         return volumeOut
 

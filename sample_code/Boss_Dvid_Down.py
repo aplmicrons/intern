@@ -39,7 +39,7 @@ print(volumeB)
 # volumeD = dvid.create_cutout(inst,"BossUpload",volumeB,500,500,50,0,0,0)
 
 #Graphing Boss:
-imgplot = plt.imshow(volumeB[0,:,:])
+imgplot = plt.imshow(volumeB[0,:,:], cmap = "gray")
 one = volumeB[0,:,:]
 one_size = one.size
 plt.show()

@@ -61,7 +61,7 @@ class DVIDRemote(Remote):
 		"""
 		return DvidResource.get_UUID(ID,repos)
 
-	def get_channel(self, UUID, coll, exp):
+	def get_channel(self, UUID, coll, exp = ""):
 		"""
             Method to input all channel hierarchy requirememnts, works as a dummy
             for BossRemote Parallelism.
