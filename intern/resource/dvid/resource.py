@@ -180,7 +180,7 @@ class DvidResource(Resource):
                 "dataname" : exp,
                 "versioned" : "0"
             }))
-        chan = str(UUID) + "/" + str(exp) + str(chan)
+        chan = str(UUID) + "/" + str(exp) + "/" + str(chan)
         return chan
 
     @classmethod
