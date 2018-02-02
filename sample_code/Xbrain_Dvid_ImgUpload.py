@@ -7,7 +7,7 @@ import os
 import matplotlib.pyplot as plt
 
 iNumS = 390 #Image Number start
-iNumE = 2014 #Image Number end
+iNumE = 405#Image Number end
 start = 0
 end = 32
 
@@ -17,18 +17,18 @@ dvid = DVIDRemote({
 	"host": "localhost:8000",
     })
 
-chan_setup = dvid.ChannelResource('Proj4','dyer15_3_maskim', 'maked_images', 'Data uploaded from XBrain experiments (390-2014)')
+chan_setup = dvid.ChannelResource('Proj4','dyer15_3_maskim', 'maked_images', 'Data uploaded from XBrain experiments through intern')
 proj = dvid.create_project(chan_setup)
 # UUID = chan_setup.split("/")
 # UUID = UUID[0]
 
 while iNumS <= iNumE:
-    directory = '/Users/rodrilm2/Documents/APL/GeorgiaTech/proj4_masked_390_2014/'
+    directory = '/Users/rodrilm2/Documents/APL/GeorgiaTech/data/proj4_masked_390_2014/'
     # data = np.zeros((2560,2560))
     num = format(iNumS, "04")
     filename = "dyer15_3_maskimg_" + num + ".tif"
     pathname = os.path.join(directory,filename)
-    print 'Processing:  ' + filename
+    print('Processing:  ' + filename)
     img = Image.open(pathname)
     data = np.array(img)
     xrang = [0, 256]
@@ -38,4 +38,4 @@ while iNumS <= iNumE:
     end = end + 32
     iNumS = iNumS + 1
 
-print end
+print(end)

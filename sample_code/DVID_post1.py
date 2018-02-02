@@ -38,7 +38,7 @@ a = requests.post(api + "/api/repos",
 cont = a.content
 cont = ast.literal_eval(cont)
 UUID = cont["root"]
-print UUID
+print(UUID)
 
 dat1 = requests.post(api + "/api/repo/" + UUID + "/instance" ,
 	data=json.dumps({"typename" : "uint8blk",
@@ -60,12 +60,12 @@ volumeB = boss.get_cutout(
 
 
 volumeB = volumeB.tobytes()
-print len(volumeB)
+print(len(volumeB))
 
 dif = (32*32*32) - len(volumeB)
 
 volumeB = volumeB + str("".join((["0"]*dif)))
-print len(volumeB)
+print(len(volumeB))
 
 # print len(data)
 

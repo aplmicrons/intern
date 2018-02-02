@@ -5,3 +5,4 @@ six
 mock
 nose2
 ast
+h5py

@@ -18,6 +18,6 @@ volumeD = dvid.get_cutout(
     dvid.get_channel(UUID, "Proj4", "dyer15_3_maskim"), 0,
     [0,2560], [0,2560], [31,32]
 )
-print volumeD
+print(volumeD)
 imgplot = plt.imshow(volumeD[:,:,0], cmap = 'gray')
 plt.show()

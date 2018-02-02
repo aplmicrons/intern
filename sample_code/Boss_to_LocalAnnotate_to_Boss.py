@@ -20,7 +20,7 @@ local = LocalRemote({
     "host": "/Users/rodrilm2/InternRel/",
     "datastore":"LocalBossDummy"
     })
-print local
+print(local)
 chan_setup = local.get_channel('em','pinky40')
 proj = local.create_project(chan_setup)
 volume = local.create_cutout(proj,'v1',volumeB)
@@ -41,7 +41,7 @@ local.update_metadata(Collection1, chan_new_data)
 local.delete_metadata(Channel1, ['poc'])
 
 CollectionMeta= local.list_metadata(Collection1)
-print CollectionMeta
+print(CollectionMeta)
 
 #Data processing can also be done here before re-upload
 

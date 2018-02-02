@@ -146,7 +146,7 @@ class DvidResource(Resource):
         octet_stream = str(r.content)
         dat = octet_stream.split("///////////////")
         dat = dat[0]
-        print len(dat)
+        print(len(dat))
         block = np.fromstring(dat, dtype = np.uint8)
         volumeOut =  block.reshape(xpix,ypix,zpix)
 
@@ -161,7 +161,7 @@ class DvidResource(Resource):
             Returns randomly generated 32 character long UUID
         """
 
-        print "Your Channel/Collection/Experiment space has been created: " + str(chan)
+        print("Your Channel/Collection/Experiment space has been created: " + str(chan))
         return chan
 
     @classmethod
@@ -192,7 +192,7 @@ class DvidResource(Resource):
             ),
             data = dataBytes
         )
-        print "Your data has been uploaded."
+        print("Your data has been uploaded.")
 
     @classmethod
     def ChannelResource(self, api, coll, exp, chan, des, datatype):

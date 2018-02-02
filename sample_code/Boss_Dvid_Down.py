@@ -45,7 +45,7 @@ one_size = one.size
 plt.show()
 
 #Graphing Dvid:
-imgplot = plt.imshow(volumeD[0,:,:])
+imgplot = plt.imshow(volumeD[0,:,:], cmap = "gray")
 one = volumeD[:,:,0]
 one_size = one.size
 plt.show()

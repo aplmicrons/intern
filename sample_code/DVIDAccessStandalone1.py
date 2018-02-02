@@ -18,8 +18,6 @@ dvid = DVIDRemote({
 	})
 
 UUID = "5cc94d532799484cb01788fcdb7cd9f0"
-# mes = dvid.create_project("uint8blk","Luis4","1")
-# print(mes)
 
 #Getting information on the UUID
 info = dvid.get_info(UUID)
@@ -35,7 +33,7 @@ print(log)
 
 #Gets 3d volume data
 volumeD = dvid.get_cutout(
-	dvid.get_UUID("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
+	dvid.get_channel("5cc94d532799484cb01788fcdb7cd9f0","grayscale"),
 	[2300,4600],[2300,4600],[1380,1390]
 	)
 print(volumeD)
