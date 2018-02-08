@@ -37,15 +37,13 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
-		global protocol
-		
 		protocol = specs[CONFIG_HOST]
 		host = specs[CONFIG_PROTOCOL]
 
 		global api
 		api = host + "://" + protocol
 
-	def StartLocalDvid(self, repoName, portName, imagePath):
+	def StartLocalDvid(self, repoName, portName, port, imagePath):
 		"""
             Method to spin up a local version of Dvid
 
