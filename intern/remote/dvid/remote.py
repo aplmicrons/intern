@@ -44,7 +44,7 @@ class DVIDRemote(Remote):
 		global api
 		api = host + "://" + protocol
 
-	def StartLocalDvid(self, repoName, portName, protocol, imagePath):
+	def StartLocalDvid(self, repoName, portName, imagePath):
 		"""
             Method to spin up a local version of Dvid
 
