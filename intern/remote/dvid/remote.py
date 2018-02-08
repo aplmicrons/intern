@@ -44,7 +44,7 @@ class DVIDRemote(Remote):
 		global api
 		api = host + "://" + protocol
 
-	def StartLocalDvid(self, repoName, portName, port, imagePath):
+	def StartLocalDvid(self, repoName, portName, protocol, imagePath):
 		"""
             Method to spin up a local version of Dvid
 
@@ -57,7 +57,7 @@ class DVIDRemote(Remote):
             Returns:
                 Str : all outputs from the command prompt
 		"""
-		return DvidResource.StartLocalDvid(repoName,portName,port,imagePath)
+		return DvidResource.StartLocalDvid(repoName,portName,protocol,imagePath)
 
 	def get_UUID(self, ID, repos):
 		"""
