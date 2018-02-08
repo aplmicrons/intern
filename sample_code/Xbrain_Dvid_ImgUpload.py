@@ -6,6 +6,8 @@ import numpy as np
 import os
 import matplotlib.pyplot as plt
 
+print "hello"
+
 iNumS = 390 #Image Number start
 iNumE = 405#Image Number end
 start = 0

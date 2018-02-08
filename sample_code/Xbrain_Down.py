@@ -10,9 +10,9 @@ dvid = DVIDRemote({
 	"protocol": "http",
 	"host": "localhost:8000",
 	})
-volumeD = dvid.get_cutoutI(
-	dvid.get_channel("f324a674249d490081971b8d1371f39f","dyer15_3_maskim"),0,
-	[0,2560],[0,2560],[390,400]
+volumeD = dvid.get_cutout(
+	dvid.get_channel("3ca15f84b1ee4fb780fef94c5771ffe6","dyer15_3_maskim"),0,
+	[1287,1387],[1200,1300],[390,490]
 	)
 
 #Printing volumes:
