@@ -56,7 +56,7 @@ class DVIDRemote(Remote):
             Returns:
                 Str : all outputs from the command prompt
 		"""
-		return DvidResource.StartLocalDvid(repoName,portName,protocol,imagePath)
+		return DvidResource.StartLocalDvid(repoName,portName,port,imagePath)
 
 	def get_UUID(self, ID, repos):
 		"""

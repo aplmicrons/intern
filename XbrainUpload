@@ -10,7 +10,7 @@ dvid = DVIDRemote({
 path = "/Users/rodrilm2/Documents/APL/GeorgiaTech/Data/proj4"
 
 #Creating Local Dvid Repository
-repo = dvid.StartLocalDvid("xbrain_dvid2","xbrain_port2",path)
+repo = dvid.StartLocalDvid("xbrain_dvid2","xbrain_port2","8000",path)
 
 #Creating Project, and chanel to store boxed data in
 proj = dvid.create_project('Xbrain_Proj2','Data upload test')
@@ -18,7 +18,7 @@ print(proj)
 chan_setup = dvid.ChannelResource(proj, "MaskedImg2")
 
 #Uploading data
-dataU = dvid.create_cutout(chan_setup,"xbrain_port1",0,0,390,"proj4/*.tif")
+dataU = dvid.create_cutout(chan_setup,"xbrain_port2",0,0,390,"proj4/*.tif")
 
 #Checking if data was uploaded properly
 volumeD = dvid.get_cutout(
