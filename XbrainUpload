@@ -1,0 +1,27 @@
+import intern
+from intern import DVIDRemote
+
+#DVID Data fetch:
+dvid = DVIDRemote({
+	"protocol": "http",
+	"host": "localhost:8000",
+	})
+
+#Creating Local Dvid Repository
+repo = dvid.StartLocalDvid("xbrain_dvid","xbrain_port7","8000","/Users/rodrilm2/Documents/APL/GeorgiaTech/Data/proj4")
+
+#Creating Project, and chanel to store boxed data in
+proj = dvid.create_project('Xbrain_Proj4','Data upload test')
+chan_setup = dvid.ChannelResource(proj, "MaskedImg2")
+
+#Uploading data
+dataU = dvid.create_cutout(chan_setup,"xbrain_port7",0,0,390,"proj4/*.tif")
+
+#Checking if data was uploaded properly
+volumeD = dvid.get_cutout(
+    dvid.get_channel(chan_setup), 0,
+    [0,2560], [0,2560], [390,392]
+)
+print(volumeD)
+imgplot = plt.imshow(volumeD[0,:,:], cmap = 'gray')
+plt.show()
