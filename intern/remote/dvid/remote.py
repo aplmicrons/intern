@@ -37,9 +37,10 @@ class DVIDRemote(Remote):
 		if version is None:
 			version = LATEST_VERSION
 
+		global protocol
+		
 		protocol = specs[CONFIG_HOST]
 		host = specs[CONFIG_PROTOCOL]
-
 
 		global api
 		api = host + "://" + protocol
