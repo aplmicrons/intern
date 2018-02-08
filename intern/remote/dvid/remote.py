@@ -108,7 +108,7 @@ class DVIDRemote(Remote):
 		"""
 		return DvidResource.get_cutout(api, chan, res, xspan, yspan, zspan)
 
-	def create_project(coll, des):
+	def create_project(self, coll, des):
 		"""
 			Method to create a project space in the dvid server
 
